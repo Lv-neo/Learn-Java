@@ -10,6 +10,7 @@ https://lv-neo.github.io/Learn-Java/
 * [java环境](source/_posts/base/env.md)
 * [JDK](source/_posts/base/jdk.md)
 * [JVM](http://wiki.jikexueyuan.com/project/java-vm/)
+	* [jvm内存](source/_posts/jvm/mem.md)
 * [语法糖](#)
 	* [面向对象](source/_posts/http://wiki.jikexueyuan.com/project/java/inheritance.html)
 	* [Java Bean](source/_posts/) 

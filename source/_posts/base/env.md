@@ -3,14 +3,10 @@ title:  Java开发环境配置
 tag: java
 ---
 <!-- toc -->
-#  Java开发环境配置
 
----
-title: #Linux环境安装
-tag: java
----
-<!-- toc -->
-# #Linux环境安装
+# 
+
+## Linux环境安装
 * rpm安装
 
 JDK默认安装在/usr/java中。
@@ -27,7 +23,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
 * bin安装
 * tar.gz 安装
 
-##mac环境安装
-mac本身都带java。。。。。。当然要升级也是很简单的
+## mac环境安装
+mac本身都带java
 	
 
