@@ -1,4 +1,9 @@
-# HttpClient 发送 HTTP、HTTPS 请求的简单封装 
+---
+title:  HttpClient 发送 HTTP、HTTPS 请求的简单封装 
+tag: http
+---
+<!-- toc -->
+#  HttpClient 发送 HTTP、HTTPS 请求的简单封装 
 
 ```
 <span style="font-family:Comic Sans MS;">import org.apache.commons.io.IOUtils;

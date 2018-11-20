@@ -1,4 +1,9 @@
-# Java线程
+---
+title:  Java线程
+tag: thread
+---
+<!-- toc -->
+#  Java线程
 
 ## 线程的实现
 Java中线程的实现继承Thread类或者实现Runnable接口

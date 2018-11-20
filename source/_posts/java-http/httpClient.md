@@ -1,6 +1,11 @@
-# httpClient基本概念
+---
+title:  httpClient基本概念
+tag: http
+---
+<!-- toc -->
+#  httpClient基本概念
 
-##基本概念
+# #基本概念
 HttpClient最基本的功能就是执行Http方法。
 一个Http方法的执行涉及到一个或者多个Http请求/Http响应的交互，通常这个过程都会自动被HttpClient处理，对用户透明。
 用户只需要提供Http请求对象，HttpClient就会将http请求发送给目标服务器，并且接收服务器的响应，如果http请求执行不成功，httpclient就会抛出异样。

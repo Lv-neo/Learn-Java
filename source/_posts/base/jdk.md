@@ -1,8 +1,18 @@
-# jdk （SunMicrosystems针对Java开发员的产品）
+---
+title:  jdk （SunMicrosystems针对Java开发员的产品）
+tag: java
+---
+<!-- toc -->
+#  jdk （SunMicrosystems针对Java开发员的产品）
  
 >JDK是 Java 语言的软件开发工具包，主要用于移动设备、嵌入式设备上的java应用程序。JDK是整个java开发的核心，它包含了JAVA的运行环境，JAVA工具和JAVA基础的类库。
 
-### SDK
+---
+title: ## SDK
+tag: java
+---
+<!-- toc -->
+# ## SDK
 
 JDK(Java Development Kit) 是 Java 语言的软件开发工具包(SDK)。
 

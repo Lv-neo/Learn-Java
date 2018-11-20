@@ -1,4 +1,9 @@
-# 将jar文件加到Maven的local repository中
+---
+title:  将jar文件加到Maven的local repository中
+tag: mvn
+---
+<!-- toc -->
+#  将jar文件加到Maven的local repository中
 
 http://www.cnblogs.com/davenkin/archive/2012/02/15/install-jar-into-maven-local-repository.html
 

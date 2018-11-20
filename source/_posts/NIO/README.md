@@ -1,3 +1,8 @@
+---
+title:  NIO 入门
+tag: nio
+---
+<!-- toc -->
 # NIO 入门
 
 JDK 1.4 中引入的新输入输出 (NIO) 库在标准 Java 代码中提供了高速的、面向块的 I/O。

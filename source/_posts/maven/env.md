@@ -1,5 +1,9 @@
-# 使用maven profile实现多环境可移植构建
-
+---
+title:  使用maven profile实现多环境可移植构建
+tag: mvn
+---
+<!-- toc -->
+#  使用maven profile实现多环境可移植构建
 
 ## 配置profile
 首先是profile配置，在pom.xml中添加如下profile的配置：

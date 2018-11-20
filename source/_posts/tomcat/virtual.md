@@ -1,8 +1,13 @@
-# Tomcat服务器虚拟目录的映射方式
+---
+title:  Tomcat服务器虚拟目录的映射方式
+tag: tomcat
+---
+<!-- toc -->
+#  Tomcat服务器虚拟目录的映射方式
 
 >Web应用开发好后，若想供外界访问，需要把web应用所在目录交给web服务器管理，这个过程称之为虚似目录的映射。那么在Tomcat服务器中，如何进行虚拟目录的映射呢？总共有如下的几种方式：
 
-###虚拟目录的映射方式一：在server.xml文件的host元素中配置(不推荐)
+## 虚拟目录的映射方式一：在server.xml文件的host元素中配置(不推荐)
 
 ```xml
  <Host name="localhost"  appBase="webapps"
@@ -57,7 +62,7 @@ In an individual file at /META-INF/context.xml inside the application files. Opt
 In individual files (with a ".xml" extension) in the $CATALINA_BASE/conf/[enginename]/[hostname]/ directory. The context path and version will be derived from the base name of the file (the file name less the .xml extension). This file will always take precedence over any context.xml file packaged in the web application's META-INF directory.
 Inside a Host element in the main conf/server.xml.
 
-###虚拟目录的映射方式二：让tomcat服务器自动映射
+## 虚拟目录的映射方式二：让tomcat服务器自动映射
 
 
 

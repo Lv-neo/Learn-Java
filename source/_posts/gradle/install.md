@@ -1,4 +1,9 @@
-# Gradle 安装
+---
+title:  Gradle 安装
+tag: gradle
+---
+<!-- toc -->
+#  Gradle 安装
 
 1，安装JDK，并配置JAVA_HOME环境变量。因为Gradle是用Groovy编写的，而Groovy基于JAVA。另外，Java版本要不小于1.5.
 2，下载。地址是：http://www.gradle.org/downloads。在这里下载你要的版本。

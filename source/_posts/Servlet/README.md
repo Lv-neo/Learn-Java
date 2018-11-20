@@ -1,4 +1,9 @@
-# Servlet概述
+---
+title:  Servlet概述
+tag: servlet
+---
+<!-- toc -->
+#  Servlet概述
 
 Servlet是一种独立于平台和协议的服务器端的Java应用程序，可以生成动态的Web页面。它是位于Web服务器内部由服务器端调用和执行的Java类，与传统的从命令行启动的Java应用程序不同，Servlet由Web服务器进行加载，该Web服务器必须包含支持Servlet的Java虚拟机。
 

@@ -1,6 +1,16 @@
-# Java开发环境配置
+---
+title:  Java开发环境配置
+tag: java
+---
+<!-- toc -->
+#  Java开发环境配置
 
-##Linux环境安装
+---
+title: #Linux环境安装
+tag: java
+---
+<!-- toc -->
+# #Linux环境安装
 * rpm安装
 
 JDK默认安装在/usr/java中。

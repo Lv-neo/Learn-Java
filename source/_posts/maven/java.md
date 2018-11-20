@@ -1,6 +1,11 @@
-# 使用Maven创建java项目
+---
+title:  使用Maven创建java项目
+tag: mvn
+---
+<!-- toc -->
+#  使用Maven创建java项目
 
-###从 Maven 模板创建一个项目
+##从 Maven 模板创建一个项目
 在终端（* UNIX或Mac）或命令提示符（Windows）中，浏览到要创建 Java 项目的文件夹。键入以下命令：
 
 ```
@@ -13,7 +18,7 @@ mvn archetype:generate -DgroupId={project-packaging} -DartifactId={project-name}
 
 >有少数用户说 mvn archetype:generate 命令未能生成项目结构。 如果您有任何类似的问题，不用担心，只需跳过此步骤，手动创建文件夹，请参阅步骤2的项目结构
 
-###Maven目录布局
+### Maven目录布局
 
 ```
 NumberGenerator

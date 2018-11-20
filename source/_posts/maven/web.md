@@ -1,6 +1,11 @@
-# 使用Maven创建Web应用程序项目
+---
+title:  使用Maven创建Web应用程序项目
+tag: mvn
+---
+<!-- toc -->
+#  使用Maven创建Web应用程序项目
 
-###从Maven模板创建Web项目
+### 从Maven模板创建Web项目
 
 您可以通过使用Maven的maven-archetype-webapp模板来创建一个快速启动Java Web应用程序的项目。在终端(* UNIX或Mac)或命令提示符(Windows)中，导航至您想要创建项目的文件夹。
 
@@ -10,7 +15,7 @@ $ mvn archetype:generate -DgroupId=com.yiibai -DartifactId=CounterWebApp -Darche
 
 新的Web项目命名为 “CounterWebApp”，以及一些标准的 web 目录结构也会自动创建。
 
-###项目目录布局
+### 项目目录布局
 查看生成的项目结构布局：
 
 ```

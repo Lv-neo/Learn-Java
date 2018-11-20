@@ -1,6 +1,11 @@
-# mybaits 连接超时配置
+---
+title:  mybaits 连接超时配置
+tag: mybatis
+---
+<!-- toc -->
+#  mybaits 连接超时配置
 
-###mybaits 常用配置
+## mybaits 常用配置
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -36,7 +41,7 @@
 </configuration>
 ```
 
-###超时配置
+## 超时配置
 
 ```
 <property name="poolPingEnabled" value="true"/>

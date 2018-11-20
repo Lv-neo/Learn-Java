@@ -1,8 +1,14 @@
-# Gradle——构建基础
+---
+title:  Gradle——构建基础
+tag: gradle
+---
+<!-- toc -->
+#  Gradle——构建基础
 
 学习Gradle前，需要有一个Groovy语言的基础，以免被Groovy的语法困扰，反而忽略了Gradle的知识。这里有一个Groovy的简明中文教程文档，可以快速学习Groovy的一些语法：http://download.csdn.net/detail/maosidiaoxian/8049823
 
-##Projects和tasks
+
+##  Projects和tasks
 先明确两个概念，projects和tasks，它们是Gradle中的两个重要概念。
 
 任何一个Gradle构建，都是由一个或多个projects组成的。Project就是你想要用Gradle做什么，比如构建一个jar包，构建一个web应用。Project也不单指构建操作，部署你的应用或搭建一个环境，也可以是一个project。

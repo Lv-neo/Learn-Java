@@ -1,4 +1,9 @@
-# 常用命令
+---
+title:  常用命令
+tag: mvn
+---
+<!-- toc -->
+#  常用命令
 
 Maven常用命令： 
 1. 创建Maven的普通java项目： 

@@ -1,8 +1,18 @@
-# Http认证
+---
+title:  Http认证
+tag: http
+---
+<!-- toc -->
+#  Http认证
 
 HttpClient既支持HTTP标准规范定义的认证模式，又支持一些广泛使用的非标准认证模式，比如NTLM和SPNEGO。
 
-## 用户凭证
+---
+title: # 用户凭证
+tag: java
+---
+<!-- toc -->
+# # 用户凭证
 
 任何用户认证的过程，都需要一系列的凭证来确定用户的身份。最简单的用户凭证可以是用户名和密码这种形式。UsernamePasswordCredentials这个类可以用来表示这种情况，这种凭据包含明文的用户名和密码。
 

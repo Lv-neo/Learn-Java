@@ -1,4 +1,9 @@
-# 配置简介
+---
+title:  配置简介
+tag: mybatis
+---
+<!-- toc -->
+#  配置简介
 * properties：用于配置属性信息。
 
 * settings：用于配置MyBatis的运行时方式。
@@ -14,7 +19,7 @@
 * mappers：配置SQL映射文件。
 
 
-###properties
+## properties
 
 
 配置properties采用键值对的格式进行配置。

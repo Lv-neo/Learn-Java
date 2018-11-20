@@ -1,17 +1,22 @@
-# 理解Serializable
+---
+title:  理解Serializable
+tag: serializable
+---
+<!-- toc -->
+#  理解Serializable
 
-###什么是序列化和反序列化
+## 什么是序列化和反序列化
 Serialization（序列化）是一种将对象以一连串的字节描述的过程；反序列化deserialization是一种将这些字节重建成一个对象的过程。
 
-###什么情况下需要序列化 
+### 什么情况下需要序列化 
 * 当你想把的内存中的对象保存到一个文件中或者数据库中时候；
 * 当你想用套接字在网络上传送对象的时候；
 * 当你想通过RMI传输对象的时候；
 
-###如何实现序列化
+### 如何实现序列化
 将需要序列化的类实现Serializable接口就可以了，Serializable接口中没有任何方法，可以理解为一个标记，即表明这个类可以序列化。
 
-###序列化和反序列化例子
+### 序列化和反序列化例子
 如果我们想要序列化一个对象，首先要创建某些OutputStream(如FileOutputStream、ByteArrayOutputStream等)，然后将这些OutputStream封装在一个ObjectOutputStream中。这时候，只需要调用writeObject()方法就可以将对象序列化，并将其发送给OutputStream（记住：对象的序列化是基于字节的，不能使用Reader和Writer等基于字符的层次结构）。而反序列的过程（即将一个序列还原成为一个对象），需要将一个InputStream(如FileInputstream、ByteArrayInputStream等)封装在ObjectInputStream内，然后调用readObject()即可。
 
 ```java
