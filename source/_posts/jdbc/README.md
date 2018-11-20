@@ -1,4 +1,3 @@
-[toc]
 # JDBC简介
 
 ## 什么是JDBC

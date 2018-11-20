@@ -1,5 +1,3 @@
-[toc]
-
 # Http认证
 
 HttpClient既支持HTTP标准规范定义的认证模式，又支持一些广泛使用的非标准认证模式，比如NTLM和SPNEGO。

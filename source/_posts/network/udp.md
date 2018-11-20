@@ -1,5 +1,3 @@
-[toc]
-
 # UDP协议
  
 UDP（User Datagram Protocol）协议称为用户数据报协议。该协议运行在TCP/IP模型的传输层，协议可以直接封装成IP分组，不需要事先建立连接就可以发送这些封装好的IP分组。

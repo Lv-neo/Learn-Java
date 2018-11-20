@@ -1,4 +1,3 @@
-[toc]
 # Servlet的基本架构
 
 ## Servlet工作原理

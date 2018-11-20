@@ -7,19 +7,18 @@ https://lv-neo.github.io/Learn-Java/
 ```
 
 ## 目录
-* [前言](source/_posts/README.md)
 * [java环境](source/_posts/base/env.md)
 * [JDK](source/_posts/base/jdk.md)
-* [JVM](source/_posts/http://wiki.jikexueyuan.com/project/java-vm/)
-* [语法糖](source/_posts/syntax/README.md)
+* [JVM](http://wiki.jikexueyuan.com/project/java-vm/)
+* [语法糖](#)
 	* [面向对象](source/_posts/http://wiki.jikexueyuan.com/project/java/inheritance.html)
 	* [Java Bean](source/_posts/) 
 	* [8种基本类型](source/_posts/syntax/primitiveType.md)
-	* [集合]
+	* [集合](#)
 		* [java容器类简介](source/_posts/Collection/README.md)
 		* [Serializable](source/_posts/lang/Serializable.md) 
-* [多线程]
-	* [线程](source/_posts/)
+* [多线程](#)
+	* [线程](#)
 		* [什么是线程](source/_posts/thread/thread.md)
 		* [Java线程基础](source/_posts/thread/java.md)
 		* [共享对数据的访问](source/_posts/thread/shared.md)
@@ -39,33 +38,32 @@ https://lv-neo.github.io/Learn-Java/
 		* [缓冲区内部细节](source/_posts/NIO/buffer.md)
 		* [异步IO](source/_posts/NIO/no-async-io.md)
 		* [Reactor模式详解](source/_posts/NIO/Reactor.md)
-* [网络编程](source/_posts/)
+* [网络编程](#)
 	* [TCP/IP协议](source/_posts/network/tcpip.md)
 	* [UPD协议](source/_posts/network/upd.md)
 	* [Socket](source/_posts/network/socket.md)
 	* [Netty](source/_posts/Netty/README.md)
 	* [Netty In Action 中文版](source/_posts/https://waylau.com/essential-netty-in-action/)
-* [性能优化]
+* [性能优化](#)
 * [Java异常处理](source/_posts/exception/README.md)
-* [测试]
-* [Java Web]
+* [测试](#)
+* [Java Web](#)
 	* [Servlet](source/_posts/Servlet/README.md)
 		* [基本架构](source/_posts/Servlet/baseFramework.md)
 		* [API的使用]
 		* [生命周期和工作原理]
-	* [http](source/_posts/java-http/README.md)
+	* [http](#)
 		* [httpClient基本概念](source/_posts/java-http/httpClient.md)
 		* [httpClient连接管理](source/_posts/java-http/connect.md)
 		* [Http认证](source/_posts/java-http/auth.md)
 		* [httpClient简单封装](source/_posts/java-http/httpUtil.md)
-	* [服务器]
-		* [tomcat](source/_posts/tomcat/README.md)
+	* [tomcat](#)
 		* [tomcat虚拟目录](source/_posts/tomcat/virtual.md) 
 		* [tomcat性能优化](source/_posts/tomcat/performance.md)
 	* [JSP](source/_posts/JSP/README.md)
 		* [基本语法](source/_posts/JSP/BasicSyntax.md)
 		* [指令](source/_posts/JSP/order.md)
-* [数据库](source/_posts/db/README.md)
+* [数据库](#)
 	* [jdbc简介](source/_posts/jdbc/README.md)
 	* [mybaits](source/_posts/)
 		* [配置简介](source/_posts/mybaits/conf.md)
@@ -74,8 +72,6 @@ https://lv-neo.github.io/Learn-Java/
 * [gradle](source/_posts/gradle/README.md)
 	* [安装](source/_posts/gradle/install.md)
 	* [基础](source/_posts/gradle/des.md)
-	* [使用gradle构建一个restful风格的项目](source/_posts/gradle/restful.md)
-	* [使用gralde构建spring mvc web](source/_posts/gralde/spring.md)
 * [maven](source/_posts/maven/README.md)
 	* [常用命令](source/_posts/maven/shell.md)
 	* [安装](source/_posts/maven/install.md) 

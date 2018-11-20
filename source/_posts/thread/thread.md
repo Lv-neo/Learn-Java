@@ -1,7 +1,4 @@
-
 # 线程
-
-[toc]
 
 ## 介绍
 线程，有时被称为轻量级进程(Lightweight Process，LWP），是程序执行流的最小单元。

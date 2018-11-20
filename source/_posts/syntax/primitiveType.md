@@ -1,4 +1,5 @@
 # 8种基本类型（primitive type）
+
 其中有4种整型、2种浮点类型、1种用于表示Unicode编码的字符单元的字符类型char和1种用于表示真值的boolean类型。
 
 ## byte：
