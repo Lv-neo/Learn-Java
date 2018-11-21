@@ -11,7 +11,7 @@
     <meta name="keyword" content="Java,java,Netty,quartz,servlet,nio,tomcat,mybaits,hibernate,jmeter,jvm,jdbc">
     <link rel="canonical" href="https://lv-neo.github.io/Learn-Java/Learn-Java/page/6/">
     <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
-    <link rel="alternate" type="application/atom+xml" title="Neo的博客" href="/atom.xml">
+    <link rel="alternate" type="application/atom+xml" title="Neo&#39;s Blog" href="/atom.xml">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -79,7 +79,7 @@
         </button>
         <span class="navbar-brand animated pulse">
           <a class="brand-logo" href="/Learn-Java/">
-            Neo的博客
+            Neo's Blog
           </a>
         </span>
       </div>
@@ -139,9 +139,9 @@
         <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
           
             <div class="post-preview " style="background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/Learn-Java/2018/11/NIO/no-async-io/">
+    <a href="/Learn-Java/2018/11/Netty/README/">
         <h2 class="post-title">
-            异步 I/O
+            Netty
         </h2>
         
         <div class="post-meta">
@@ -152,18 +152,10 @@
             <p>
                 
 
-异步 I/O
-Selectors
-打开一个 ServerSocketChannel
-选择键
-内部循环
-接受新的连接
-删除处理过的 SelectionKey
+Netty
 
 
-
-
-异步 I/O异步 I/O 是一种 没有阻塞地 读写数据的方法。通常，在代码进行 read() 调用时，代码会阻塞直至有可供读取的..
+Netty
             </p>
         </div>
     </a>
@@ -207,9 +199,9 @@ NIO 中的读和写概述读和写是 I/O 的基本过程。从一个通道中�
 
           
             <div class="post-preview " style="background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/Learn-Java/2018/11/Netty/README/">
+    <a href="/Learn-Java/2018/11/NIO/no-async-io/">
         <h2 class="post-title">
-            Netty
+            异步 I/O
         </h2>
         
         <div class="post-meta">
@@ -220,10 +212,18 @@ NIO 中的读和写概述读和写是 I/O 的基本过程。从一个通道中�
             <p>
                 
 
-Netty
+异步 I/O
+Selectors
+打开一个 ServerSocketChannel
+选择键
+内部循环
+接受新的连接
+删除处理过的 SelectionKey
 
 
-Netty
+
+
+异步 I/O异步 I/O 是一种 没有阻塞地 读写数据的方法。通常，在代码进行 read() 调用时，代码会阻塞直至有可供读取的..
             </p>
         </div>
     </a>
@@ -265,9 +265,9 @@ Netty
 
           
             <div class="post-preview " style="background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/Learn-Java/2018/11/NIO/Reactor/">
+    <a href="/Learn-Java/2018/11/NIO/README/">
         <h2 class="post-title">
-            Reactor
+            NIO 入门
         </h2>
         
         <div class="post-meta">
@@ -278,16 +278,12 @@ Netty
             <p>
                 
 
-Reactor
-Reactor的由来
-Reactor与NIO
-与Reactor相关的其他概念
-附录
+NIO 入门
 
 
-
-
-ReactorReactor的由来Reactor是一种广泛应用在服务器端开发的设计模式。Reactor中文大多译为“反应堆”，我当初接触这个概念的时候，就感觉很厉害，是不是它的原理就跟..
+NIO 入门JDK 1.4 中引入的新输入输出 (NIO) 库在标准 Java 代码中提供了高速的、面向块的 I/O。
+本实用教程从高级概念到底层的编程细节，非常详细地介绍了 NIO 库。
+您将学到诸如缓冲区和通道这样的关键 I/O 元素的知识，并考察更新后的库中的标准 I..
             </p>
         </div>
     </a>
@@ -362,9 +358,9 @@ I/O 简介
 
           
             <div class="post-preview " style="background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/Learn-Java/2018/11/NIO/README/">
+    <a href="/Learn-Java/2018/11/NIO/Reactor/">
         <h2 class="post-title">
-            NIO 入门
+            Reactor
         </h2>
         
         <div class="post-meta">
@@ -375,12 +371,16 @@ I/O 简介
             <p>
                 
 
-NIO 入门
+Reactor
+Reactor的由来
+Reactor与NIO
+与Reactor相关的其他概念
+附录
 
 
-NIO 入门JDK 1.4 中引入的新输入输出 (NIO) 库在标准 Java 代码中提供了高速的、面向块的 I/O。
-本实用教程从高级概念到底层的编程细节，非常详细地介绍了 NIO 库。
-您将学到诸如缓冲区和通道这样的关键 I/O 元素的知识，并考察更新后的库中的标准 I..
+
+
+ReactorReactor的由来Reactor是一种广泛应用在服务器端开发的设计模式。Reactor中文大多译为“反应堆”，我当初接触这个概念的时候，就感觉很厉害，是不是它的原理就跟..
             </p>
         </div>
     </a>
@@ -390,10 +390,10 @@ NIO 入门JDK 1.4 中引入的新输入输出 (NIO) 库在标准 Java 代码中�
           
           <ul class="pager">
     
-        <li class="previous"><a href="/Learn-Java/page/5/">&larr;  Newer Posts</a></li>
+        <li class="previous"><a href="/Learn-Java/page/5/">&larr;  下一页</a></li>
     
     
-        <li class="next"><a href="/Learn-Java/page/7/">Previous Posts  &rarr;</a></li>
+        <li class="next"><a href="/Learn-Java/page/7/">上一页  &rarr;</a></li>
     
 </ul>
 
@@ -471,13 +471,13 @@ NIO 入门JDK 1.4 中引入的新输入输出 (NIO) 库在标准 Java 代码中�
             neo
         <br>
           
-              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+              由 <a target="_blank" href="https://hexo.io">Hexo</a> 强力驱动
           
           
             |
           
           
-              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+              主题 - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
           
           
       </div>
