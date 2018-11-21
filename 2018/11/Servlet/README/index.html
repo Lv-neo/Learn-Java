@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="欢迎光临Neo的博客">
+    <meta name="author" content="Neo">
+    <meta name="keyword" content="Java,java,Netty,quartz,servlet,nio,tomcat,mybaits,hibernate,jmeter,jvm,jdbc">
+    <link rel="canonical" href="https://lv-neo.github.io/Learn-Java/Learn-Java/2018/11/Servlet/README/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Neo的博客" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        Servlet概述｜Neo&#39;s Blog for Java
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/Learn-Java/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/Learn-Java/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+
+    
+
+    
+
+
+    
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/Learn-Java/css/arsnippet.css">
+    <script src="/Learn-Java/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost="true" data-istags="false" data-ishome="false">
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false" data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/Learn-Java/">
+            Neo的博客
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/Learn-Java/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/tags/">tags</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/categories/">categories</a>
+                </li>
+              
+          </ul>
+      </div>
+  </div></nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&amp;auto=compress&amp;cs=tinysrgb');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>Servlet概述</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Neo</span>
+                               <span class="meta-item">Date: Nov 20, 2018</span>
+                               
+                                 <span class="meta-item">Updated On: Nov 20, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/Learn-Java/tags/#servlet" title="servlet">servlet</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+          
+          <!-- toc -->
+<ul>
+<li><a href="#servlet概述">Servlet概述</a><ul>
+<li><a href="#servlet的特点">Servlet的特点</a></li>
+<li><a href="#servlet的应用范围">Servlet的应用范围</a></li>
+<li><a href="#servlet与jsp的关系">Servlet与JSP的关系</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="servlet概述">Servlet概述</span></h1><p>Servlet是一种独立于平台和协议的服务器端的Java应用程序，可以生成动态的Web页面。它是位于Web服务器内部由服务器端调用和执行的Java类，与传统的从命令行启动的Java应用程序不同，Servlet由Web服务器进行加载，该Web服务器必须包含支持Servlet的Java虚拟机。</p>
+<p>Servlet相当于在服务器端运行的Applet，但是它与Applet也有区别，由于Servlet运行在服务器端，因此它是可信赖的程序，不受Java安全性限制，拥有和普通Java应用程序一样的权限。</p>
+<h2><span id="servlet的特点">Servlet的特点</span></h2><ul>
+<li>高效：在服务器上仅有一个Java虚拟机在运行，只有当Servlet被调用时，它才被加载。一旦Servlet被加载，在它被更改之前都不需要重新加载，同时，在Servlet被更改后再次加载时，不需要重新启动服务器。Servlet最主要的优势是，当Servlet被客户端的请求激活后，它将继续运行于后台，等待以后的请求，每个请求都只会生成一个新的线程，而不是一个完整的进程。</li>
+<li>可移植性强：由于Servlet是用Java编写的，所以具有跨平台性，Servlet API（Application Programming Interface应用程序接口）具有完善的标准，因此Servlet不需要任何修改就可以在几乎所有的主流服务器上运行。</li>
+<li>灵活：Servlet提供了大量的实用工具例程，并且可以和HTML页面、JSP页面、Applet以及Java Bean进行交流。例如，可以从客户发来的HTML表单中读取数据，并将这些数据保存在服务器中。也可以将Servlet的运行结果送到JSP中或从Java Bean获取运行结果，还可以读取和设置HTTP头、处理Cookie、跟踪会话状态等。</li>
+<li>功能强大：Servlet能够直接和Web服务器交互，还能够在各个程序之间共享数据，使数据库链接功能很容易实现。</li>
+<li>投资小：不仅有许多廉价甚至免费的Web服务器可供个人或小规模网站使用，而且对于现有的服务器，即使不支持Servlet但要加上这部分功能也是免费的。</li>
+</ul>
+<h2><span id="servlet的应用范围">Servlet的应用范围</span></h2><p>Servlet的主要功能在于交互式的浏览和修改数据，生成动态Web内容，具有广泛的应用范围。具体如下：</p>
+<ul>
+<li>可以处理HTTP请求，并将HTTP响应反馈给客户端。</li>
+<li>可以用于处理HTTP表单通过HTTP协议产生的POST/GET数据，如买卖订单、信用卡数据等。</li>
+<li>可以同时处理多个请求。</li>
+<li>可以将请求转送给其他服务器和Servlet，按照任务类型或组织范围，允许在几个服务器中划分逻辑上的服务器。</li>
+</ul>
+<h2><span id="servlet与jsp的关系">Servlet与JSP的关系</span></h2><p>在JSP之前，Sun公司最先推出的是Servlet，用于替代功能有限的CGI技术，从某种程度上可以认为Servlet是JSP的前身。Servlet在编写HTML文本时，采用print或println方法逐句打印，这给编程人员带来了很大不便，限制了Servlet的应用。为了适应网络编程的需要，Sun又在Servlet的基础上推出了JSP技术。JSP技术从根本上改变了Servlet的编程方法，该技术通过HTML（或XML）与Java代码的结合，并在其中加入JSP标记来实现JSP文件的编写。在第17章中我们已经详细地介绍了这种技术。</p>
+<p>推出JSP及Java Bean的初衷就是要取代Servlet，但是学习Servlet还是非常有必要的。当运行某个JSP页面时，这个页面首先会被服务器编译成一个Servlet然后才被执行。这一过程是由Servlet引擎自动完成的，而不需要编程人员介入，因此极大地提高了程序编写的效率。但是相对于直接应用Servlet来说，这样会降低响应的速度。而且现有的程序中还有不少是使用Servlet编写的，因此程序编写人员还必须能够读懂这些程序。</p>
+
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/Learn-Java/2018/11/Servlet/baseFramework/" data-toggle="tooltip" data-placement="left" title="Servlet的基本架构">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/Learn-Java/2018/11/NIO/no-async-io/" data-toggle="tooltip" data-placement="top" title="异步 I/O">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread" class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'https://lv-neo.github.io/Learn-Java/2018/11/Servlet/README/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Servlet概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Servlet的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Servlet的应用范围</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">Servlet与JSP的关系</span></a></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+              2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            neo
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/Learn-Java/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

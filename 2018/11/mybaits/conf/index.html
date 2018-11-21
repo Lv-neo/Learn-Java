@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="欢迎光临Neo的博客">
+    <meta name="author" content="Neo">
+    <meta name="keyword" content="Java,java,Netty,quartz,servlet,nio,tomcat,mybaits,hibernate,jmeter,jvm,jdbc">
+    <link rel="canonical" href="https://lv-neo.github.io/Learn-Java/Learn-Java/2018/11/mybaits/conf/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Neo的博客" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        配置简介｜Neo&#39;s Blog for Java
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/Learn-Java/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/Learn-Java/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+
+    
+
+    
+
+
+    
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/Learn-Java/css/arsnippet.css">
+    <script src="/Learn-Java/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost="true" data-istags="false" data-ishome="false">
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false" data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/Learn-Java/">
+            Neo的博客
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/Learn-Java/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/tags/">tags</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/categories/">categories</a>
+                </li>
+              
+          </ul>
+      </div>
+  </div></nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&amp;auto=compress&amp;cs=tinysrgb');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>配置简介</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Neo</span>
+                               <span class="meta-item">Date: Nov 20, 2018</span>
+                               
+                                 <span class="meta-item">Updated On: Nov 20, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/Learn-Java/tags/#mybatis" title="mybatis">mybatis</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+          
+          <!-- toc -->
+<ul>
+<li><a href="#配置简介">配置简介</a><ul>
+<li><a href="#properties">properties</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="配置简介">配置简介</span></h1><ul>
+<li><p>properties：用于配置属性信息。</p>
+</li>
+<li><p>settings：用于配置MyBatis的运行时方式。</p>
+</li>
+<li><p>typeAliases：配置类型别名，可以在xml中用别名取代全限定名。</p>
+</li>
+<li><p>typeHandlers：配置类型处理器。</p>
+</li>
+<li><p>plugins：配置拦截器，用于拦截sql语句的执行。</p>
+</li>
+<li><p>environments：配置数据源信息、连接池、事务属性等。</p>
+</li>
+<li><p>mappers：配置SQL映射文件。</p>
+</li>
+</ul>
+<h2><span id="properties">properties</span></h2><p>配置properties采用键值对的格式进行配置。</p>
+<ul>
+<li>文件内配置properties</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;property name=&quot;name1&quot; value=&quot;value1&quot;/&gt;</span><br><span class="line">&lt;property name=&quot;name2&quot; value=&quot;value2&quot;/&gt;</span><br><span class="line">&lt;property name=&quot;name3&quot; value=&quot;value3&quot;/&gt;</span><br><span class="line">    ......</span><br><span class="line">&lt;property name=&quot;nameN&quot; value=&quot;valueN&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>文件外配置properties<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties resource=&quot;config.properties&quot; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>config.properties中的内容如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">name1:value1 </span><br><span class="line">name2:value2 </span><br><span class="line">name3:value2 </span><br><span class="line">...... </span><br><span class="line">nameN:valueN</span><br></pre></td></tr></table></figure>
+<p>###setting</p>
+<p>格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;settings&gt;</span><br><span class="line">  &lt;setting name=&quot;name1&quot; value=&quot;value1&quot; /&gt;</span><br><span class="line">  &lt;setting name=&quot;name2&quot; value=&quot;value2&quot; /&gt;</span><br><span class="line">  &lt;setting name=&quot;name3&quot; value=&quot;value3&quot; /&gt;</span><br><span class="line">        ...... </span><br><span class="line">  &lt;setting name=&quot;nameN&quot; value=&quot;valueN&quot; /&gt;</span><br><span class="line"> &lt;/settings&gt;</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>设置参数</th>
+<th>描述</th>
+<th>有效值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cacheEnabled</td>
+<td>这个配置使全局的映射器启用或禁用 缓存。</td>
+<td>boolen</td>
+<td>true</td>
+</tr>
+<tr>
+<td>lazyLoadingEnabled</td>
+<td>全局启用或禁用延迟加载。当禁用时, 所有关联对象都会即时加载。                 This value can be superseded for an specific relation by using the fetchType attribute on it.</td>
+<td>boolen</td>
+<td>false</td>
+</tr>
+<tr>
+<td>aggressiveLazyLoading</td>
+<td>当启用时, 有延迟加载属性的对象在被               调用时将会完全加载任意属性。否则,                每种属性将会按需要加载。</td>
+<td>boolen</td>
+<td>true</td>
+</tr>
+<tr>
+<td>multipleResultSetsEnabled</td>
+<td>允许或不允许多种结果集从一个单独                 的语句中返回(需要适合的驱动)</td>
+<td>boolen</td>
+<td>true</td>
+</tr>
+<tr>
+<td>useColumnLabel</td>
+<td>使用列标签代替列名。                不同的驱动在这                 方便表现不同。                 参考驱动文档或充分测                 试两种方法来决定所使用的驱动。</td>
+<td>boolen</td>
+<td>true</td>
+</tr>
+<tr>
+<td>useGeneratedKeys</td>
+<td>允许 JDBC 支持生成的键。                 需要适合的                 驱动。                 如果设置为 true 则这个设置强制                 生成的键被使用,                  尽管一些驱动拒绝兼                 容但仍然有效(比如 Derby)</td>
+<td>boolen</td>
+<td>False</td>
+</tr>
+<tr>
+<td>autoMappingBehavior</td>
+<td>指定 MyBatis 如何自动映射列到字段/                 属性。PARTIAL 只会自动映射简单,                  没有嵌套的结果。FULL 会自动映射任                 意复杂的结果(嵌套的或其他情况)                   。</td>
+<td>NONE, PARTIAL, FULL</td>
+<td>PARTIAL</td>
+</tr>
+<tr>
+<td>defaultExecutorType</td>
+<td>配置默认的执行器。SIMPLE 执行器没                 有什么特别之处。REUSE 执行器重用                 预处理语句。BATCH 执行器重用语句                 和批量更新</td>
+<td>SIMPLE                REUSE                BATCH</td>
+<td>SIMPLE</td>
+</tr>
+<tr>
+<td>defaultStatementTimeout</td>
+<td>设置超时时间,                 它决定驱动等待一个数                据库响应的时间。    Any positive integer    Not Set (null)</td>
+</tr>
+<tr>
+<td>safeRowBoundsEnabled</td>
+<td>Allows using RowBounds on nested                statements.</td>
+<td>boolen</td>
+<td>False</td>
+</tr>
+<tr>
+<td>mapUnderscoreToCamelCase</td>
+<td>Enables automatic mapping from                classic database column names                A_COLUMN to camel case classic Java                property names aColumn.</td>
+<td>boolen</td>
+<td>False</td>
+</tr>
+<tr>
+<td>localCacheScope</td>
+<td>MyBatis uses local cache to prevent circular references and speed up repeated nested queries.                 By default (SESSION) all queries executed during a session are cached. If localCacheScope=STATEMENT local session will be used just for                 statement execution, no data will be shared between two different calls to the same SqlSession.</td>
+<td>SESSION or STATEMENT</td>
+<td>SESSION</td>
+</tr>
+<tr>
+<td>jdbcTypeForNull</td>
+<td>Specifies the JDBC type for null values when no specific JDBC type was provided for the parameter.                 Some drivers require specifying the column JDBC type but others work with generic values like NULL, VARCHAR or OTHER.</td>
+<td>JdbcType enumeration. Most common are: NULL, VARCHAR and OTHER</td>
+<td>OTHER</td>
+</tr>
+<tr>
+<td>lazyLoadTriggerMethods</td>
+<td>Specifies which Object’s methods trigger a lazy load</td>
+<td>A method name list separated by commas</td>
+<td>equals,clone,hashCode,toString</td>
+</tr>
+<tr>
+<td>defaultScriptingLanguage</td>
+<td>Specifies the language used by default for dynamic SQL generation.    A type alias or fully qualified class name.</td>
+<td></td>
+<td>org.apache.ibatis.scripting.xmltags.XMLDynamicLanguageDriver</td>
+</tr>
+<tr>
+<td>callSettersOnNulls</td>
+<td>当结果集中含有Null值时是否执行映射对象的setter或者Map对象的put方法。此设置对于原始类型如int,boolean等无效。</td>
+<td>boolen</td>
+<td>false</td>
+</tr>
+<tr>
+<td>logPrefix    Specifies</td>
+<td>the prefix string that MyBatis will add to the logger names.</td>
+<td>Any String</td>
+<td>Not set</td>
+</tr>
+<tr>
+<td>logImpl</td>
+<td>Specifies which logging implementation MyBatis should use. If this setting is not present logging implementation will be autodiscovered.</td>
+<td>SLF4J LOG4J LOG4J2  JDK_LOGGING COMMONS_LOGGING STDOUT_LOGGING NO_LOGGING</td>
+<td>Not set</td>
+</tr>
+<tr>
+<td>proxyFactory</td>
+<td>Specifies the proxy tool that MyBatis will use for creating lazy loading capable objects.</td>
+<td>CGLIB or JAVASSIST</td>
+<td>CGLIB</td>
+</tr>
+</tbody>
+</table>
+<p>###typeAliases</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;typeAliases&gt;</span><br><span class="line">  &lt;typeAlias alias=&quot;Author&quot; type=&quot;domain.blog.Author&quot;/&gt;</span><br><span class="line">  &lt;typeAlias alias=&quot;Blog&quot; type=&quot;domain.blog.Blog&quot;/&gt;</span><br><span class="line">  &lt;typeAlias alias=&quot;Comment&quot; type=&quot;domain.blog.Comment&quot;/&gt;</span><br><span class="line">  &lt;typeAlias alias=&quot;Post&quot; type=&quot;domain.blog.Post&quot;/&gt;</span><br><span class="line">  &lt;typeAlias alias=&quot;Section&quot; type=&quot;domain.blog.Section&quot;/&gt;</span><br><span class="line">  &lt;typeAlias alias=&quot;Tag&quot; type=&quot;domain.blog.Tag&quot;/&gt;</span><br><span class="line">&lt;/typeAliases&gt;</span><br></pre></td></tr></table></figure>
+<p>类型别名必须遵循MyBatis命名规范。</p>
+<p>具体参见：<a href="http://mybatis.github.io/mybatis-3/zh/configuration.html#typeAliases" target="_blank" rel="noopener">http://mybatis.github.io/mybatis-3/zh/configuration.html#typeAliases</a></p>
+<p>###typeHandlers</p>
+<p>无论是 MyBatis 在预处理语句中设置一个参数, 还是从结果集中取出一个值时, 类型处 理器被用来将获取的值以合适的方式转换成 Java 类型。下面这个表格描述了默认的类型处 理器。</p>
+<table>
+<thead>
+<tr>
+<th>类型处理器</th>
+<th>Java类型</th>
+<th>JDBC类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BooleanTypeHandler</td>
+<td>java.lang.Boolean, boolean</td>
+<td>任何兼容的布尔值</td>
+</tr>
+<tr>
+<td>ByteTypeHandler</td>
+<td>java.lang.Byte, byte</td>
+<td>任何兼容的数字或字节类型</td>
+</tr>
+<tr>
+<td>ShortTypeHandler</td>
+<td>java.lang.Short, short</td>
+<td>任何兼容的数字或短整型</td>
+</tr>
+<tr>
+<td>IntegerTypeHandler</td>
+<td>java.lang.Integer, int</td>
+<td>任何兼容的数字和整型</td>
+</tr>
+<tr>
+<td>LongTypeHandler</td>
+<td>java.lang.Long, long</td>
+<td>任何兼容的数字或长整型</td>
+</tr>
+<tr>
+<td>FloatTypeHandler</td>
+<td>java.lang.Float, float</td>
+<td>任何兼容的数字或单精度浮点型</td>
+</tr>
+<tr>
+<td>DoubleTypeHandler</td>
+<td>java.lang.Double, double</td>
+<td>任何兼容的数字或双精度浮点型</td>
+</tr>
+<tr>
+<td>BigDecimalTypeHandler</td>
+<td>java.math.BigDecimal</td>
+<td>任何兼容的数字或十进制小数类型</td>
+</tr>
+<tr>
+<td>StringTypeHandler</td>
+<td>java.lang.String</td>
+<td>CHAR 和 VARCHAR 类型</td>
+</tr>
+<tr>
+<td>ClobTypeHandler</td>
+<td>java.lang.String</td>
+<td>CLOB 和 LONGVARCHAR 类型</td>
+</tr>
+<tr>
+<td>NStringTypeHandler</td>
+<td>java.lang.String</td>
+<td>NVARCHAR 和 NCHAR 类型</td>
+</tr>
+<tr>
+<td>NClobTypeHandler</td>
+<td>java.lang.String</td>
+<td>NCLOB 类型</td>
+</tr>
+<tr>
+<td>ByteArrayTypeHandler</td>
+<td>byte[]</td>
+<td>任何兼容的字节流类型</td>
+</tr>
+<tr>
+<td>BlobTypeHandler</td>
+<td>byte[]</td>
+<td>BLOB 和 LONGVARBINARY 类型</td>
+</tr>
+<tr>
+<td>DateTypeHandler</td>
+<td>java.util.Date</td>
+<td>TIMESTAMP 类型</td>
+</tr>
+<tr>
+<td>DateOnlyTypeHandler</td>
+<td>java.util.Date</td>
+<td>DATE 类型</td>
+</tr>
+<tr>
+<td>TimeOnlyTypeHandler</td>
+<td>java.util.Date</td>
+<td>TIME 类型</td>
+</tr>
+<tr>
+<td>SqlTimestampTypeHandler</td>
+<td>java.sql.Timestamp</td>
+<td>TIMESTAMP</td>
+<td>类型</td>
+</tr>
+<tr>
+<td>SqlDateTypeHandler                  java.sql.Date</td>
+<td>DATE</td>
+<td>类型</td>
+</tr>
+<tr>
+<td>SqlTimeTypeHandler                  java.sql.Time</td>
+<td>TIME</td>
+<td>类型</td>
+</tr>
+<tr>
+<td>ObjectTypeHandler</td>
+<td>Any</td>
+<td>其他或未指定类型</td>
+</tr>
+<tr>
+<td>EnumTypeHandler</td>
+<td>Enumeration Type</td>
+<td>VARCHAR-任何兼容的字符串类型,</td>
+<td>作为代码存储(而不是索引)</td>
+</tr>
+<tr>
+<td>EnumOrdinalTypeHandler</td>
+<td>Enumeration Type</td>
+<td>Any compatible NUMERIC or DOUBLE, as the position is stored                (not the code itself).</td>
+</tr>
+</tbody>
+</table>
+<p>你可以重写类型处理器或创建你自己的类型处理器来处理不支持的或非标准的类型。</p>
+<p>###plugins</p>
+<p>参见：<a href="http://mybatis.github.io/mybatis-3/zh/configuration.html#plugins" target="_blank" rel="noopener">http://mybatis.github.io/mybatis-3/zh/configuration.html#plugins</a></p>
+<p>###environments</p>
+<p>参见：<a href="http://mybatis.github.io/mybatis-3/zh/configuration.html#environments" target="_blank" rel="noopener">http://mybatis.github.io/mybatis-3/zh/configuration.html#environments</a></p>
+<p>###mappers</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">  &lt;mapper resource=&quot;model1.xml&quot;/&gt;</span><br><span class="line">  &lt;mapper resource=&quot;model2.xml&quot;/&gt;</span><br><span class="line">  &lt;mapper resource=&quot;model3.xml&quot;/&gt;</span><br><span class="line">    ...... </span><br><span class="line">  &lt;mapper resource=&quot;modelN.xml&quot;/&gt; </span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure>
+
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/Learn-Java/2018/11/network/socket/" data-toggle="tooltip" data-placement="left" title="Socket及其语言">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/Learn-Java/2018/11/mybaits/README/" data-toggle="tooltip" data-placement="top" title="mybaits">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread" class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'https://lv-neo.github.io/Learn-Java/2018/11/mybaits/conf/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">配置简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">properties</span></a></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+              2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            neo
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/Learn-Java/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="欢迎光临Neo的博客">
+    <meta name="author" content="Neo">
+    <meta name="keyword" content="Java,java,Netty,quartz,servlet,nio,tomcat,mybaits,hibernate,jmeter,jvm,jdbc">
+    <link rel="canonical" href="https://lv-neo.github.io/Learn-Java/Learn-Java/tags/mybatis/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Neo的博客" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        Neo&#39;s Blog for Java
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/Learn-Java/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/Learn-Java/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+
+    
+
+    
+
+
+    
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/Learn-Java/css/arsnippet.css">
+    <script src="/Learn-Java/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost="false" data-istags="true" data-ishome="false">
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false" data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/Learn-Java/">
+            Neo的博客
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/Learn-Java/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/tags/">tags</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/categories/">categories</a>
+                </li>
+              
+          </ul>
+      </div>
+  </div></nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&amp;auto=compress&amp;cs=tinysrgb');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>Untitled</h1>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<article class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div id="tag_cloud">
+                
+                  <a href="#bean" title="bean" rel="1">bean</a>
+                
+                  <a href="#java bean" title="java bean" rel="1">java bean</a>
+                
+                  <a href="#java" title="java" rel="5">java</a>
+                
+                  <a href="#jsp" title="jsp" rel="2">jsp</a>
+                
+                  <a href="#nio" title="nio" rel="7">nio</a>
+                
+                  <a href="#netty" title="netty" rel="1">netty</a>
+                
+                  <a href="#servlet" title="servlet" rel="2">servlet</a>
+                
+                  <a href="#exception" title="exception" rel="1">exception</a>
+                
+                  <a href="#gradle" title="gradle" rel="3">gradle</a>
+                
+                  <a href="#jdbc" title="jdbc" rel="1">jdbc</a>
+                
+                  <a href="#jvm" title="jvm" rel="1">jvm</a>
+                
+                  <a href="#HotSpot" title="HotSpot" rel="1">HotSpot</a>
+                
+                  <a href="#HeapSize" title="HeapSize" rel="1">HeapSize</a>
+                
+                  <a href="#serializable" title="serializable" rel="1">serializable</a>
+                
+                  <a href="#mvn" title="mvn" rel="7">mvn</a>
+                
+                  <a href="#mybatis" title="mybatis" rel="2">mybatis</a>
+                
+                  <a href="#socket" title="socket" rel="1">socket</a>
+                
+                  <a href="#network" title="network" rel="2">network</a>
+                
+                  <a href="#quartz" title="quartz" rel="2">quartz</a>
+                
+                  <a href="#jmeter" title="jmeter" rel="1">jmeter</a>
+                
+                  <a href="#test" title="test" rel="1">test</a>
+                
+                  <a href="#thread" title="thread" rel="6">thread</a>
+                
+                  <a href="#coolection" title="coolection" rel="1">coolection</a>
+                
+                  <a href="#io" title="io" rel="1">io</a>
+                
+                  <a href="#http" title="http" rel="4">http</a>
+                
+                  <a href="#tomcat" title="tomcat" rel="2">tomcat</a>
+                
+            </div>
+
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="bean">
+                      <span class="tag-text">bean</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/Bean/Bean/">
+                            <h2 class="tag-post-title">Bean</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="java bean">
+                      <span class="tag-text">java bean</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/Bean/BeanFactory/">
+                            <h2 class="tag-post-title">BeanFactory介绍</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="java">
+                      <span class="tag-text">java</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/JSP/README/">
+                            <h2 class="tag-post-title">JSP</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/base/env/">
+                            <h2 class="tag-post-title">Java开发环境配置</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/base/jdk/">
+                            <h2 class="tag-post-title">jdk</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/mybaits/README/">
+                            <h2 class="tag-post-title">mybaits</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/syntax/primitiveType/">
+                            <h2 class="tag-post-title">8种基本类型（primitive type）</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="jsp">
+                      <span class="tag-text">jsp</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/JSP/BasicSyntax/">
+                            <h2 class="tag-post-title">JSP基本语法</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/JSP/order/">
+                            <h2 class="tag-post-title">JSP指令</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="nio">
+                      <span class="tag-text">nio</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/NIO/README/">
+                            <h2 class="tag-post-title">NIO 入门</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/NIO/IO/">
+                            <h2 class="tag-post-title">输入/输出：概念性描述</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/NIO/buffer/">
+                            <h2 class="tag-post-title">缓冲区内部细节</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/NIO/Reactor/">
+                            <h2 class="tag-post-title">Reactor</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/NIO/channel_buffer/">
+                            <h2 class="tag-post-title">通道和缓冲区</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/NIO/no-async-io/">
+                            <h2 class="tag-post-title">异步 I/O</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/NIO/read_write/">
+                            <h2 class="tag-post-title">NIO 中的读和写</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="netty">
+                      <span class="tag-text">netty</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/Netty/README/">
+                            <h2 class="tag-post-title">Netty</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="servlet">
+                      <span class="tag-text">servlet</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/Servlet/README/">
+                            <h2 class="tag-post-title">Servlet概述</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/Servlet/baseFramework/">
+                            <h2 class="tag-post-title">Servlet的基本架构</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="exception">
+                      <span class="tag-text">exception</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/exception/README/">
+                            <h2 class="tag-post-title">Java异常处理</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="gradle">
+                      <span class="tag-text">gradle</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/gradle/README/">
+                            <h2 class="tag-post-title">gradle</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/gradle/install/">
+                            <h2 class="tag-post-title">Gradle 安装</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/gradle/des/">
+                            <h2 class="tag-post-title">Gradle——构建基础</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="jdbc">
+                      <span class="tag-text">jdbc</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/jdbc/README/">
+                            <h2 class="tag-post-title">JDBC简介</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="jvm">
+                      <span class="tag-text">jvm</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/jvm/mem/">
+                            <h2 class="tag-post-title">jvm内存</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="HotSpot">
+                      <span class="tag-text">HotSpot</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/jvm/mem/">
+                            <h2 class="tag-post-title">jvm内存</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="HeapSize">
+                      <span class="tag-text">HeapSize</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/jvm/mem/">
+                            <h2 class="tag-post-title">jvm内存</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="serializable">
+                      <span class="tag-text">serializable</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/lang/Serializable/">
+                            <h2 class="tag-post-title">理解Serializable</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="mvn">
+                      <span class="tag-text">mvn</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/maven/README/">
+                            <h2 class="tag-post-title">Maven</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/maven/env/">
+                            <h2 class="tag-post-title">使用maven profile实现多环境可移植构建</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/maven/install/">
+                            <h2 class="tag-post-title">maven安装说明</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/maven/jar/">
+                            <h2 class="tag-post-title">将jar文件加到Maven的local repository中</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/maven/java/">
+                            <h2 class="tag-post-title">使用Maven创建java项目</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/maven/shell/">
+                            <h2 class="tag-post-title">常用命令</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/maven/web/">
+                            <h2 class="tag-post-title">使用Maven创建Web应用程序项目</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="mybatis">
+                      <span class="tag-text">mybatis</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/mybaits/connectTime/">
+                            <h2 class="tag-post-title">mybaits 连接超时配置</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/mybaits/conf/">
+                            <h2 class="tag-post-title">配置简介</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="socket">
+                      <span class="tag-text">socket</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/network/socket/">
+                            <h2 class="tag-post-title">Socket及其语言</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="network">
+                      <span class="tag-text">network</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/network/tcpip/">
+                            <h2 class="tag-post-title">TCP／IP协议</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/network/udp/">
+                            <h2 class="tag-post-title">UDP协议</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="quartz">
+                      <span class="tag-text">quartz</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/quartz/README/">
+                            <h2 class="tag-post-title">几种任务调度的 Java 实现方法与比较</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/quartz/quartz-meituan/">
+                            <h2 class="tag-post-title">Quartz集群和</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="jmeter">
+                      <span class="tag-text">jmeter</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/test/jmeter/">
+                            <h2 class="tag-post-title">JMETER</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="test">
+                      <span class="tag-text">test</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/test/jmeter/">
+                            <h2 class="tag-post-title">JMETER</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="thread">
+                      <span class="tag-text">thread</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/thread/lock/">
+                            <h2 class="tag-post-title">线程锁</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/thread/java/">
+                            <h2 class="tag-post-title">Java线程</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/thread/controller/">
+                            <h2 class="tag-post-title">线程的控制</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/thread/shared/">
+                            <h2 class="tag-post-title">共享对数据的访问</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/thread/synchronized/">
+                            <h2 class="tag-post-title">线程同步详解</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/thread/thread/">
+                            <h2 class="tag-post-title">线程</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="coolection">
+                      <span class="tag-text">coolection</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/Collection/README/">
+                            <h2 class="tag-post-title">Java容器类</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="io">
+                      <span class="tag-text">io</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/IO/stream/">
+                            <h2 class="tag-post-title">java流</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="http">
+                      <span class="tag-text">http</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/java-http/auth/">
+                            <h2 class="tag-post-title">Http认证</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/java-http/httpUtil/">
+                            <h2 class="tag-post-title">HttpClient 发送 HTTP、HTTPS 请求的简单封装</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/java-http/connect/">
+                            <h2 class="tag-post-title">http连接管理</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/java-http/httpClient/">
+                            <h2 class="tag-post-title">httpClient基本概念</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+              <div class="one-tag-list">
+                  <div class="fa fa-tag tag-icon" id="tomcat">
+                      <span class="tag-text">tomcat</span>
+                  </div>
+                  
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/tomcat/virtual/">
+                            <h2 class="tag-post-title">Tomcat服务器虚拟目录的映射方式</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+                    <div class="post-preview">
+                        <a href="/Learn-Java/2018/11/tomcat/performance/">
+                            <h2 class="tag-post-title">tomcat 性能优化</h2>
+                            
+                        </a>
+                    </div>
+                    <hr>
+                
+              </div>
+            
+        </div>
+    </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+              2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            neo
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/Learn-Java/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>
