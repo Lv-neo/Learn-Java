@@ -199,39 +199,6 @@ NIO 中的读和写概述读和写是 I/O 的基本过程。从一个通道中�
 
           
             <div class="post-preview " style="background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/Learn-Java/2018/11/NIO/no-async-io/">
-        <h2 class="post-title">
-            异步 I/O
-        </h2>
-        
-        <div class="post-meta">
-          <span>Nov 20, 2018</span>
-          
-        </div>
-        <div class="post-content-preview">
-            <p>
-                
-
-异步 I/O
-Selectors
-打开一个 ServerSocketChannel
-选择键
-内部循环
-接受新的连接
-删除处理过的 SelectionKey
-
-
-
-
-异步 I/O异步 I/O 是一种 没有阻塞地 读写数据的方法。通常，在代码进行 read() 调用时，代码会阻塞直至有可供读取的..
-            </p>
-        </div>
-    </a>
-</div>
-<hr>
-
-          
-            <div class="post-preview " style="background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
     <a href="/Learn-Java/2018/11/NIO/channel_buffer/">
         <h2 class="post-title">
             通道和缓冲区
@@ -265,9 +232,9 @@ Selectors
 
           
             <div class="post-preview " style="background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/Learn-Java/2018/11/NIO/Reactor/">
+    <a href="/Learn-Java/2018/11/NIO/no-async-io/">
         <h2 class="post-title">
-            Reactor
+            异步 I/O
         </h2>
         
         <div class="post-meta">
@@ -278,43 +245,18 @@ Selectors
             <p>
                 
 
-Reactor
-Reactor的由来
-Reactor与NIO
-与Reactor相关的其他概念
-附录
+异步 I/O
+Selectors
+打开一个 ServerSocketChannel
+选择键
+内部循环
+接受新的连接
+删除处理过的 SelectionKey
 
 
 
 
-ReactorReactor的由来Reactor是一种广泛应用在服务器端开发的设计模式。Reactor中文大多译为“反应堆”，我当初接触这个概念的时候，就感觉很厉害，是不是它的原理就跟..
-            </p>
-        </div>
-    </a>
-</div>
-<hr>
-
-          
-            <div class="post-preview " style="background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/Learn-Java/2018/11/NIO/README/">
-        <h2 class="post-title">
-            NIO 入门
-        </h2>
-        
-        <div class="post-meta">
-          <span>Nov 20, 2018</span>
-          
-        </div>
-        <div class="post-content-preview">
-            <p>
-                
-
-NIO 入门
-
-
-NIO 入门JDK 1.4 中引入的新输入输出 (NIO) 库在标准 Java 代码中提供了高速的、面向块的 I/O。
-本实用教程从高级概念到底层的编程细节，非常详细地介绍了 NIO 库。
-您将学到诸如缓冲区和通道这样的关键 I/O 元素的知识，并考察更新后的库中的标准 I..
+异步 I/O异步 I/O 是一种 没有阻塞地 读写数据的方法。通常，在代码进行 read() 调用时，代码会阻塞直至有可供读取的..
             </p>
         </div>
     </a>
@@ -381,6 +323,64 @@ Capacity
 
 缓冲区内部细节概述本节将介绍 NIO 中两个重要的缓冲区组件：状态变量和访问方法 (accessor)。
 状态变量是前一节中提到的”内部统计机制”的关键。每一个读/写操作都会改变缓冲区的状态。通过记录..
+            </p>
+        </div>
+    </a>
+</div>
+<hr>
+
+          
+            <div class="post-preview " style="background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
+    <a href="/Learn-Java/2018/11/NIO/README/">
+        <h2 class="post-title">
+            NIO 入门
+        </h2>
+        
+        <div class="post-meta">
+          <span>Nov 20, 2018</span>
+          
+        </div>
+        <div class="post-content-preview">
+            <p>
+                
+
+NIO 入门
+
+
+NIO 入门JDK 1.4 中引入的新输入输出 (NIO) 库在标准 Java 代码中提供了高速的、面向块的 I/O。
+本实用教程从高级概念到底层的编程细节，非常详细地介绍了 NIO 库。
+您将学到诸如缓冲区和通道这样的关键 I/O 元素的知识，并考察更新后的库中的标准 I..
+            </p>
+        </div>
+    </a>
+</div>
+<hr>
+
+          
+            <div class="post-preview " style="background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
+    <a href="/Learn-Java/2018/11/NIO/Reactor/">
+        <h2 class="post-title">
+            Reactor
+        </h2>
+        
+        <div class="post-meta">
+          <span>Nov 20, 2018</span>
+          
+        </div>
+        <div class="post-content-preview">
+            <p>
+                
+
+Reactor
+Reactor的由来
+Reactor与NIO
+与Reactor相关的其他概念
+附录
+
+
+
+
+ReactorReactor的由来Reactor是一种广泛应用在服务器端开发的设计模式。Reactor中文大多译为“反应堆”，我当初接触这个概念的时候，就感觉很厉害，是不是它的原理就跟..
             </p>
         </div>
     </a>
