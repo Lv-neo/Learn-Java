@@ -3,14 +3,14 @@
 # ---------------------------------------------------------------
 # title can include HTML code.
 title: Neo's Blog
-description: A website for A-RSnippet Hexo Theme
+description: 欢迎光临Neo的博客
 author: Neo
 language: zh-cn
 timezone:
 
 # custom Site settings
-SEOTitle: An A-RSnippet Hexo Theme
-keyword: "hexo, hexo theme, A-RSnippet, responsive, bootstrap" # seo key words
+SEOTitle: Neo's Blog for Java
+keyword: "Java,java,Netty,quartz,servlet,nio,tomcat,mybaits,hibernate,jmeter,jvm,jdbc" # seo key words
 
 favicon: # your favicon png
 # custom end
@@ -160,10 +160,10 @@ post_update_date_enable: true
 
 # Can contain HTML
 # Appear at the begginning of the post
-content_before_post: <div class="subscribe"><a href="http://eepurl.com/dh6iCD" target="_blank">Get Updated for Each Release!</a></div><p>
+content_before_post: 
 # Can contain HTML
 # Appear at the end of the post
-content_after_post: <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"></a> <a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a>
+content_after_post: 
 
 # default cover image
 # example: animated gif as header
@@ -223,9 +223,9 @@ archive:
 #################################################################
 # MathJax Support
 mathjax:
-  enable: true
-  #per_page: true
-  cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  enable: false
+  # per_page: true
+  # cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 
 # ---------------------------------------------------------------
 # Comment settings
@@ -243,21 +243,21 @@ disqus_shortname: hexo-a-rsnippet
 # Baidu Analytics
 baidu_analytics:
 # Google Analytics
-google_analytics: UA-38355881-1            # Format: UA-xxxxxx-xx
+# google_analytics: UA-38355881-1            # Format: UA-xxxxxx-xx
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
 # Click "Alternative methods" => Select "HTML tag" => copy the string in the "content" property of "meta" element
 # <meta name="google-site-verification" content="xxxxxx" />
 # Input xxxxxx below
-google_site_verification: wtCjI-zcpr2FYwWS3sI4OWzMK9e7VomDrZyxpVUUIng
+# google_site_verification: wtCjI-zcpr2FYwWS3sI4OWzMK9e7VomDrZyxpVUUIng
 
-bing_site_verification:
-yandex_site_verification:
+# bing_site_verification:
+# yandex_site_verification:
 
 # ---------------------------------------------------------------
 # Share
 # ---------------------------------------------------------------
-add_this_id: ra-5272bc2a7b3c1ddc
+# add_this_id: ra-5272bc2a7b3c1ddc
 # Enable/Disable Update date
 
 # ---------------------------------------------------------------
