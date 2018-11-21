@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A website for A-RSnippet Hexo Theme">
+    <meta name="author" content="Neo">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="https://lv-neo.github.io/Learn-Java/Learn-Java/2018/11/java-http/connect/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Neo&#39;s Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        http连接管理｜An A-RSnippet Hexo Theme
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/Learn-Java/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/Learn-Java/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="wtCjI-zcpr2FYwWS3sI4OWzMK9e7VomDrZyxpVUUIng">
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/Learn-Java/css/arsnippet.css">
+    <script src="/Learn-Java/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost="true" data-istags="false" data-ishome="false">
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false" data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/Learn-Java/">
+            Neo's Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/Learn-Java/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/tags/">tags</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/categories/">categories</a>
+                </li>
+              
+          </ul>
+      </div>
+  </div></nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&amp;auto=compress&amp;cs=tinysrgb');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>http连接管理</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">博主: Neo</span>
+                               <span class="meta-item">创建于: Nov 20, 2018</span>
+                               
+                                 <span class="meta-item">更新于: Nov 20, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              分类: 
+                          </div>
+                          <div class="tags text-center">
+                              标签: 
+                              <a class="tag" href="/Learn-Java/tags/#http" title="http">http</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async="async"></script>
+</div>
+</div><hr>
+          
+          <div class="subscribe"><a href="http://eepurl.com/dh6iCD" target="_blank">Get Updated for Each Release!</a></div><p>
+          <!-- toc -->
+<ul>
+<li><a href="#连接管理">连接管理</a></li>
+<li><a href="#持久连接"># 持久连接</a><ul>
+<li><a href="#http连接路由">HTTP连接路由</a><ul>
+<li><a href="#路由计算">路由计算</a></li>
+<li><a href="#安全的http连接">安全的HTTP连接</a></li>
+</ul>
+</li>
+<li><a href="#http连接管理器">HTTP连接管理器</a><ul>
+<li><a href="#管理连接和连接管理器">管理连接和连接管理器</a></li>
+<li><a href="#简单连接管理器">简单连接管理器</a></li>
+<li><a href="#连接池管理器">连接池管理器</a></li>
+<li><a href="#关闭连接管理器">关闭连接管理器</a></li>
+</ul>
+</li>
+<li><a href="#多线程请求执行">多线程请求执行</a></li>
+<li><a href="#连接回收策略">连接回收策略</a></li>
+<li><a href="#连接存活策略">连接存活策略</a></li>
+<li><a href="#socket连接工厂">socket连接工厂</a><ul>
+<li><a href="#安全socket分层">安全SOCKET分层</a></li>
+<li><a href="#集成连接管理器">集成连接管理器</a></li>
+<li><a href="#ssltls定制">SSL/TLS定制</a></li>
+<li><a href="#域名验证">域名验证</a></li>
+</ul>
+</li>
+<li><a href="#httpclient代理服务器配置">HttpClient代理服务器配置</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+</p><h1><span id="连接管理">连接管理</span></h1><h1><span id="持久连接"># 持久连接</span></h1><p>两个主机建立连接的过程是很复杂的一个过程，涉及到多个数据包的交换，并且也很耗时间。</p>
+<p>Http连接需要的三次握手开销很大，这一开销对于比较小的http消息来说更大。但是如果我们直接使用已经建立好的http连接，这样花费就比较小，吞吐率更大。</p>
+<p>HTTP/1.1默认就支持Http连接复用。</p>
+<p>兼容HTTP/1.0的终端也可以通过声明来保持连接，实现连接复用。</p>
+<p>HTTP代理也可以在一定时间内保持连接不释放，方便后续向这个主机发送http请求。这种保持连接不释放的情况实际上是建立的持久连接。HttpClient也支持持久连接。</p>
+<h3><span id="http连接路由">HTTP连接路由</span></h3><p>HttpClient既可以直接、又可以通过多个中转路由（hops）和目标服务器建立连接。HttpClient把路由分为三种plain（明文 ），tunneled（隧道）和layered（分层）。隧道连接中使用的多个中间代理被称作代理链。</p>
+<ul>
+<li>客户端直接连接到目标主机或者只通过了一个中间代理，这种就是Plain路由</li>
+<li>客户端通过第一个代理建立连接，通过代理链tunnelling，这种情况就是Tunneled路由。</li>
+<li>不通过中间代理的路由不可能是tunneled路由。客户端在一个已经存在的连接上进行协议分层，这样建立起来的路由就是layered路由。协议只能在隧道—&gt;目标主机，或者直接连接（没有代理），这两种链路上进行分层。</li>
+</ul>
+<h4><span id="路由计算">路由计算</span></h4><p>RouteInfo接口包含了数据包发送到目标主机过程中，经过的路由信息。HttpRoute类继承了RouteInfo接口，是RouteInfo的具体实现，这个类是不允许修改的。</p>
+<p>HttpTracker类也实现了RouteInfo接口，它是可变的，HttpClient会在内部使用这个类来探测到目标主机的剩余路由。</p>
+<p>HttpRouteDirector是个辅助类，可以帮助计算数据包的下一步路由信息。</p>
+<p>这个类也是在HttpClient内部使用的。</p>
+<p>HttpRoutePlanner接口可以用来表示基于http上下文情况下，客户端到服务器的路由计算策略。HttpClient有两个HttpRoutePlanner的实现类。SystemDefaultRoutePlanner这个类基于java.net.ProxySelector，它默认使用jvm的代理配置信息，这个配置信息一般来自系统配置或者浏览器配置。</p>
+<p>DefaultProxyRoutePlanner这个类既不使用java本身的配置，也不使用系统或者浏览器的配置。它通常通过默认代理来计算路由信息。</p>
+<h4><span id="安全的http连接">安全的HTTP连接</span></h4><p>为了防止通过Http消息传递的信息不被未授权的第三方获取、截获，Http可以使用SSL/TLS协议来保证http传输安全，这个协议是当前使用最广的。当然也可以使用其他的加密技术。但是通常情况下，Http信息会在加密的SSL/TLS连接上进行传输。</p>
+<h3><span id="http连接管理器">HTTP连接管理器</span></h3><h4><span id="管理连接和连接管理器">管理连接和连接管理器</span></h4><p>Http连接是复杂，有状态的，线程不安全的对象，所以它必须被妥善管理。</p>
+<p>一个Http连接在同一时间只能被一个线程访问。HttpClient使用一个叫做Http连接管理器的特殊实体类来管理Http连接，这个实体类要实现HttpClientConnectionManager接口。</p>
+<p>Http连接管理器在新建http连接时，作为工厂类;管理持久http连接的生命周期;同步持久连接（确保线程安全，即一个http连接同一时间只能被一个线程访问）。Http连接管理器和ManagedHttpClientConnection的实例类一起发挥作用，ManagedHttpClientConnection实体类可以看做http连接的一个代理服务器，管理着I/O操作。如果一个Http连接被释放或者被它的消费者明确表示要关闭，那么底层的连接就会和它的代理进行分离，并且该连接会被交还给连接管理器。这是，即使服务消费者仍然持有代理的引用，它也不能再执行I/O操作，或者更改Http连接的状态。</p>
+<p>下面的代码展示了如何从连接管理器中取得一个http连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">HttpClientContext context = HttpClientContext.create();</span><br><span class="line">HttpClientConnectionManager connMrg = new BasicHttpClientConnectionManager();</span><br><span class="line">HttpRoute route = new HttpRoute(new HttpHost(&quot;www.yeetrack.com&quot;, 80));</span><br><span class="line">// 获取新的连接. 这里可能耗费很多时间</span><br><span class="line">ConnectionRequest connRequest = connMrg.requestConnection(route, null);</span><br><span class="line">// 10秒超时</span><br><span class="line">HttpClientConnection conn = connRequest.get(10, TimeUnit.SECONDS);</span><br><span class="line">try &#123;</span><br><span class="line">    // 如果创建连接失败</span><br><span class="line">    if (!conn.isOpen()) &#123;</span><br><span class="line">        // establish connection based on its route info</span><br><span class="line">        connMrg.connect(conn, route, 1000, context);</span><br><span class="line">        // and mark it as route complete</span><br><span class="line">        connMrg.routeComplete(conn, route, context);</span><br><span class="line">    &#125;</span><br><span class="line">    // 进行自己的操作.</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">    connMrg.releaseConnection(conn, null, 1, TimeUnit.MINUTES);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果要终止连接，可以调用ConnectionRequest的cancel()方法。这个方法会解锁被ConnectionRequest类get()方法阻塞的线程。</p>
+<h4><span id="简单连接管理器">简单连接管理器</span></h4><p>BasicHttpClientConnectionManager是个简单的连接管理器，它一次只能管理一个连接。尽管这个类是线程安全的，它在同一时间也只能被一个线程使用。BasicHttpClientConnectionManager会尽量重用旧的连接来发送后续的请求，并且使用相同的路由。如果后续请求的路由和旧连接中的路由不匹配，BasicHttpClientConnectionManager就会关闭当前连接，使用请求中的路由重新建立连接。如果当前的连接正在被占用，会抛出java.lang.IllegalStateException异常。</p>
+<h4><span id="连接池管理器">连接池管理器</span></h4><p>相对BasicHttpClientConnectionManager来说，PoolingHttpClientConnectionManager是个更复杂的类，它管理着连接池，可以同时为很多线程提供http连接请求。Connections are pooled on a per route basis.当请求一个新的连接时，如果连接池有有可用的持久连接，连接管理器就会使用其中的一个，而不是再创建一个新的连接。<br>PoolingHttpClientConnectionManager维护的连接数在每个路由基础和总数上都有限制。默认，每个路由基础上的连接不超过2个，总连接数不能超过20。在实际应用中，这个限制可能会太小了，尤其是当服务器也使用Http协议时。<br>下面的例子演示了如果调整连接池的参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();</span><br><span class="line">// 将最大连接数增加到200</span><br><span class="line">cm.setMaxTotal(200);</span><br><span class="line">// 将每个路由基础的连接增加到20</span><br><span class="line">cm.setDefaultMaxPerRoute(20);</span><br><span class="line">//将目标主机的最大连接数增加到50</span><br><span class="line">HttpHost localhost = new HttpHost(&quot;www.yeetrack.com&quot;, 80);</span><br><span class="line">cm.setMaxPerRoute(new HttpRoute(localhost), 50);</span><br><span class="line"></span><br><span class="line">CloseableHttpClient httpClient = HttpClients.custom()</span><br><span class="line">        .setConnectionManager(cm)</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
+<h4><span id="关闭连接管理器">关闭连接管理器</span></h4><p>当一个HttpClient的实例不在使用，或者已经脱离它的作用范围，我们需要关掉它的连接管理器，来关闭掉所有的连接，释放掉这些连接占用的系统资源。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CloseableHttpClient httpClient = &lt;...&gt;</span><br><span class="line">httpClient.close();</span><br></pre></td></tr></table></figure>
+<h3><span id="多线程请求执行">多线程请求执行</span></h3><p>当使用了请求连接池管理器（比如PoolingClientConnectionManager）后，HttpClient就可以同时执行多个线程的请求了。</p>
+<p>PoolingClientConnectionManager会根据它的配置来分配请求连接。如果连接池中的所有连接都被占用了，那么后续的请求就会被阻塞，直到有连接被释放回连接池中。为了防止永远阻塞的情况发生，我们可以把http.conn-manager.timeout的值设置成一个整数。如果在超时时间内，没有可用连接，就会抛出ConnectionPoolTimeoutException异常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();</span><br><span class="line">    CloseableHttpClient httpClient = HttpClients.custom()</span><br><span class="line">            .setConnectionManager(cm)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    // URL列表数组</span><br><span class="line">    String[] urisToGet = &#123;</span><br><span class="line">        &quot;http://www.domain1.com/&quot;,</span><br><span class="line">        &quot;http://www.domain2.com/&quot;,</span><br><span class="line">        &quot;http://www.domain3.com/&quot;,</span><br><span class="line">        &quot;http://www.domain4.com/&quot;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    // 为每个url创建一个线程，GetThread是自定义的类</span><br><span class="line">    GetThread[] threads = new GetThread[urisToGet.length];</span><br><span class="line">    for (int i = 0; i &lt; threads.length; i++) &#123;</span><br><span class="line">        HttpGet httpget = new HttpGet(urisToGet[i]);</span><br><span class="line">        threads[i] = new GetThread(httpClient, httpget);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 启动线程</span><br><span class="line">    for (int j = 0; j &lt; threads.length; j++) &#123;</span><br><span class="line">        threads[j].start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // join the threads</span><br><span class="line">    for (int j = 0; j &lt; threads.length; j++) &#123;</span><br><span class="line">        threads[j].join();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>即使HttpClient的实例是线程安全的，可以被多个线程共享访问，但是仍旧推荐每个线程都要有自己专用实例的HttpContext。<br>下面是GetThread类的定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">static class GetThread extends Thread &#123;</span><br><span class="line"></span><br><span class="line">        private final CloseableHttpClient httpClient;</span><br><span class="line">        private final HttpContext context;</span><br><span class="line">        private final HttpGet httpget;</span><br><span class="line"></span><br><span class="line">        public GetThread(CloseableHttpClient httpClient, HttpGet httpget) &#123;</span><br><span class="line">            this.httpClient = httpClient;</span><br><span class="line">            this.context = HttpClientContext.create();</span><br><span class="line">            this.httpget = httpget;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                CloseableHttpResponse response = httpClient.execute(</span><br><span class="line">                        httpget, context);</span><br><span class="line">                try &#123;</span><br><span class="line">                    HttpEntity entity = response.getEntity();</span><br><span class="line">                &#125; finally &#123;</span><br><span class="line">                    response.close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (ClientProtocolException ex) &#123;</span><br><span class="line">                // Handle protocol errors</span><br><span class="line">            &#125; catch (IOException ex) &#123;</span><br><span class="line">                // Handle I/O errors</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="连接回收策略">连接回收策略</span></h3><p>经典阻塞I/O模型的一个主要缺点就是只有当阻塞I/O时，socket才能对I/O事件做出反应。当连接被管理器收回后，这个连接仍然存活，但是却无法监控socket的状态，也无法对I/O事件做出反馈。如果连接被服务器端关闭了，客户端监测不到连接的状态变化（也就无法根据连接状态的变化，关闭本地的socket）。</p>
+<p>HttpClient为了缓解这一问题造成的影响，会在使用某个连接前，监测这个连接是否已经过时，如果服务器端关闭了连接，那么连接就会失效。这种过时检查并不是100%有效，并且会给每个请求增加10到30毫秒额外开销。唯一一个可行的，且does not involve a one thread per socket model for idle connections的解决办法，是建立一个监控线程，来专门回收由于长时间不活动而被判定为失效的连接。这个监控线程可以周期性的调用ClientConnectionManager类的closeExpiredConnections()方法来关闭过期的连接，回收连接池中被关闭的连接。它也可以选择性的调用ClientConnectionManager类的closeIdleConnections()方法来关闭一段时间内不活动的连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public static class IdleConnectionMonitorThread extends Thread &#123;</span><br><span class="line"></span><br><span class="line">        private final HttpClientConnectionManager connMgr;</span><br><span class="line">        private volatile boolean shutdown;</span><br><span class="line"></span><br><span class="line">        public IdleConnectionMonitorThread(HttpClientConnectionManager connMgr) &#123;</span><br><span class="line">            super();</span><br><span class="line">            this.connMgr = connMgr;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                while (!shutdown) &#123;</span><br><span class="line">                    synchronized (this) &#123;</span><br><span class="line">                        wait(5000);</span><br><span class="line">                        // 关闭失效的连接</span><br><span class="line">                        connMgr.closeExpiredConnections();</span><br><span class="line">                        // 可选的, 关闭30秒内不活动的连接</span><br><span class="line">                        connMgr.closeIdleConnections(30, TimeUnit.SECONDS);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (InterruptedException ex) &#123;</span><br><span class="line">                // terminate</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void shutdown() &#123;</span><br><span class="line">            shutdown = true;</span><br><span class="line">            synchronized (this) &#123;</span><br><span class="line">                notifyAll();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="连接存活策略">连接存活策略</span></h3><p>Http规范没有规定一个持久连接应该保持存活多久。有些Http服务器使用非标准的Keep-Alive头消息和客户端进行交互，服务器端会保持数秒时间内保持连接。HttpClient也会利用这个头消息。如果服务器返回的响应中没有包含Keep-Alive头消息，HttpClient会认为这个连接可以永远保持。然而，很多服务器都会在不通知客户端的情况下，关闭一定时间内不活动的连接，来节省服务器资源。在某些情况下默认的策略显得太乐观，我们可能需要自定义连接存活策略。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">ConnectionKeepAliveStrategy myStrategy = new ConnectionKeepAliveStrategy() &#123;</span><br><span class="line"></span><br><span class="line">        public long getKeepAliveDuration(HttpResponse response, HttpContext context) &#123;</span><br><span class="line">            // Honor &apos;keep-alive&apos; header</span><br><span class="line">            HeaderElementIterator it = new BasicHeaderElementIterator(</span><br><span class="line">                    response.headerIterator(HTTP.CONN_KEEP_ALIVE));</span><br><span class="line">            while (it.hasNext()) &#123;</span><br><span class="line">                HeaderElement he = it.nextElement();</span><br><span class="line">                String param = he.getName();</span><br><span class="line">                String value = he.getValue();</span><br><span class="line">                if (value != null &amp;&amp; param.equalsIgnoreCase(&quot;timeout&quot;)) &#123;</span><br><span class="line">                    try &#123;</span><br><span class="line">                        return Long.parseLong(value) * 1000;</span><br><span class="line">                    &#125; catch(NumberFormatException ignore) &#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            HttpHost target = (HttpHost) context.getAttribute(</span><br><span class="line">                    HttpClientContext.HTTP_TARGET_HOST);</span><br><span class="line">            if (&quot;www.naughty-server.com&quot;.equalsIgnoreCase(target.getHostName())) &#123;</span><br><span class="line">                // Keep alive for 5 seconds only</span><br><span class="line">                return 5 * 1000;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                // otherwise keep alive for 30 seconds</span><br><span class="line">                return 30 * 1000;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">    CloseableHttpClient client = HttpClients.custom()</span><br><span class="line">            .setKeepAliveStrategy(myStrategy)</span><br><span class="line">            .build();</span><br></pre></td></tr></table></figure>
+<h3><span id="socket连接工厂">socket连接工厂</span></h3><p>Http连接使用java.net.Socket类来传输数据。这依赖于ConnectionSocketFactory接口来创建、初始化和连接socket。这样也就允许HttpClient的用户在代码运行时，指定socket初始化的代码。PlainConnectionSocketFactory是默认的创建、初始化明文socket（不加密）的工厂类。<br>创建socket和使用socket连接到目标主机这两个过程是分离的，所以我们可以在连接发生阻塞时，关闭socket连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HttpClientContext clientContext = HttpClientContext.create();</span><br><span class="line">    PlainConnectionSocketFactory sf = PlainConnectionSocketFactory.getSocketFactory();</span><br><span class="line">    Socket socket = sf.createSocket(clientContext);</span><br><span class="line">    int timeout = 1000; //ms</span><br><span class="line">    HttpHost target = new HttpHost(&quot;www.yeetrack.com&quot;);</span><br><span class="line">    InetSocketAddress remoteAddress = new InetSocketAddress(</span><br><span class="line">        InetAddress.getByName(&quot;www.yeetrack.com&quot;, 80);</span><br><span class="line">        //connectSocket源码中，实际没有用到target参数</span><br><span class="line">        sf.connectSocket(timeout, socket, target, remoteAddress, null, clientContext);</span><br></pre></td></tr></table></figure>
+<h4><span id="安全socket分层">安全SOCKET分层</span></h4><p>LayeredConnectionSocketFactory是ConnectionSocketFactory的拓展接口。分层socket工厂类可以在明文socket的基础上创建socket连接。分层socket主要用于在代理服务器之间创建安全socket。HttpClient使用SSLSocketFactory这个类实现安全socket，SSLSocketFactory实现了SSL/TLS分层。请知晓，HttpClient没有自定义任何加密算法。它完全依赖于Java加密标准（JCE）和安全套接字（JSEE）拓展。</p>
+<h4><span id="集成连接管理器">集成连接管理器</span></h4><p>自定义的socket工厂类可以和指定的协议（Http、Https）联系起来，用来创建自定义的连接管理器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ConnectionSocketFactory plainsf = &lt;...&gt;</span><br><span class="line">    LayeredConnectionSocketFactory sslsf = &lt;...&gt;</span><br><span class="line">    Registry&lt;ConnectionSocketFactory&gt; r = RegistryBuilder.&lt;ConnectionSocketFactory&gt;create()</span><br><span class="line">            .register(&quot;http&quot;, plainsf)</span><br><span class="line">            .register(&quot;https&quot;, sslsf)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    HttpClientConnectionManager cm = new PoolingHttpClientConnectionManager(r);</span><br><span class="line">    HttpClients.custom()</span><br><span class="line">            .setConnectionManager(cm)</span><br><span class="line">            .build();</span><br></pre></td></tr></table></figure>
+<h4><span id="ssltls定制">SSL/TLS定制</span></h4><p>HttpClient使用SSLSocketFactory来创建ssl连接。SSLSocketFactory允许用户高度定制。它可以接受javax.net.ssl.SSLContext这个类的实例作为参数，来创建自定义的ssl连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HttpClientContext clientContext = HttpClientContext.create();</span><br><span class="line">KeyStore myTrustStore = &lt;...&gt;</span><br><span class="line">SSLContext sslContext = SSLContexts.custom()</span><br><span class="line">        .useTLS()</span><br><span class="line">        .loadTrustMaterial(myTrustStore)</span><br><span class="line">        .build();</span><br><span class="line">SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext);</span><br></pre></td></tr></table></figure>
+<h4><span id="域名验证">域名验证</span></h4><p>除了信任验证和在ssl/tls协议层上进行客户端认证，HttpClient一旦建立起连接，就可以选择性验证目标域名和存储在X.509证书中的域名是否一致。这种验证可以为服务器信任提供额外的保障。</p>
+<p>X509HostnameVerifier接口代表主机名验证的策略。在HttpClient中，X509HostnameVerifier有三个实现类。重要提示：主机名有效性验证不应该和ssl信任验证混为一谈。</p>
+<ul>
+<li>StrictHostnameVerifier: 严格的主机名验证方法和java 1.4,1.5,1.6验证方法相同。和IE6的方式也大致相同。这种验证方式符合RFC 2818通配符。The hostname must match either the first CN, or any of the subject-alts. A wildcard can occur in the CN, and in any of the subject-alts.</li>
+<li>BrowserCompatHostnameVerifier: 这种验证主机名的方法，和Curl及firefox一致。The hostname must match either the first CN, or any of the subject-alts. A wildcard can occur in the CN, and in any of the subject-alts.StrictHostnameVerifier和BrowserCompatHostnameVerifier方式唯一不同的地方就是，带有通配符的域名（比如*.yeetrack.com),BrowserCompatHostnameVerifier方式在匹配时会匹配所有的的子域名，包括 a.b.yeetrack.com .</li>
+<li>AllowAllHostnameVerifier: 这种方式不对主机名进行验证，验证功能被关闭，是个空操作，所以它不会抛出javax.net.ssl.SSLException异常。HttpClient默认使用BrowserCompatHostnameVerifier的验证方式。如果需要，我们可以手动执行验证方式。SSLContext sslContext = SSLContexts.createSystemDefault();</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(</span><br><span class="line">        sslContext,</span><br><span class="line">        SSLConnectionSocketFactory.STRICT_HOSTNAME_VERIFIER);</span><br></pre></td></tr></table></figure>
+<h3><span id="httpclient代理服务器配置">HttpClient代理服务器配置</span></h3><p>管，HttpClient支持复杂的路由方案和代理链，它同样也支持直接连接或者只通过一跳的连接。<br>使用代理服务器最简单的方式就是，指定一个默认的proxy参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HttpHost proxy = new HttpHost(&quot;someproxy&quot;, 8080);</span><br><span class="line">    DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);</span><br><span class="line">    CloseableHttpClient httpclient = HttpClients.custom()</span><br><span class="line">            .setRoutePlanner(routePlanner)</span><br><span class="line">            .build();</span><br></pre></td></tr></table></figure>
+<p>我们也可以让HttpClient去使用jre的代理服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SystemDefaultRoutePlanner routePlanner = new SystemDefaultRoutePlanner(</span><br><span class="line">    ProxySelector.getDefault());</span><br><span class="line">CloseableHttpClient httpclient = HttpClients.custom()</span><br><span class="line">        .setRoutePlanner(routePlanner)</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
+<p>又或者，我们也可以手动配置RoutePlanner，这样就可以完全控制Http路由的过程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HttpRoutePlanner routePlanner = new HttpRoutePlanner() &#123;</span><br><span class="line"></span><br><span class="line">        public HttpRoute determineRoute(</span><br><span class="line">                HttpHost target,</span><br><span class="line">                HttpRequest request,</span><br><span class="line">                HttpContext context) throws HttpException &#123;</span><br><span class="line">            return new HttpRoute(target, null,  new HttpHost(&quot;someproxy&quot;, 8080),</span><br><span class="line">                    &quot;https&quot;.equalsIgnoreCase(target.getSchemeName()));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">    CloseableHttpClient httpclient = HttpClients.custom()</span><br><span class="line">            .setRoutePlanner(routePlanner)</span><br><span class="line">            .build();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>转载自：<a href="http://free0007.iteye.com/blog/2012308" target="_blank" rel="noopener">http://free0007.iteye.com/blog/2012308</a></p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"></a> <a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/Learn-Java/2018/11/java-http/httpUtil/" data-toggle="tooltip" data-placement="left" title="HttpClient 发送 HTTP、HTTPS 请求的简单封装">&larr; 上一篇</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/Learn-Java/2018/11/java-http/auth/" data-toggle="tooltip" data-placement="top" title="Http认证">下一篇&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread" class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'https://lv-neo.github.io/Learn-Java/2018/11/java-http/connect/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        目录
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">连接管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text"># 持久连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.</span> <span class="toc-text">HTTP连接路由</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">路由计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">安全的HTTP连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.</span> <span class="toc-text">HTTP连接管理器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">管理连接和连接管理器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">简单连接管理器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.3.</span> <span class="toc-text">连接池管理器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.4.</span> <span class="toc-text">关闭连接管理器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.3.</span> <span class="toc-text">多线程请求执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.</span> <span class="toc-text">连接回收策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.5.</span> <span class="toc-text">连接存活策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.6.</span> <span class="toc-text">socket连接工厂</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.6.1.</span> <span class="toc-text">安全SOCKET分层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.6.2.</span> <span class="toc-text">集成连接管理器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.6.3.</span> <span class="toc-text">SSL/TLS定制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.6.4.</span> <span class="toc-text">域名验证</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.7.</span> <span class="toc-text">HttpClient代理服务器配置</span></a></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+              2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            neo
+        <br>
+          
+              由 <a target="_blank" href="https://hexo.io">Hexo</a> 强力驱动
+          
+          
+            |
+          
+          
+              主题 - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/Learn-Java/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

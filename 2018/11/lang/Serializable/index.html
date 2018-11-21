@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A website for A-RSnippet Hexo Theme">
+    <meta name="author" content="Neo">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="https://lv-neo.github.io/Learn-Java/Learn-Java/2018/11/lang/Serializable/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Neo&#39;s Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        理解Serializable｜An A-RSnippet Hexo Theme
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/Learn-Java/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/Learn-Java/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="wtCjI-zcpr2FYwWS3sI4OWzMK9e7VomDrZyxpVUUIng">
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/Learn-Java/css/arsnippet.css">
+    <script src="/Learn-Java/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost="true" data-istags="false" data-ishome="false">
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false" data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/Learn-Java/">
+            Neo's Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/Learn-Java/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/tags/">tags</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/categories/">categories</a>
+                </li>
+              
+          </ul>
+      </div>
+  </div></nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&amp;auto=compress&amp;cs=tinysrgb');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>理解Serializable</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">博主: Neo</span>
+                               <span class="meta-item">创建于: Nov 20, 2018</span>
+                               
+                                 <span class="meta-item">更新于: Nov 20, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              分类: 
+                          </div>
+                          <div class="tags text-center">
+                              标签: 
+                              <a class="tag" href="/Learn-Java/tags/#serializable" title="serializable">serializable</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async="async"></script>
+</div>
+</div><hr>
+          
+          <div class="subscribe"><a href="http://eepurl.com/dh6iCD" target="_blank">Get Updated for Each Release!</a></div><p>
+          <!-- toc -->
+<ul>
+<li><a href="#理解serializable">理解Serializable</a><ul>
+<li><a href="#什么是序列化和反序列化">什么是序列化和反序列化</a><ul>
+<li><a href="#什么情况下需要序列化">什么情况下需要序列化</a></li>
+<li><a href="#如何实现序列化">如何实现序列化</a></li>
+<li><a href="#序列化和反序列化例子">序列化和反序列化例子</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+</p><h1><span id="理解serializable">理解Serializable</span></h1><h2><span id="什么是序列化和反序列化">什么是序列化和反序列化</span></h2><p>Serialization（序列化）是一种将对象以一连串的字节描述的过程；反序列化deserialization是一种将这些字节重建成一个对象的过程。</p>
+<h3><span id="什么情况下需要序列化">什么情况下需要序列化</span></h3><ul>
+<li>当你想把的内存中的对象保存到一个文件中或者数据库中时候；</li>
+<li>当你想用套接字在网络上传送对象的时候；</li>
+<li>当你想通过RMI传输对象的时候；</li>
+</ul>
+<h3><span id="如何实现序列化">如何实现序列化</span></h3><p>将需要序列化的类实现Serializable接口就可以了，Serializable接口中没有任何方法，可以理解为一个标记，即表明这个类可以序列化。</p>
+<h3><span id="序列化和反序列化例子">序列化和反序列化例子</span></h3><p>如果我们想要序列化一个对象，首先要创建某些OutputStream(如FileOutputStream、ByteArrayOutputStream等)，然后将这些OutputStream封装在一个ObjectOutputStream中。这时候，只需要调用writeObject()方法就可以将对象序列化，并将其发送给OutputStream（记住：对象的序列化是基于字节的，不能使用Reader和Writer等基于字符的层次结构）。而反序列的过程（即将一个序列还原成为一个对象），需要将一个InputStream(如FileInputstream、ByteArrayInputStream等)封装在ObjectInputStream内，然后调用readObject()即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sheepmu;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> String name=<span class="string">"SheepMu"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age=<span class="number">24</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;<span class="comment">//以下代码实现序列化</span></span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"my.out"</span>));<span class="comment">//输出流保存的文件名为 my.out ；ObjectOutputStream能把Object输出成Byte流</span></span><br><span class="line">            MyTest myTest=<span class="keyword">new</span> MyTest();</span><br><span class="line">            oos.writeObject(myTest); </span><br><span class="line">            oos.flush();  <span class="comment">//缓冲流 </span></span><br><span class="line">            oos.close(); <span class="comment">//关闭流</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) </span><br><span class="line">        &#123;        </span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) </span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; </span><br><span class="line">        fan();<span class="comment">//调用下面的  反序列化  代码</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fan</span><span class="params">()</span><span class="comment">//反序列的过程</span></span></span><br><span class="line"><span class="function">    </span>&#123;    </span><br><span class="line">         ObjectInputStream oin = <span class="keyword">null</span>;<span class="comment">//局部变量必须要初始化</span></span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            oin = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"my.out"</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e1)</span><br><span class="line">        &#123;        </span><br><span class="line">            e1.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e1)</span><br><span class="line">        &#123;</span><br><span class="line">            e1.printStackTrace();</span><br><span class="line">        &#125;      </span><br><span class="line">        MyTest mts = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            mts = (MyTest ) oin.readObject();<span class="comment">//由Object对象向下转型为MyTest对象</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;     </span><br><span class="line">         System.out.println(<span class="string">"name="</span>+mts.name);    </span><br><span class="line">         System.out.println(<span class="string">"age="</span>+mts.age);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>会在此项目的工作空间生成一个 my.out文件。序列化后的内容稍后补齐，先看反序列化后输出如下：<br>name=SheepMu<br>age=24</p>
+<p>###序列化ID<br>序列化 ID 在 Eclipse 下提供了两种生成策略，一个是固定的 1L，一个是随机生成一个不重复的 long 类型数据（实际上是使用 JDK 工具生成），在这里有一个建议，如果没有特殊需求，就是用默认的 1L 就可以，这样可以确保代码一致时反序列化成功。这也可能是造成序列化和反序列化失败的原因，因为不同的序列化id之间不能进行序列化和反序列化。</p>
+<p>###序列化前和序列化后的对象的关系</p>
+<p>是 “==”还是equal？ or 是浅复制还是深复制？<br>答案：深复制，反序列化还原后的对象地址与原来的的地址不同<br>序列化前后对象的地址不同了，但是内容是一样的，而且对象中包含的引用也相同。换句话说，通过序列化操作,我们可以实现对任何可Serializable对象的”深度复制（deep copy）”——这意味着我们复制的是整个对象网，而不仅仅是基本对象及其引用。对于同一流的对象，他们的地址是相同，说明他们是同一个对象，但是与其他流的对象地址却不相同。也就说，只要将对象序列化到单一流中，就可以恢复出与我们写出时一样的对象网，而且只要在同一流中，对象都是同一个。</p>
+<p>###静态变量能否序列化</p>
+<p>若把上面的代码中的 age变量前加上 static ,输出任然是</p>
+<p>name=SheepMu<br>age=24</p>
+<p>但是看下面的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sheepmu;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> String name=<span class="string">"SheepMu"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> age=<span class="number">24</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;<span class="comment">//以下代码实现序列化</span></span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(<span class="string">"my.out"</span>));<span class="comment">//输出流保存的文件名为 my.out ；ObjectOutputStream能把Object输出成Byte流</span></span><br><span class="line">            MyTest myTest=<span class="keyword">new</span> MyTest();</span><br><span class="line">            oos.writeObject(myTest); </span><br><span class="line">            oos.flush();  <span class="comment">//缓冲流 </span></span><br><span class="line">            oos.close(); <span class="comment">//关闭流</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) </span><br><span class="line">        &#123;        </span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) </span><br><span class="line">        &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; </span><br><span class="line">        fan();<span class="comment">//调用下面的  反序列化  代码</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fan</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> MyTest().name=<span class="string">"SheepMu_1"</span>;<span class="comment">//!!!!!!!!!!!!!!!!重点看这两行 更改部分</span></span><br><span class="line">          age=<span class="number">1</span>;&lt;span style=<span class="string">"font-family: verdana, 'ms song', 宋体, Arial, 微软雅黑, Helvetica, sans-serif; "</span>&gt;<span class="comment">//!!!!!!!!!!!!!!!!!!!重点看这两行 更改部分&lt;/span&gt;</span></span><br><span class="line">         ObjectInputStream oin = <span class="keyword">null</span>;<span class="comment">//局部变量必须要初始化</span></span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            oin = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(<span class="string">"my.out"</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e1)</span><br><span class="line">        &#123;        </span><br><span class="line">            e1.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e1)</span><br><span class="line">        &#123;</span><br><span class="line">            e1.printStackTrace();</span><br><span class="line">        &#125;      </span><br><span class="line">        MyTest mts = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            mts = (MyTest ) oin.readObject();<span class="comment">//由Object对象向下转型为MyTest对象</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;     </span><br><span class="line">         System.out.println(<span class="string">"name="</span>+mts.name);    </span><br><span class="line">         System.out.println(<span class="string">"age="</span>+mts.age);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br>name=SheepMu<br>age=1</p>
+<p>为何把最上面代码的age变量添上static 后还是反序列化出了24呢？而新的从新对变量赋值的代码，不是static的得到了序列化本身的值，而static的则得到的是从新附的值。原因： 序列化会忽略静态变量，即序列化不保存静态变量的状态。静态成员属于类级别的，所以不能序列化。即 序列化的是对象的状态不是类的状态。这里的不能序列化的意思，是序列化信息中不包含这个静态成员域。最上面添加了static后之所以还是输出24是因为该值是JVM加载该类时分配的值。注：transient后的变量也不能序列化，但是情况稍复杂，稍后开篇说。</p>
+<p>###总结</p>
+<ul>
+<li><p>当一个父类实现序列化，子类自动实现序列化，不需要显式实现Serializable接口；</p>
+</li>
+<li><p>当一个对象的实例变量引用其他对象，序列化该对象时也把引用对象进行序列化；</p>
+</li>
+<li><p>static,transient后的变量不能被序列化；</p>
+</li>
+</ul>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"></a> <a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/Learn-Java/2018/11/maven/env/" data-toggle="tooltip" data-placement="left" title="使用maven profile实现多环境可移植构建">&larr; 上一篇</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/Learn-Java/2018/11/maven/README/" data-toggle="tooltip" data-placement="top" title="Maven">下一篇&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread" class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'https://lv-neo.github.io/Learn-Java/2018/11/lang/Serializable/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        目录
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">理解Serializable</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">什么是序列化和反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.</span> <span class="toc-text">什么情况下需要序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.2.</span> <span class="toc-text">如何实现序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.3.</span> <span class="toc-text">序列化和反序列化例子</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+              2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            neo
+        <br>
+          
+              由 <a target="_blank" href="https://hexo.io">Hexo</a> 强力驱动
+          
+          
+            |
+          
+          
+              主题 - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/Learn-Java/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

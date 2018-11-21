@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A website for A-RSnippet Hexo Theme">
+    <meta name="author" content="Neo">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="https://lv-neo.github.io/Learn-Java/Learn-Java/2018/11/syntax/primitiveType/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Neo&#39;s Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        8种基本类型（primitive type）｜An A-RSnippet Hexo Theme
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/Learn-Java/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/Learn-Java/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="wtCjI-zcpr2FYwWS3sI4OWzMK9e7VomDrZyxpVUUIng">
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/Learn-Java/css/arsnippet.css">
+    <script src="/Learn-Java/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost="true" data-istags="false" data-ishome="false">
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false" data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/Learn-Java/">
+            Neo's Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/Learn-Java/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/tags/">tags</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/categories/">categories</a>
+                </li>
+              
+          </ul>
+      </div>
+  </div></nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&amp;auto=compress&amp;cs=tinysrgb');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>8种基本类型（primitive type）</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">博主: Neo</span>
+                               <span class="meta-item">创建于: Nov 20, 2018</span>
+                               
+                                 <span class="meta-item">更新于: Nov 20, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              分类: 
+                          </div>
+                          <div class="tags text-center">
+                              标签: 
+                              <a class="tag" href="/Learn-Java/tags/#java" title="java">java</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async="async"></script>
+</div>
+</div><hr>
+          
+          <div class="subscribe"><a href="http://eepurl.com/dh6iCD" target="_blank">Get Updated for Each Release!</a></div><p>
+          <!-- toc -->
+<ul>
+<li><a href="#8种基本类型primitive-type">8种基本类型（primitive type）</a><ul>
+<li><a href="#byte">byte：</a></li>
+<li><a href="#short">short：</a></li>
+<li><a href="#int">int：</a></li>
+<li><a href="#long">long：</a></li>
+<li><a href="#float">float：</a></li>
+<li><a href="#double">double：</a></li>
+<li><a href="#boolean">boolean：</a></li>
+<li><a href="#char">char：</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+</p><h1><span id="8种基本类型primitive-type">8种基本类型（primitive type）</span></h1><p>其中有4种整型、2种浮点类型、1种用于表示Unicode编码的字符单元的字符类型char和1种用于表示真值的boolean类型。</p>
+<h2><span id="byte">byte：</span></h2><pre><code>byte 数据类型是8位、有符号的，以二进制补码表示的整数；
+最小值是 -128（-2^7）；
+最大值是 127（2^7-1）；
+默认值是 0；
+byte 类型用在大型数组中节约空间，主要代替整数，因为 byte 变量占用的空间只有 int 类型的四分之一；
+例子：byte a = 100，byte b = -50。
+</code></pre><h2><span id="short">short：</span></h2><pre><code>short 数据类型是 16 位、有符号的以二进制补码表示的整数
+最小值是 -32768（-2^15）；
+最大值是 32767（2^15 - 1）；
+Short 数据类型也可以像 byte 那样节省空间。一个short变量是int型变量所占空间的二分之一；
+默认值是 0；
+例子：short s = 1000，short r = -20000。
+</code></pre><h2><span id="int">int：</span></h2><pre><code>int 数据类型是32位、有符号的以二进制补码表示的整数；
+最小值是 -2,147,483,648（-2^31）；
+最大值是 2,147,483,647（2^31 - 1）；
+一般地整型变量默认为 int 类型；
+默认值是 0 ；
+例子：int a = 100000, int b = -200000。
+</code></pre><h2><span id="long">long：</span></h2><pre><code>    long 数据类型是 64 位、有符号的以二进制补码表示的整数；
+    最小值是 -9,223,372,036,854,775,808（-2^63）；
+    最大值是 9,223,372,036,854,775,807（2^63 -1）；
+    这种类型主要使用在需要比较大整数的系统上；
+    默认值是 0L；
+    例子： long a = 100000L，Long b = -200000L。 &quot;L&quot;理论上不分大小写，但是若写成&quot;l&quot;容易与数字&quot;1&quot;混淆，不容易分辩。所以最好大写。
+</code></pre><h2><span id="float">float：</span></h2><pre><code>float 数据类型是单精度、32位、符合IEEE 754标准的浮点数；
+float 在储存大型浮点数组的时候可节省内存空间；
+默认值是 0.0f；
+浮点数不能用来表示精确的值，如货币；
+例子：float f1 = 234.5f。
+</code></pre><h2><span id="double">double：</span></h2><pre><code>double 数据类型是双精度、64 位、符合IEEE 754标准的浮点数；
+浮点数的默认类型为double类型；
+double类型同样不能表示精确的值，如货币；
+默认值是 0.0d；
+例子：double d1 = 123.4。
+</code></pre><h2><span id="boolean">boolean：</span></h2><pre><code>boolean数据类型表示一位的信息；
+只有两个取值：true 和 false；
+这种类型只作为一种标志来记录 true/false 情况；
+默认值是 false；
+例子：boolean one = true。
+</code></pre><h2><span id="char">char：</span></h2><pre><code>char类型是一个单一的 16 位 Unicode 字符；
+最小值是 \u0000（即为0）；
+最大值是 \uffff（即为65,535）；
+char 数据类型可以储存任何字符；
+例子：char letter = &apos;A&apos;;。
+</code></pre>
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"></a> <a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/Learn-Java/2018/11/thread/controller/" data-toggle="tooltip" data-placement="left" title="线程的控制">&larr; 上一篇</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/Learn-Java/2018/11/quartz/quartz-meituan/" data-toggle="tooltip" data-placement="top" title="Quartz集群和">下一篇&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread" class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'https://lv-neo.github.io/Learn-Java/2018/11/syntax/primitiveType/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        目录
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">8种基本类型（primitive type）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">byte：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">short：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">int：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.</span> <span class="toc-text">long：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.5.</span> <span class="toc-text">float：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.6.</span> <span class="toc-text">double：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.7.</span> <span class="toc-text">boolean：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.8.</span> <span class="toc-text">char：</span></a></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+              2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            neo
+        <br>
+          
+              由 <a target="_blank" href="https://hexo.io">Hexo</a> 强力驱动
+          
+          
+            |
+          
+          
+              主题 - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/Learn-Java/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

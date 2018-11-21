@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A website for A-RSnippet Hexo Theme">
+    <meta name="author" content="Neo">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="https://lv-neo.github.io/Learn-Java/Learn-Java/2018/11/IO/stream/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Neo&#39;s Blog" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        java流｜An A-RSnippet Hexo Theme
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/Learn-Java/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/Learn-Java/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="wtCjI-zcpr2FYwWS3sI4OWzMK9e7VomDrZyxpVUUIng">
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/Learn-Java/css/arsnippet.css">
+    <script src="/Learn-Java/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost="true" data-istags="false" data-ishome="false">
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false" data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/Learn-Java/">
+            Neo's Blog
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/Learn-Java/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/tags/">tags</a>
+                </li>
+              
+                <li>
+                  <a href="/Learn-Java/categories/">categories</a>
+                </li>
+              
+          </ul>
+      </div>
+  </div></nav>
+
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/Learn-Java/img/sky-clouds-moon-horizon.jpg?h=350&amp;auto=compress&amp;cs=tinysrgb');
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <h1>java流</h1>
+                        
+                        
+                          <span class="meta">
+                               <span class="meta-item">博主: Neo</span>
+                               <span class="meta-item">创建于: Nov 20, 2018</span>
+                               
+                                 <span class="meta-item">更新于: Nov 20, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              分类: 
+                          </div>
+                          <div class="tags text-center">
+                              标签: 
+                              <a class="tag" href="/Learn-Java/tags/#io" title="io">io</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async="async"></script>
+</div>
+</div><hr>
+          
+          <div class="subscribe"><a href="http://eepurl.com/dh6iCD" target="_blank">Get Updated for Each Release!</a></div><p>
+          <!-- toc -->
+<ul>
+<li><a href="#流stream的概念"># 流（Stream）的概念</a><ul>
+<li><a href="#字符流">字符流</a><ul>
+<li><a href="#输入流类inputstream">输入流类InputStream</a></li>
+<li><a href="#输出流类outputstream">输出流类OutputStream</a></li>
+</ul>
+</li>
+<li><a href="#字节流">字节流</a><ul>
+<li><a href="#writer类">Writer类</a></li>
+<li><a href="#reader类">Reader类</a></li>
+</ul>
+</li>
+<li><a href="#file类">File类</a><ul>
+<li><a href="#创建文件夹目录">创建文件夹（目录）</a></li>
+<li><a href="#创建文件">创建文件</a></li>
+<li><a href="#复制文件">复制文件</a></li>
+<li><a href="#删除文件">删除文件</a></li>
+<li><a href="#删除文件夹">删除文件夹</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+</p><h1><span id="流stream的概念"># 流（Stream）的概念</span></h1><p>Java的I/O系统涉及流的概念。一个读取字节序列的对象被称为输入流，一个可以写入字节序列的对象称为输出流。输出流和输入流是相对于程序本身而言的。程序读取数据称为打开输入流，程序向其他源写入数据称为打开输出流。</p>
+<p>程序读入数据，首先打开一个输入流，流以流对象的形式出现，数据文件或网络链接信息包装在流对象内，流对象一旦启动，程序可以从输入流依次读入数据。</p>
+<p>当程序需要输出数据时，就打开一个输出流对象，该对象知道把数据写到什么地点（一个文件或通过网络传输到其他机器上的文件），数据是依次写入，通过输出流对象把数据写入目标文件。</p>
+<p>在java.io包中有各种I/O流类，这里按照输入输出流处理的不同数据类型对流进行分类，即字符（Character）流和字节（Byte）流。</p>
+<h2><span id="字符流">字符流</span></h2><p>在Java的I/O系统提供了InputStream和OutputStream两个抽象类实现字节（8位）数据的输入/输出，其中InputStream是输入流的抽象类，提供了read（）方法，每个实现了该类的子类都要实现该方法，如ObjectInputStream类继承InputStream抽象类，重新定义了方法read（）来读取字节数据。本节介绍抽象类InputStream和OutputStream及其相对应的子类。</p>
+<h3><span id="输入流类inputstream">输入流类InputStream</span></h3><p>抽象类InputStream表示从不同的输入源输入数据的类，这些数据源的数据类型多样，可以是字节数组、String对象、类的序列化对象，文件、管道或网络连接。对于多样的数据类型有相应的输入流类与其对应。下面介绍这些流类，使读者对这些类的功能和使用方法有基本的了解。</p>
+<p>InputStream是个抽象类，提供了抽象read（）方法，下面几个类是继承自InputStream的子类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">* ByteArrayInputStream(字节数组输入流)</span><br><span class="line">允许带缓冲区的输入流，显然该类的功能就是允许将内存缓冲区作为输入流使用，它包装了FilterInputStream对象，把该对象的输入文件作为实际数据输入到ByteArray InputStream流对象的缓冲区中。FilterInputStream包含几个子类，分别是LineNumberInputStream、DataInputStream、BufferedInputStream和PushbackInputStream。</span><br><span class="line"></span><br><span class="line">* FileInputStream (文件输入流)</span><br><span class="line">从文件中读取数据，其构造函数参数可以是文件对象、字符串或FileDescriptor对象。通过FilterInputStream流类的包装对程序提供读数据的接口。</span><br><span class="line"></span><br><span class="line">* PipedInputStream (管道输入流)</span><br><span class="line">该类产生输入管道流，该流又产生写入输出管道流的数据，这样就实现了管道化通信，通常在多线程编程中作为线程间通信的实现方式。</span><br><span class="line"></span><br><span class="line">* SequenceInputStream (序列化输入流)</span><br><span class="line">该流把多个输入流对象链接成一个输入流，该类的构造函数参数是两个InputStream对象或一个包含InputStream对象的枚举器对象。</span><br><span class="line"></span><br><span class="line">* StringBufferInputStream (字符串缓冲输入流)</span><br><span class="line">该类的功能是把String转换成输入流。应用程序创建一个该类的输入流，把构造函数的参数中的String数据作为程序的输入。构造函数为StringBufferInputStream（String str）。</span><br><span class="line"></span><br><span class="line">* ObjectInputStream (对象输入流)</span><br><span class="line">对象输入流读取输入流对象中的各种对象类型数据，用来处理序列化对象的传输。</span><br><span class="line"></span><br><span class="line">* FilterInputStream (过滤器输入流)</span><br><span class="line">该类继承了抽象类InputStream，实现了抽象方法read（）。</span><br></pre></td></tr></table></figure>
+<p>以下的类继承自FilterInputStream（过滤器输入流），同时实现了DataInput接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">* LineNumberInputStream</span><br><span class="line">该类实现对输入流中的行数的计数，对输入流增加了行号，该类的构造函数是InputStream流对象。</span><br><span class="line"></span><br><span class="line">* DataInputStream</span><br><span class="line">数据输入流允许程序从底层的输入流中读取基本类型的数据，如int型、float型和Byte型等。该类包含了读取基本类型的所有方法，如readByte（）、readBoolean（）、readChar（）、readDouble（）和readFloat（）等。其构造函数参数为一个InputStream流对象。</span><br><span class="line"></span><br><span class="line">* BufferedInputStream</span><br><span class="line">带缓冲的输入流，可以把数据先放入缓冲区，防止每次读取时进行实际的读写操作，减少了数据实际访问的时间开销。数据以字节数组的形式存放在缓冲区中，该类提供了read（）方法，每次从输入流读取一个字节数据。构造函数的参数为InputStream对象。</span><br><span class="line"></span><br><span class="line">* PushbackInputStream</span><br><span class="line">该类一般不被程序员使用，是为Java编译器而设计的。</span><br></pre></td></tr></table></figure>
+<h3><span id="输出流类outputstream">输出流类OutputStream</span></h3><p>抽象类OutputStream是表示输出数据流的抽象类，与抽象输入流对应，提供各种流对象的数据输出。下面介绍的输出流类，可以使读者了解输出流类的功能和使用方式。</p>
+<p>OutputStream是个抽象类，提供了抽象write方法，下面几个类是继承自OutputStream的子类，这些类都实现了write（）方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">* ByteOutputStream(字节数组输入流类)</span><br><span class="line">在向输出流写入数据前先将数据缓冲处理，其缓冲区大小通过构造函数的参数设置。</span><br><span class="line"></span><br><span class="line">* FileOutputStream(文件输出流类)</span><br><span class="line">通过该输出流把数据写入文件，构造函数的参数可以是字符串、文件对象、文件或FileDescriptor对象。</span><br><span class="line"></span><br><span class="line">* ObjectOutputStream(对象输出流类)</span><br><span class="line">对象输出流把各种对象类型数据写入输出流文件中，用来处理序列化对象的传输。</span><br><span class="line"></span><br><span class="line">* PipedOutputStream(管道输出流类)</span><br><span class="line">与管道输入流（PipedInputStream）对应，任何管道输入流都通过输出流写出。两者搭配使用实现管道通信。</span><br><span class="line"></span><br><span class="line">* FilterOutputStream(过滤器输出流类)</span><br><span class="line">该类继承了抽象类OutputStream，实现了抽象方法write（）。</span><br></pre></td></tr></table></figure>
+<p>下面3个类继承自FilterOutputStream类并实现了DataOut接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">* DataOutputStream(数据输出流类)</span><br><span class="line">数据输出流同数据输入流（DataInputStream）对应，实现把基本类型数据写入输出流。该类提供了把数据写入输出流的所有方法，如writeBoolean（Boolean v）、writeByte（int v）、writeBytes（String s）、writeChar（int v）和wirteChars（String s）等。</span><br><span class="line"></span><br><span class="line">* BufferedOutputStream(缓冲输出流类)</span><br><span class="line">该类实现输出数据时首先进行数据缓冲，该类提供了flush（）方法实现清空数据缓冲区。该类的构造函数参数为输出流对象或输出流对象和输出缓冲区大小，即：</span><br><span class="line"></span><br><span class="line">* PrintStream(打印输出流类)</span><br><span class="line">该类的目的是实现Java基本数据类型的格式化输出。</span><br></pre></td></tr></table></figure>
+<h2><span id="字节流">字节流</span></h2><p>Java在设计其I/O系统时，把输入/输出的数据类型分为两类，一类是字符流，如上节介绍的InputStream和OutputStream类及其子类都是字符（16 bit）流。另一类是字节流。本节介绍字节（8 bit）流，字节流也分为读流数据类和写流数据类，即Reader类和Writer类及其子类。</p>
+<h3><span id="writer类">Writer类</span></h3><p>Writer类是字符（Character）流输出类的父类，它是抽象类，所有继承自该类的子类都必须实现抽象方法write（），具体的实现类中write（）方法的使用可以参考相应的JavaDoc文档。这里为了区别InputStream和OutputStream使用了Reader和Writer，为了使读者习惯于使用Reader和Writer，并且中文中没有合适的词汇表达相应的流的概念，所以不再具体翻译为中文，读者使用时只要知道Reader类负责读流数据，而Writer类负责向流中写数据即可。下面列出继承自Writer类的子类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">* BufferedWriter(带缓冲的Writer)</span><br><span class="line">该类将文本写入字符流，将字节转换为字符同时缓冲读取每个字符，提供单个字符、数据和字符串的写入。该类提供两种构造函数指定缓冲区大小，一种是指定大小，另一种是采用默认值。一般情况下采用默认值就足够使用。在使用Writer类向文件写入数据时最好使用BufferedWriter包装开销大的write操作，如FileWriter类。这样可以缓冲字节或字符流，而不是把字符转换成字节后立即写入到文件（这样造成不断地读写数据，显然效率低）。</span><br><span class="line"></span><br><span class="line">* CharArrayWriter(字符组的Writer)</span><br><span class="line">该类作为Writer的字符缓冲区。该缓冲区随着向流中写入数据而自动增长。该类的构造函数提供两种形式，一种是默认的形式，另一种是有整型参数的形式。第二种构造函数构造指定初始容量的CharArrayWriter。</span><br><span class="line"></span><br><span class="line">* FilterWriter(带过滤器的Writer)</span><br><span class="line">该类把字符写入文件，文件位置在构造函数中指定，其构造函数接受默认的字符编码和默认的字节缓冲区大小。该类用于写入字符流，如果要写入的是原始字节流，则参考FiltOutputStream流来实现。</span><br><span class="line"></span><br><span class="line">* OutputStreamWriter</span><br><span class="line">该类提供了字符流向字节流的转换功能，并向流中写入字符。每次调用该类的write（）方法都会导致向输出流写入一个或多个字节。为了提高字节到字符的转换效率，可以使用缓冲机制。如可以把OutputStreamReader类包装在BufferedReader中以提高字符读取的效率。</span><br><span class="line"></span><br><span class="line">* PrintWriter(打印Writer)</span><br><span class="line">该类提供了字符流向字节流的转换功能，并向流中写入字符。每次调用该类的write（）方法都会导致向输出流写入一个或多个字节。为了提高字节到字符的转换效率，可以使用缓冲机制。如可以把OutputStreamReader类包装在BufferedReader中以提高字符读取的效率。</span><br><span class="line"></span><br><span class="line">* PipedWriter(管道Writer)</span><br><span class="line">管道Writer类创建管道通信的输出流，通过该输出流把数据写入文件，和管道Reader相对应建立起管道通信。</span><br><span class="line"></span><br><span class="line">* StringWriter(字符串Writer)</span><br><span class="line">显然该类是一个字符流，利用其字符串缓冲区中的输出字符构造字符串。该类的构造函数有两种，一种是创建默认初始字符串缓冲区大小的新字符串Writer，另一种是创建具有指定初始字符串缓冲区大小的新字符串Writer。</span><br></pre></td></tr></table></figure>
+<h3><span id="reader类">Reader类</span></h3><p>Reader类是读取字符（Character）流的父类，它是抽象类，所有继承自该类的子类都必须实现抽象方法read（）和close（），具体的实现类中read（）方法的使用可以参考相应的JavaDoc文档。下面列出继承自Reader类的子类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">* BufferedReader(带缓冲Reader)</span><br><span class="line">该类完成从字符输入流中读取文本，且缓冲读到的字符。用户可以指定缓冲区的大小，或者使用默认的缓冲区大小。为了实现高效的读取文本建议read（）操作开销高的Reader，如FileReader采用BufferedReader包装，将缓冲FileReader指定文件的输入。如果不使用缓冲机制，则每次调用read（）或readLine（）都会导致从文件中读取字节而后直接转换成字符返回退出方法，显然这样的效率很低。</span><br><span class="line"></span><br><span class="line">* CharArrayReader(字符数组Reader)</span><br><span class="line">该类继承了Reader抽象类，实现用做字符输入流的字符缓冲区读取字符。</span><br><span class="line"></span><br><span class="line">* FileReader(文件Reader)</span><br><span class="line">该类继承自InputStreamReader类，读取字符流，其构造函数默认采用了合适的字符编码和字节缓冲区大小。该类通过指定一个File对象、一个文件名或指定FileDescriptor的条件下创建一个新FileReader对象。</span><br><span class="line"></span><br><span class="line">* FilterReader(过滤器Reader)</span><br><span class="line">该类是个抽象类，用于读取已过滤的字符流。</span><br><span class="line"></span><br><span class="line">* InputStreamReader(带行号Reader)</span><br><span class="line">该类提供了字节流向字符流的转换功能，并读取字符流。每次调用该类的read（）方法都会从输入流中读取一个或多个字节。为了提高字节到字符的转换效率，可以使用缓冲机制从输入流中读取更多的字节后再进行转换，如可以把InputStreamReader类包装在BufferedReader中以提高字符读取的效率。</span><br><span class="line"></span><br><span class="line">* LineNumberReader</span><br><span class="line">跟踪行号的缓冲字符输入流。该类提供了两个方法void setLineNumber（int）和int getLineNumber（），分别用于设置和获取当前行号。</span><br><span class="line"></span><br><span class="line">* PipedReader(管道Reader)</span><br><span class="line">字符输入流，通过管道的方式从PipedWriter流读字符流。</span><br><span class="line"></span><br><span class="line">* PushbackReader(推回Reader)</span><br><span class="line">该类读取字符流，允许字符退回到流中的字符流。</span><br><span class="line"></span><br><span class="line">* StringReader(字符串Reader)</span><br><span class="line">从源数据流为字符串流的源读取字符串。</span><br></pre></td></tr></table></figure>
+<h2><span id="file类">File类</span></h2><p>File类最初看起来像是代表文件，Java为该类起名确实有迷惑读者的地方，其实File类可以表示特定文件名（带绝对路径），也可以是某个目录下多一组文件，该类提供了方法可以用来访问多个文件。File类提供了丰富的方法来处理和文件或目录相关的操作，如创建和删除文件、创建和删除文件夹以及通过和其他类配合使用实现文件的复制和移动等。本节将介绍File类提供的这些功能。</p>
+<h3><span id="创建文件夹目录">创建文件夹（目录）</span></h3><p>File类提供了丰富的接口函数供用户调用。创建目录是文件操作中经常遇到的情形，目录提供了文件存放的位置，用户可以根据需要在磁盘空间上建立目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">File mypath = new File(filepath);</span><br><span class="line">if (!mypath.exists()) &#123;</span><br><span class="line">	mypath.mkdir();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="创建文件">创建文件</span></h3><p>在Java的File类中创建新文件只需要调用该类的一个<br>方法createNewFile（），但是在实际操作中需要注意一些事项，如判断文件是否存在，以及如何向新建文件中写入数据等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">File myFile = new File(fileName);</span><br><span class="line">if(!myFile.exists()) &#123;</span><br><span class="line">	myFile.createNewFile();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="复制文件">复制文件</span></h3><p>文件的复制涉及文件流的概念，在下面将更详细地介绍文件流操作。为了实现文件操作，本节使用了FileInputStream和FileOutputStream两个流类，通过文件输入流读取源文件，通过文件输入流把读入缓冲区的字节数据写入新文件。如果该新文件已经存在，则覆盖掉该文件；如果不存在，则新建一个文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int bytesum = byteread = 0;</span><br><span class="line">File oldfile = new File(oldFile);</span><br><span class="line">if (oldfile.exists() ) &#123;</span><br><span class="line">	InputStream ins =new FileInputStream(oldFile);</span><br><span class="line">	FileOutputStream outs = new FileOutputStream(newFile);</span><br><span class="line">	byte[] buffer = new byte[500];</span><br><span class="line">	while( (byteread = ins.read(buffer) ) != -1 ) &#123;</span><br><span class="line">	bytesum +=byteread;</span><br><span class="line">	System.out.println(bytesum);</span><br><span class="line">	out.write(buffer, 0, byteread);</span><br><span class="line">	&#125;</span><br><span class="line">	ins.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="删除文件">删除文件</span></h3><p>在Java的File类中删除文件只需要调用该类的一个方法delete（），该方法可以删除指定的文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">File deletedFile = new File(derecator);</span><br><span class="line">deletedFile.delete();</span><br></pre></td></tr></table></figure></p>
+<h3><span id="删除文件夹">删除文件夹</span></h3><p>在Java的File类中删除文件夹，需要首先删除掉文件夹中的文件，再删除空文件夹。删除空文件夹的方法与删除文件的方法相同，所以关键是如何实现删除文件夹下的所有文件。上面已经知道如何删除一个文件，可以想象欲删除一个目录下的所有文件只要获得该文件的目录和文件名，使用一个循环调用来依次删除文件夹中的文件即可。</p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"></a> <a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/Learn-Java/2018/11/JSP/README/" data-toggle="tooltip" data-placement="left" title="JSP">&larr; 上一篇</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/Learn-Java/2018/11/JSP/BasicSyntax/" data-toggle="tooltip" data-placement="top" title="JSP基本语法">下一篇&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread" class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'https://lv-neo.github.io/Learn-Java/2018/11/IO/stream/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        目录
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text"># 流（Stream）的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">字符流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.</span> <span class="toc-text">输入流类InputStream</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.2.</span> <span class="toc-text">输出流类OutputStream</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">字节流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">Writer类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">Reader类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">File类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.1.</span> <span class="toc-text">创建文件夹（目录）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.2.</span> <span class="toc-text">创建文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.3.</span> <span class="toc-text">复制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.4.</span> <span class="toc-text">删除文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.5.</span> <span class="toc-text">删除文件夹</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+          
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+              2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            neo
+        <br>
+          
+              由 <a target="_blank" href="https://hexo.io">Hexo</a> 强力驱动
+          
+          
+            |
+          
+          
+              主题 - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/Learn-Java/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>
