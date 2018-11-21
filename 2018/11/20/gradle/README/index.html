@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>gradle | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#Gradle介绍   #Gradle介绍Gradle是一个基于JVM的构建工具，它提供了：像Ant一样，通用灵活的构建工具可以切换的，基于约定的构建框架强大的多工程构建支持基于Apache Ivy的强大的依赖管理支持maven, Ivy仓库支持传递性依赖管理，而不需要远程仓库或者是pom.xml和ivy.xml配置文件。对Ant的任务做了很好的集成基于Groovy，build脚本使用Groo">
+<meta name="keywords" content="gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gradle">
+<meta property="og:url" content="https://lv-neo.github.io/Learn-Java/2018/11/20/gradle/README/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#Gradle介绍   #Gradle介绍Gradle是一个基于JVM的构建工具，它提供了：像Ant一样，通用灵活的构建工具可以切换的，基于约定的构建框架强大的多工程构建支持基于Apache Ivy的强大的依赖管理支持maven, Ivy仓库支持传递性依赖管理，而不需要远程仓库或者是pom.xml和ivy.xml配置文件。对Ant的任务做了很好的集成基于Groovy，build脚本使用Groo">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-11-20T12:08:42.949Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gradle">
+<meta name="twitter:description" content="#Gradle介绍   #Gradle介绍Gradle是一个基于JVM的构建工具，它提供了：像Ant一样，通用灵活的构建工具可以切换的，基于约定的构建框架强大的多工程构建支持基于Apache Ivy的强大的依赖管理支持maven, Ivy仓库支持传递性依赖管理，而不需要远程仓库或者是pom.xml和ivy.xml配置文件。对Ant的任务做了很好的集成基于Groovy，build脚本使用Groo">
+  
+    <link rel="alternate" href="/Learn-Java/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/Learn-Java/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Learn-Java/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/Learn-Java/">Home</a>
+        
+          <a class="main-nav-link" href="/Learn-Java/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/Learn-Java/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://lv-neo.github.io/Learn-Java"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-gradle/README" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/gradle/README/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.949Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      gradle
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#gradle介绍">#Gradle介绍</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="gradle介绍">#Gradle介绍</span></h1><p>Gradle是一个基于JVM的构建工具，它提供了：<br>像Ant一样，通用灵活的构建工具<br>可以切换的，基于约定的构建框架<br>强大的多工程构建支持<br>基于Apache Ivy的强大的依赖管理<br>支持maven, Ivy仓库<br>支持传递性依赖管理，而不需要远程仓库或者是pom.xml和ivy.xml配置文件。<br>对Ant的任务做了很好的集成<br>基于Groovy，build脚本使用Groovy编写<br>有广泛的领域模型支持构建</p>
+<p>##Gradle 概述<br>1，基于声明和基于约定的构建。<br>2，依赖型的编程语言。<br>3，可以结构化构建，易于维护和理解。<br>4，有高级的API允许你在构建执行的整个过程当中，对它的核心进行监视，或者是配置它的行为。<br>5，有良好的扩展性。有增量构建功能来克服性能瓶颈问题。<br>6，多项目构建的支持。<br>7，多种方式的依赖管理。<br>8，是第一个构建集成工具。集成了Ant, maven的功能。<br>9，易于移值。<br>10，脚本采用Groovy编写，易于维护。<br>11，通过Gradle Wrapper允许你在没有安装Gradle的机器上进行Gradle构建。<br>12，自由，开源。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/gradle/README/" data-id="cjoqzsr2e000zh0iz6v6koen8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Learn-Java/2018/11/20/gradle/des/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Gradle——构建基础
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Learn-Java/2018/11/20/exception/README/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java异常处理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HeapSize/">HeapSize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/bean/">bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/coolection/">coolection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/exception/">exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/io/">io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java-bean/">java bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jmeter/">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jsp/">jsp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mvn/">mvn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/netty/">netty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/nio/">nio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/serializable/">serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/test/">test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/tomcat/">tomcat</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Learn-Java/tags/HeapSize/" style="font-size: 10px;">HeapSize</a> <a href="/Learn-Java/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/Learn-Java/tags/bean/" style="font-size: 10px;">bean</a> <a href="/Learn-Java/tags/coolection/" style="font-size: 10px;">coolection</a> <a href="/Learn-Java/tags/exception/" style="font-size: 10px;">exception</a> <a href="/Learn-Java/tags/gradle/" style="font-size: 13.33px;">gradle</a> <a href="/Learn-Java/tags/http/" style="font-size: 15px;">http</a> <a href="/Learn-Java/tags/io/" style="font-size: 10px;">io</a> <a href="/Learn-Java/tags/java/" style="font-size: 16.67px;">java</a> <a href="/Learn-Java/tags/java-bean/" style="font-size: 10px;">java bean</a> <a href="/Learn-Java/tags/jdbc/" style="font-size: 10px;">jdbc</a> <a href="/Learn-Java/tags/jmeter/" style="font-size: 10px;">jmeter</a> <a href="/Learn-Java/tags/jsp/" style="font-size: 11.67px;">jsp</a> <a href="/Learn-Java/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/Learn-Java/tags/mvn/" style="font-size: 20px;">mvn</a> <a href="/Learn-Java/tags/mybatis/" style="font-size: 11.67px;">mybatis</a> <a href="/Learn-Java/tags/netty/" style="font-size: 10px;">netty</a> <a href="/Learn-Java/tags/network/" style="font-size: 11.67px;">network</a> <a href="/Learn-Java/tags/nio/" style="font-size: 20px;">nio</a> <a href="/Learn-Java/tags/quartz/" style="font-size: 11.67px;">quartz</a> <a href="/Learn-Java/tags/serializable/" style="font-size: 10px;">serializable</a> <a href="/Learn-Java/tags/servlet/" style="font-size: 11.67px;">servlet</a> <a href="/Learn-Java/tags/socket/" style="font-size: 10px;">socket</a> <a href="/Learn-Java/tags/test/" style="font-size: 10px;">test</a> <a href="/Learn-Java/tags/thread/" style="font-size: 18.33px;">thread</a> <a href="/Learn-Java/tags/tomcat/" style="font-size: 11.67px;">tomcat</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Learn-Java/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/21/test/jmeter/">JMETER</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/performance/">tomcat 性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/virtual/">Tomcat服务器虚拟目录的映射方式</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/thread/">线程</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/synchronized/">线程同步详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Neo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Learn-Java/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Learn-Java/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/Learn-Java/fancybox/jquery.fancybox.css">
+  <script src="/Learn-Java/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/Learn-Java/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

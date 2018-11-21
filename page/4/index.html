@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://lv-neo.github.io/Learn-Java/page/4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh-cn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/Learn-Java/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/Learn-Java/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Learn-Java/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/Learn-Java/">Home</a>
+        
+          <a class="main-nav-link" href="/Learn-Java/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/Learn-Java/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://lv-neo.github.io/Learn-Java"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-java-http/connect" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/java-http/connect/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.952Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/java-http/connect/">http连接管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#连接管理">连接管理</a></li>
+<li><a href="#持久连接"># 持久连接</a><ul>
+<li><a href="#http连接路由">HTTP连接路由</a><ul>
+<li><a href="#路由计算">路由计算</a></li>
+<li><a href="#安全的http连接">安全的HTTP连接</a></li>
+</ul>
+</li>
+<li><a href="#http连接管理器">HTTP连接管理器</a><ul>
+<li><a href="#管理连接和连接管理器">管理连接和连接管理器</a></li>
+<li><a href="#简单连接管理器">简单连接管理器</a></li>
+<li><a href="#连接池管理器">连接池管理器</a></li>
+<li><a href="#关闭连接管理器">关闭连接管理器</a></li>
+</ul>
+</li>
+<li><a href="#多线程请求执行">多线程请求执行</a></li>
+<li><a href="#连接回收策略">连接回收策略</a></li>
+<li><a href="#连接存活策略">连接存活策略</a></li>
+<li><a href="#socket连接工厂">socket连接工厂</a><ul>
+<li><a href="#安全socket分层">安全SOCKET分层</a></li>
+<li><a href="#集成连接管理器">集成连接管理器</a></li>
+<li><a href="#ssltls定制">SSL/TLS定制</a></li>
+<li><a href="#域名验证">域名验证</a></li>
+</ul>
+</li>
+<li><a href="#httpclient代理服务器配置">HttpClient代理服务器配置</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="连接管理">连接管理</span></h1><h1><span id="持久连接"># 持久连接</span></h1><p>两个主机建立连接的过程是很复杂的一个过程，涉及到多个数据包的交换，并且也很耗时间。</p>
+<p>Http连接需要的三次握手开销很大，这一开销对于比较小的http消息来说更大。但是如果我们直接使用已经建立好的http连接，这样花费就比较小，吞吐率更大。</p>
+<p>HTTP/1.1默认就支持Http连接复用。</p>
+<p>兼容HTTP/1.0的终端也可以通过声明来保持连接，实现连接复用。</p>
+<p>HTTP代理也可以在一定时间内保持连接不释放，方便后续向这个主机发送http请求。这种保持连接不释放的情况实际上是建立的持久连接。HttpClient也支持持久连接。</p>
+<h3><span id="http连接路由">HTTP连接路由</span></h3><p>HttpClient既可以直接、又可以通过多个中转路由（hops）和目标服务器建立连接。HttpClient把路由分为三种plain（明文 ），tunneled（隧道）和layered（分层）。隧道连接中使用的多个中间代理被称作代理链。</p>
+<ul>
+<li>客户端直接连接到目标主机或者只通过了一个中间代理，这种就是Plain路由</li>
+<li>客户端通过第一个代理建立连接，通过代理链tunnelling，这种情况就是Tunneled路由。</li>
+<li>不通过中间代理的路由不可能是tunneled路由。客户端在一个已经存在的连接上进行协议分层，这样建立起来的路由就是layered路由。协议只能在隧道—&gt;目标主机，或者直接连接（没有代理），这两种链路上进行分层。</li>
+</ul>
+<h4><span id="路由计算">路由计算</span></h4><p>RouteInfo接口包含了数据包发送到目标主机过程中，经过的路由信息。HttpRoute类继承了RouteInfo接口，是RouteInfo的具体实现，这个类是不允许修改的。</p>
+<p>HttpTracker类也实现了RouteInfo接口，它是可变的，HttpClient会在内部使用这个类来探测到目标主机的剩余路由。</p>
+<p>HttpRouteDirector是个辅助类，可以帮助计算数据包的下一步路由信息。</p>
+<p>这个类也是在HttpClient内部使用的。</p>
+<p>HttpRoutePlanner接口可以用来表示基于http上下文情况下，客户端到服务器的路由计算策略。HttpClient有两个HttpRoutePlanner的实现类。SystemDefaultRoutePlanner这个类基于java.net.ProxySelector，它默认使用jvm的代理配置信息，这个配置信息一般来自系统配置或者浏览器配置。</p>
+<p>DefaultProxyRoutePlanner这个类既不使用java本身的配置，也不使用系统或者浏览器的配置。它通常通过默认代理来计算路由信息。</p>
+<h4><span id="安全的http连接">安全的HTTP连接</span></h4><p>为了防止通过Http消息传递的信息不被未授权的第三方获取、截获，Http可以使用SSL/TLS协议来保证http传输安全，这个协议是当前使用最广的。当然也可以使用其他的加密技术。但是通常情况下，Http信息会在加密的SSL/TLS连接上进行传输。</p>
+<h3><span id="http连接管理器">HTTP连接管理器</span></h3><h4><span id="管理连接和连接管理器">管理连接和连接管理器</span></h4><p>Http连接是复杂，有状态的，线程不安全的对象，所以它必须被妥善管理。</p>
+<p>一个Http连接在同一时间只能被一个线程访问。HttpClient使用一个叫做Http连接管理器的特殊实体类来管理Http连接，这个实体类要实现HttpClientConnectionManager接口。</p>
+<p>Http连接管理器在新建http连接时，作为工厂类;管理持久http连接的生命周期;同步持久连接（确保线程安全，即一个http连接同一时间只能被一个线程访问）。Http连接管理器和ManagedHttpClientConnection的实例类一起发挥作用，ManagedHttpClientConnection实体类可以看做http连接的一个代理服务器，管理着I/O操作。如果一个Http连接被释放或者被它的消费者明确表示要关闭，那么底层的连接就会和它的代理进行分离，并且该连接会被交还给连接管理器。这是，即使服务消费者仍然持有代理的引用，它也不能再执行I/O操作，或者更改Http连接的状态。</p>
+<p>下面的代码展示了如何从连接管理器中取得一个http连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">HttpClientContext context = HttpClientContext.create();</span><br><span class="line">HttpClientConnectionManager connMrg = new BasicHttpClientConnectionManager();</span><br><span class="line">HttpRoute route = new HttpRoute(new HttpHost(&quot;www.yeetrack.com&quot;, 80));</span><br><span class="line">// 获取新的连接. 这里可能耗费很多时间</span><br><span class="line">ConnectionRequest connRequest = connMrg.requestConnection(route, null);</span><br><span class="line">// 10秒超时</span><br><span class="line">HttpClientConnection conn = connRequest.get(10, TimeUnit.SECONDS);</span><br><span class="line">try &#123;</span><br><span class="line">    // 如果创建连接失败</span><br><span class="line">    if (!conn.isOpen()) &#123;</span><br><span class="line">        // establish connection based on its route info</span><br><span class="line">        connMrg.connect(conn, route, 1000, context);</span><br><span class="line">        // and mark it as route complete</span><br><span class="line">        connMrg.routeComplete(conn, route, context);</span><br><span class="line">    &#125;</span><br><span class="line">    // 进行自己的操作.</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">    connMrg.releaseConnection(conn, null, 1, TimeUnit.MINUTES);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果要终止连接，可以调用ConnectionRequest的cancel()方法。这个方法会解锁被ConnectionRequest类get()方法阻塞的线程。</p>
+<h4><span id="简单连接管理器">简单连接管理器</span></h4><p>BasicHttpClientConnectionManager是个简单的连接管理器，它一次只能管理一个连接。尽管这个类是线程安全的，它在同一时间也只能被一个线程使用。BasicHttpClientConnectionManager会尽量重用旧的连接来发送后续的请求，并且使用相同的路由。如果后续请求的路由和旧连接中的路由不匹配，BasicHttpClientConnectionManager就会关闭当前连接，使用请求中的路由重新建立连接。如果当前的连接正在被占用，会抛出java.lang.IllegalStateException异常。</p>
+<h4><span id="连接池管理器">连接池管理器</span></h4><p>相对BasicHttpClientConnectionManager来说，PoolingHttpClientConnectionManager是个更复杂的类，它管理着连接池，可以同时为很多线程提供http连接请求。Connections are pooled on a per route basis.当请求一个新的连接时，如果连接池有有可用的持久连接，连接管理器就会使用其中的一个，而不是再创建一个新的连接。<br>PoolingHttpClientConnectionManager维护的连接数在每个路由基础和总数上都有限制。默认，每个路由基础上的连接不超过2个，总连接数不能超过20。在实际应用中，这个限制可能会太小了，尤其是当服务器也使用Http协议时。<br>下面的例子演示了如果调整连接池的参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();</span><br><span class="line">// 将最大连接数增加到200</span><br><span class="line">cm.setMaxTotal(200);</span><br><span class="line">// 将每个路由基础的连接增加到20</span><br><span class="line">cm.setDefaultMaxPerRoute(20);</span><br><span class="line">//将目标主机的最大连接数增加到50</span><br><span class="line">HttpHost localhost = new HttpHost(&quot;www.yeetrack.com&quot;, 80);</span><br><span class="line">cm.setMaxPerRoute(new HttpRoute(localhost), 50);</span><br><span class="line"></span><br><span class="line">CloseableHttpClient httpClient = HttpClients.custom()</span><br><span class="line">        .setConnectionManager(cm)</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
+<h4><span id="关闭连接管理器">关闭连接管理器</span></h4><p>当一个HttpClient的实例不在使用，或者已经脱离它的作用范围，我们需要关掉它的连接管理器，来关闭掉所有的连接，释放掉这些连接占用的系统资源。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CloseableHttpClient httpClient = &lt;...&gt;</span><br><span class="line">httpClient.close();</span><br></pre></td></tr></table></figure>
+<h3><span id="多线程请求执行">多线程请求执行</span></h3><p>当使用了请求连接池管理器（比如PoolingClientConnectionManager）后，HttpClient就可以同时执行多个线程的请求了。</p>
+<p>PoolingClientConnectionManager会根据它的配置来分配请求连接。如果连接池中的所有连接都被占用了，那么后续的请求就会被阻塞，直到有连接被释放回连接池中。为了防止永远阻塞的情况发生，我们可以把http.conn-manager.timeout的值设置成一个整数。如果在超时时间内，没有可用连接，就会抛出ConnectionPoolTimeoutException异常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();</span><br><span class="line">    CloseableHttpClient httpClient = HttpClients.custom()</span><br><span class="line">            .setConnectionManager(cm)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    // URL列表数组</span><br><span class="line">    String[] urisToGet = &#123;</span><br><span class="line">        &quot;http://www.domain1.com/&quot;,</span><br><span class="line">        &quot;http://www.domain2.com/&quot;,</span><br><span class="line">        &quot;http://www.domain3.com/&quot;,</span><br><span class="line">        &quot;http://www.domain4.com/&quot;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    // 为每个url创建一个线程，GetThread是自定义的类</span><br><span class="line">    GetThread[] threads = new GetThread[urisToGet.length];</span><br><span class="line">    for (int i = 0; i &lt; threads.length; i++) &#123;</span><br><span class="line">        HttpGet httpget = new HttpGet(urisToGet[i]);</span><br><span class="line">        threads[i] = new GetThread(httpClient, httpget);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 启动线程</span><br><span class="line">    for (int j = 0; j &lt; threads.length; j++) &#123;</span><br><span class="line">        threads[j].start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // join the threads</span><br><span class="line">    for (int j = 0; j &lt; threads.length; j++) &#123;</span><br><span class="line">        threads[j].join();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>即使HttpClient的实例是线程安全的，可以被多个线程共享访问，但是仍旧推荐每个线程都要有自己专用实例的HttpContext。<br>下面是GetThread类的定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">static class GetThread extends Thread &#123;</span><br><span class="line"></span><br><span class="line">        private final CloseableHttpClient httpClient;</span><br><span class="line">        private final HttpContext context;</span><br><span class="line">        private final HttpGet httpget;</span><br><span class="line"></span><br><span class="line">        public GetThread(CloseableHttpClient httpClient, HttpGet httpget) &#123;</span><br><span class="line">            this.httpClient = httpClient;</span><br><span class="line">            this.context = HttpClientContext.create();</span><br><span class="line">            this.httpget = httpget;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                CloseableHttpResponse response = httpClient.execute(</span><br><span class="line">                        httpget, context);</span><br><span class="line">                try &#123;</span><br><span class="line">                    HttpEntity entity = response.getEntity();</span><br><span class="line">                &#125; finally &#123;</span><br><span class="line">                    response.close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (ClientProtocolException ex) &#123;</span><br><span class="line">                // Handle protocol errors</span><br><span class="line">            &#125; catch (IOException ex) &#123;</span><br><span class="line">                // Handle I/O errors</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="连接回收策略">连接回收策略</span></h3><p>经典阻塞I/O模型的一个主要缺点就是只有当阻塞I/O时，socket才能对I/O事件做出反应。当连接被管理器收回后，这个连接仍然存活，但是却无法监控socket的状态，也无法对I/O事件做出反馈。如果连接被服务器端关闭了，客户端监测不到连接的状态变化（也就无法根据连接状态的变化，关闭本地的socket）。</p>
+<p>HttpClient为了缓解这一问题造成的影响，会在使用某个连接前，监测这个连接是否已经过时，如果服务器端关闭了连接，那么连接就会失效。这种过时检查并不是100%有效，并且会给每个请求增加10到30毫秒额外开销。唯一一个可行的，且does not involve a one thread per socket model for idle connections的解决办法，是建立一个监控线程，来专门回收由于长时间不活动而被判定为失效的连接。这个监控线程可以周期性的调用ClientConnectionManager类的closeExpiredConnections()方法来关闭过期的连接，回收连接池中被关闭的连接。它也可以选择性的调用ClientConnectionManager类的closeIdleConnections()方法来关闭一段时间内不活动的连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">public static class IdleConnectionMonitorThread extends Thread &#123;</span><br><span class="line"></span><br><span class="line">        private final HttpClientConnectionManager connMgr;</span><br><span class="line">        private volatile boolean shutdown;</span><br><span class="line"></span><br><span class="line">        public IdleConnectionMonitorThread(HttpClientConnectionManager connMgr) &#123;</span><br><span class="line">            super();</span><br><span class="line">            this.connMgr = connMgr;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                while (!shutdown) &#123;</span><br><span class="line">                    synchronized (this) &#123;</span><br><span class="line">                        wait(5000);</span><br><span class="line">                        // 关闭失效的连接</span><br><span class="line">                        connMgr.closeExpiredConnections();</span><br><span class="line">                        // 可选的, 关闭30秒内不活动的连接</span><br><span class="line">                        connMgr.closeIdleConnections(30, TimeUnit.SECONDS);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (InterruptedException ex) &#123;</span><br><span class="line">                // terminate</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void shutdown() &#123;</span><br><span class="line">            shutdown = true;</span><br><span class="line">            synchronized (this) &#123;</span><br><span class="line">                notifyAll();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="连接存活策略">连接存活策略</span></h3><p>Http规范没有规定一个持久连接应该保持存活多久。有些Http服务器使用非标准的Keep-Alive头消息和客户端进行交互，服务器端会保持数秒时间内保持连接。HttpClient也会利用这个头消息。如果服务器返回的响应中没有包含Keep-Alive头消息，HttpClient会认为这个连接可以永远保持。然而，很多服务器都会在不通知客户端的情况下，关闭一定时间内不活动的连接，来节省服务器资源。在某些情况下默认的策略显得太乐观，我们可能需要自定义连接存活策略。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">ConnectionKeepAliveStrategy myStrategy = new ConnectionKeepAliveStrategy() &#123;</span><br><span class="line"></span><br><span class="line">        public long getKeepAliveDuration(HttpResponse response, HttpContext context) &#123;</span><br><span class="line">            // Honor &apos;keep-alive&apos; header</span><br><span class="line">            HeaderElementIterator it = new BasicHeaderElementIterator(</span><br><span class="line">                    response.headerIterator(HTTP.CONN_KEEP_ALIVE));</span><br><span class="line">            while (it.hasNext()) &#123;</span><br><span class="line">                HeaderElement he = it.nextElement();</span><br><span class="line">                String param = he.getName();</span><br><span class="line">                String value = he.getValue();</span><br><span class="line">                if (value != null &amp;&amp; param.equalsIgnoreCase(&quot;timeout&quot;)) &#123;</span><br><span class="line">                    try &#123;</span><br><span class="line">                        return Long.parseLong(value) * 1000;</span><br><span class="line">                    &#125; catch(NumberFormatException ignore) &#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            HttpHost target = (HttpHost) context.getAttribute(</span><br><span class="line">                    HttpClientContext.HTTP_TARGET_HOST);</span><br><span class="line">            if (&quot;www.naughty-server.com&quot;.equalsIgnoreCase(target.getHostName())) &#123;</span><br><span class="line">                // Keep alive for 5 seconds only</span><br><span class="line">                return 5 * 1000;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                // otherwise keep alive for 30 seconds</span><br><span class="line">                return 30 * 1000;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">    CloseableHttpClient client = HttpClients.custom()</span><br><span class="line">            .setKeepAliveStrategy(myStrategy)</span><br><span class="line">            .build();</span><br></pre></td></tr></table></figure>
+<h3><span id="socket连接工厂">socket连接工厂</span></h3><p>Http连接使用java.net.Socket类来传输数据。这依赖于ConnectionSocketFactory接口来创建、初始化和连接socket。这样也就允许HttpClient的用户在代码运行时，指定socket初始化的代码。PlainConnectionSocketFactory是默认的创建、初始化明文socket（不加密）的工厂类。<br>创建socket和使用socket连接到目标主机这两个过程是分离的，所以我们可以在连接发生阻塞时，关闭socket连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HttpClientContext clientContext = HttpClientContext.create();</span><br><span class="line">    PlainConnectionSocketFactory sf = PlainConnectionSocketFactory.getSocketFactory();</span><br><span class="line">    Socket socket = sf.createSocket(clientContext);</span><br><span class="line">    int timeout = 1000; //ms</span><br><span class="line">    HttpHost target = new HttpHost(&quot;www.yeetrack.com&quot;);</span><br><span class="line">    InetSocketAddress remoteAddress = new InetSocketAddress(</span><br><span class="line">        InetAddress.getByName(&quot;www.yeetrack.com&quot;, 80);</span><br><span class="line">        //connectSocket源码中，实际没有用到target参数</span><br><span class="line">        sf.connectSocket(timeout, socket, target, remoteAddress, null, clientContext);</span><br></pre></td></tr></table></figure>
+<h4><span id="安全socket分层">安全SOCKET分层</span></h4><p>LayeredConnectionSocketFactory是ConnectionSocketFactory的拓展接口。分层socket工厂类可以在明文socket的基础上创建socket连接。分层socket主要用于在代理服务器之间创建安全socket。HttpClient使用SSLSocketFactory这个类实现安全socket，SSLSocketFactory实现了SSL/TLS分层。请知晓，HttpClient没有自定义任何加密算法。它完全依赖于Java加密标准（JCE）和安全套接字（JSEE）拓展。</p>
+<h4><span id="集成连接管理器">集成连接管理器</span></h4><p>自定义的socket工厂类可以和指定的协议（Http、Https）联系起来，用来创建自定义的连接管理器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ConnectionSocketFactory plainsf = &lt;...&gt;</span><br><span class="line">    LayeredConnectionSocketFactory sslsf = &lt;...&gt;</span><br><span class="line">    Registry&lt;ConnectionSocketFactory&gt; r = RegistryBuilder.&lt;ConnectionSocketFactory&gt;create()</span><br><span class="line">            .register(&quot;http&quot;, plainsf)</span><br><span class="line">            .register(&quot;https&quot;, sslsf)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    HttpClientConnectionManager cm = new PoolingHttpClientConnectionManager(r);</span><br><span class="line">    HttpClients.custom()</span><br><span class="line">            .setConnectionManager(cm)</span><br><span class="line">            .build();</span><br></pre></td></tr></table></figure>
+<h4><span id="ssltls定制">SSL/TLS定制</span></h4><p>HttpClient使用SSLSocketFactory来创建ssl连接。SSLSocketFactory允许用户高度定制。它可以接受javax.net.ssl.SSLContext这个类的实例作为参数，来创建自定义的ssl连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HttpClientContext clientContext = HttpClientContext.create();</span><br><span class="line">KeyStore myTrustStore = &lt;...&gt;</span><br><span class="line">SSLContext sslContext = SSLContexts.custom()</span><br><span class="line">        .useTLS()</span><br><span class="line">        .loadTrustMaterial(myTrustStore)</span><br><span class="line">        .build();</span><br><span class="line">SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext);</span><br></pre></td></tr></table></figure>
+<h4><span id="域名验证">域名验证</span></h4><p>除了信任验证和在ssl/tls协议层上进行客户端认证，HttpClient一旦建立起连接，就可以选择性验证目标域名和存储在X.509证书中的域名是否一致。这种验证可以为服务器信任提供额外的保障。</p>
+<p>X509HostnameVerifier接口代表主机名验证的策略。在HttpClient中，X509HostnameVerifier有三个实现类。重要提示：主机名有效性验证不应该和ssl信任验证混为一谈。</p>
+<ul>
+<li>StrictHostnameVerifier: 严格的主机名验证方法和java 1.4,1.5,1.6验证方法相同。和IE6的方式也大致相同。这种验证方式符合RFC 2818通配符。The hostname must match either the first CN, or any of the subject-alts. A wildcard can occur in the CN, and in any of the subject-alts.</li>
+<li>BrowserCompatHostnameVerifier: 这种验证主机名的方法，和Curl及firefox一致。The hostname must match either the first CN, or any of the subject-alts. A wildcard can occur in the CN, and in any of the subject-alts.StrictHostnameVerifier和BrowserCompatHostnameVerifier方式唯一不同的地方就是，带有通配符的域名（比如*.yeetrack.com),BrowserCompatHostnameVerifier方式在匹配时会匹配所有的的子域名，包括 a.b.yeetrack.com .</li>
+<li>AllowAllHostnameVerifier: 这种方式不对主机名进行验证，验证功能被关闭，是个空操作，所以它不会抛出javax.net.ssl.SSLException异常。HttpClient默认使用BrowserCompatHostnameVerifier的验证方式。如果需要，我们可以手动执行验证方式。SSLContext sslContext = SSLContexts.createSystemDefault();</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(</span><br><span class="line">        sslContext,</span><br><span class="line">        SSLConnectionSocketFactory.STRICT_HOSTNAME_VERIFIER);</span><br></pre></td></tr></table></figure>
+<h3><span id="httpclient代理服务器配置">HttpClient代理服务器配置</span></h3><p>管，HttpClient支持复杂的路由方案和代理链，它同样也支持直接连接或者只通过一跳的连接。<br>使用代理服务器最简单的方式就是，指定一个默认的proxy参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HttpHost proxy = new HttpHost(&quot;someproxy&quot;, 8080);</span><br><span class="line">    DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);</span><br><span class="line">    CloseableHttpClient httpclient = HttpClients.custom()</span><br><span class="line">            .setRoutePlanner(routePlanner)</span><br><span class="line">            .build();</span><br></pre></td></tr></table></figure>
+<p>我们也可以让HttpClient去使用jre的代理服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SystemDefaultRoutePlanner routePlanner = new SystemDefaultRoutePlanner(</span><br><span class="line">    ProxySelector.getDefault());</span><br><span class="line">CloseableHttpClient httpclient = HttpClients.custom()</span><br><span class="line">        .setRoutePlanner(routePlanner)</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
+<p>又或者，我们也可以手动配置RoutePlanner，这样就可以完全控制Http路由的过程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HttpRoutePlanner routePlanner = new HttpRoutePlanner() &#123;</span><br><span class="line"></span><br><span class="line">        public HttpRoute determineRoute(</span><br><span class="line">                HttpHost target,</span><br><span class="line">                HttpRequest request,</span><br><span class="line">                HttpContext context) throws HttpException &#123;</span><br><span class="line">            return new HttpRoute(target, null,  new HttpHost(&quot;someproxy&quot;, 8080),</span><br><span class="line">                    &quot;https&quot;.equalsIgnoreCase(target.getSchemeName()));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line">    CloseableHttpClient httpclient = HttpClients.custom()</span><br><span class="line">            .setRoutePlanner(routePlanner)</span><br><span class="line">            .build();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>转载自：<a href="http://free0007.iteye.com/blog/2012308" target="_blank" rel="noopener">http://free0007.iteye.com/blog/2012308</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/java-http/connect/" data-id="cjoqzsr4k004bh0izhguzai1z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/http/">http</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-java-http/auth" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/java-http/auth/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.951Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/java-http/auth/">Http认证</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#用户凭证"># 用户凭证</a><ul>
+<li><a href="#认证方案">认证方案</a></li>
+<li><a href="#凭证-provider">凭证 provider</a></li>
+<li><a href="#http授权和执行上下文">HTTP授权和执行上下文</a></li>
+<li><a href="#缓存认证数据">缓存认证数据</a></li>
+<li><a href="#抢先认证">抢先认证</a></li>
+<li><a href="#ntlm认证">NTLM认证</a><ul>
+<li><a href="#ntlm连接持久性">NTLM连接持久性</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="用户凭证"># 用户凭证</span></h1><p>任何用户认证的过程，都需要一系列的凭证来确定用户的身份。最简单的用户凭证可以是用户名和密码这种形式。UsernamePasswordCredentials这个类可以用来表示这种情况，这种凭据包含明文的用户名和密码。</p>
+<p>这个类对于HTTP标准规范中定义的认证模式来说已经足够了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UsernamePasswordCredentials creds = new UsernamePasswordCredentials(&quot;user&quot;, &quot;pwd&quot;);</span><br><span class="line">    System.out.println(creds.getUserPrincipal().getName());</span><br><span class="line">    System.out.println(creds.getPassword());</span><br></pre></td></tr></table></figure></p>
+<p>上述代码会在控制台输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user</span><br><span class="line">pwd</span><br></pre></td></tr></table></figure>
+<p>NTCredentials是微软的windows系统使用的一种凭据，包含username、password，还包括一系列其他的属性，比如用户所在的域名。在Microsoft Windows的网络环境中，同一个用户可以属于不同的域，所以他也就有不同的凭据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NTCredentials creds = new NTCredentials(&quot;user&quot;, &quot;pwd&quot;, &quot;workstation&quot;, &quot;domain&quot;);</span><br><span class="line">    System.out.println(creds.getUserPrincipal().getName());</span><br><span class="line">    System.out.println(creds.getPassword());</span><br></pre></td></tr></table></figure>
+<p>上述代码输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DOMAIN/user</span><br><span class="line">    pwd</span><br></pre></td></tr></table></figure></p>
+<h2><span id="认证方案">认证方案</span></h2><p>AutoScheme接口表示一个抽象的面向挑战/响应的认证方案。一个认证方案要支持下面的功能：</p>
+<ul>
+<li>客户端请求服务器受保护的资源，服务器会发送过来一个chanllenge(挑战），认证方案（Authentication scheme）需要解析、处理这个挑战</li>
+<li>为processed challenge提供一些属性值：认证方案的类型，和此方案需要的一些参数，这种方案适用的范围</li>
+<li>使用给定的授权信息生成授权字符串;生成http请求，用来响应服务器发送来过的授权challenge</li>
+</ul>
+<p>请注意：一个认证方案可能是有状态的，因为它可能涉及到一系列的挑战/响应。<br>HttpClient实现了下面几种AutoScheme:</p>
+<ul>
+<li>Basic: Basic认证方案是在RFC2617号文档中定义的。这种授权方案用明文来传输凭证信息，所以它是不安全的。虽然Basic认证方案本身是不安全的，但是它一旦和TLS/SSL加密技术结合起来使用，就完全足够了。</li>
+<li>Digest: Digest（摘要）认证方案是在RFC2617号文档中定义的。Digest认证方案比Basic方案安全多了，对于那些受不了Basic+TLS/SSL传输开销的系统，digest方案是个不错的选择。</li>
+<li>NTLM: NTLM认证方案是个专有的认证方案，由微软开发，并且针对windows平台做了优化。NTLM被认为比Digest更安全。</li>
+<li>SPNEGO: SPNEGO(Simple and Protected GSSAPI Negotiation Mechanism)是GSSAPI的一个“伪机制”，它用来协商真正的认证机制。SPNEGO最明显的用途是在微软的HTTP协商认证机制拓展上。可协商的子机制包括NTLM、Kerberos。目前，HttpCLient只支持Kerberos机制。（原文：The negotiable sub-mechanisms include NTLM and Kerberos supported by Active Directory. At present HttpClient only supports the Kerberos sub-mechanism.）</li>
+</ul>
+<h2><span id="凭证-provider">凭证 provider</span></h2><p>凭证providers旨在维护一套用户的凭证，当需要某种特定的凭证时，providers就应该能产生这种凭证。认证的具体内容包括主机名、端口号、realm name和认证方案名。当使用凭据provider的时候，我们可以很模糊的指定主机名、端口号、realm和认证方案，不用写的很精确。因为，凭据provider会根据我们指定的内容，筛选出一个最匹配的方案。<br>只要我们自定义的凭据provider实现了CredentialsProvider这个接口，就可以在HttpClient中使用。默认的凭据provider叫做BasicCredentialsProvider，它使用java.util.HashMap对CredentialsProvider进行了简单的实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">CredentialsProvider credsProvider = new BasicCredentialsProvider();</span><br><span class="line">    credsProvider.setCredentials(</span><br><span class="line">        new AuthScope(&quot;somehost&quot;, AuthScope.ANY_PORT), </span><br><span class="line">        new UsernamePasswordCredentials(&quot;u1&quot;, &quot;p1&quot;));</span><br><span class="line">    credsProvider.setCredentials(</span><br><span class="line">        new AuthScope(&quot;somehost&quot;, 8080), </span><br><span class="line">        new UsernamePasswordCredentials(&quot;u2&quot;, &quot;p2&quot;));</span><br><span class="line">    credsProvider.setCredentials(</span><br><span class="line">        new AuthScope(&quot;otherhost&quot;, 8080, AuthScope.ANY_REALM, &quot;ntlm&quot;), </span><br><span class="line">        new UsernamePasswordCredentials(&quot;u3&quot;, &quot;p3&quot;));</span><br><span class="line"></span><br><span class="line">    System.out.println(credsProvider.getCredentials(</span><br><span class="line">        new AuthScope(&quot;somehost&quot;, 80, &quot;realm&quot;, &quot;basic&quot;)));</span><br><span class="line">    System.out.println(credsProvider.getCredentials(</span><br><span class="line">        new AuthScope(&quot;somehost&quot;, 8080, &quot;realm&quot;, &quot;basic&quot;)));</span><br><span class="line">    System.out.println(credsProvider.getCredentials(</span><br><span class="line">        new AuthScope(&quot;otherhost&quot;, 8080, &quot;realm&quot;, &quot;basic&quot;)));</span><br><span class="line">    System.out.println(credsProvider.getCredentials(</span><br><span class="line">        new AuthScope(&quot;otherhost&quot;, 8080, null, &quot;ntlm&quot;)));</span><br><span class="line">##上面代码输出：</span><br><span class="line">    [principal: u1]</span><br><span class="line">    [principal: u2]</span><br><span class="line">    null</span><br><span class="line">    [principal: u3]</span><br></pre></td></tr></table></figure>
+<h2><span id="http授权和执行上下文">HTTP授权和执行上下文</span></h2><p>HttpClient依赖AuthState类去跟踪认证过程中的状态的详细信息。在Http请求过程中，HttpClient创建两个AuthState实例：一个用于目标服务器认证，一个用于代理服务器认证。如果服务器或者代理服务器需要用户的授权信息，AuthScope、AutoScheme和认证信息就会被填充到两个AuthScope实例中。通过对AutoState的检测，我们可以确定请求的授权类型，确定是否有匹配的AuthScheme，确定凭据provider根据指定的授权类型是否成功生成了用户的授权信息。<br>在Http请求执行过程中，HttpClient会向执行上下文中添加下面的授权对象：</p>
+<ul>
+<li>Lookup对象，表示使用的认证方案。这个对象的值可以在本地上下文中进行设置，来覆盖默认值。</li>
+<li>CredentialsProvider对象，表示认证方案provider，这个对象的值可以在本地上下文中进行设置，来覆盖默认值。</li>
+<li>AuthState对象，表示目标服务器的认证状态，这个对象的值可以在本地上下文中进行设置，来覆盖默认值。</li>
+<li>AuthCache对象，表示认证数据的缓存，这个对象的值可以在本地上下文中进行设置，来覆盖默认值。</li>
+</ul>
+<p>我们可以在请求执行前，自定义本地HttpContext对象来设置需要的http认证上下文;也可以在请求执行后，再检测HttpContext的状态，来查看授权是否成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">CloseableHttpClient httpclient = &lt;...&gt;</span><br><span class="line"></span><br><span class="line">    CredentialsProvider credsProvider = &lt;...&gt;</span><br><span class="line">    Lookup&lt;AuthSchemeProvider&gt; authRegistry = &lt;...&gt;</span><br><span class="line">    AuthCache authCache = &lt;...&gt;</span><br><span class="line"></span><br><span class="line">    HttpClientContext context = HttpClientContext.create();</span><br><span class="line">    context.setCredentialsProvider(credsProvider);</span><br><span class="line">    context.setAuthSchemeRegistry(authRegistry);</span><br><span class="line">    context.setAuthCache(authCache);</span><br><span class="line">    HttpGet httpget = new HttpGet(&quot;http://www.yeetrack.com/&quot;);</span><br><span class="line">    CloseableHttpResponse response1 = httpclient.execute(httpget, context);</span><br><span class="line">    &lt;...&gt;</span><br><span class="line"></span><br><span class="line">    AuthState proxyAuthState = context.getProxyAuthState();</span><br><span class="line">    System.out.println(&quot;Proxy auth state: &quot; + proxyAuthState.getState());</span><br><span class="line">    System.out.println(&quot;Proxy auth scheme: &quot; + proxyAuthState.getAuthScheme());</span><br><span class="line">    System.out.println(&quot;Proxy auth credentials: &quot; + proxyAuthState.getCredentials());</span><br><span class="line">    AuthState targetAuthState = context.getTargetAuthState();</span><br><span class="line">    System.out.println(&quot;Target auth state: &quot; + targetAuthState.getState());</span><br><span class="line">    System.out.println(&quot;Target auth scheme: &quot; + targetAuthState.getAuthScheme());</span><br><span class="line">    System.out.println(&quot;Target auth credentials: &quot; + targetAuthState.getCredentials());</span><br></pre></td></tr></table></figure>
+<h2><span id="缓存认证数据">缓存认证数据</span></h2><p>从版本4.1开始，HttpClient就会自动缓存验证通过的认证信息。但是为了使用这个缓存的认证信息，我们必须在同一个上下文中执行逻辑相关的请求。一旦超出该上下文的作用范围，缓存的认证信息就会失效。</p>
+<h2><span id="抢先认证">抢先认证</span></h2><p>HttpClient默认不支持抢先认证，因为一旦抢先认证被误用或者错用，会导致一系列的安全问题，比如会把用户的认证信息以明文的方式发送给未授权的第三方服务器。因此，需要用户自己根据自己应用的具体环境来评估抢先认证带来的好处和带来的风险。<br>即使如此，HttpClient还是允许我们通过配置来启用抢先认证，方法是提前填充认证信息缓存到上下文中，这样，以这个上下文执行的方法，就会使用抢先认证。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">CloseableHttpClient httpclient = &lt;...&gt;</span><br><span class="line"></span><br><span class="line">HttpHost targetHost = new HttpHost(&quot;localhost&quot;, 80, &quot;http&quot;);</span><br><span class="line">CredentialsProvider credsProvider = new BasicCredentialsProvider();</span><br><span class="line">credsProvider.setCredentials(</span><br><span class="line">        new AuthScope(targetHost.getHostName(), targetHost.getPort()),</span><br><span class="line">        new UsernamePasswordCredentials(&quot;username&quot;, &quot;password&quot;));</span><br><span class="line"></span><br><span class="line">// 创建 AuthCache 对象</span><br><span class="line">AuthCache authCache = new BasicAuthCache();</span><br><span class="line">//创建 BasicScheme，并把它添加到 auth cache中</span><br><span class="line">BasicScheme basicAuth = new BasicScheme();</span><br><span class="line">authCache.put(targetHost, basicAuth);</span><br><span class="line"></span><br><span class="line">// 把AutoCache添加到上下文中</span><br><span class="line">HttpClientContext context = HttpClientContext.create();</span><br><span class="line">context.setCredentialsProvider(credsProvider);</span><br><span class="line"></span><br><span class="line">HttpGet httpget = new HttpGet(&quot;/&quot;);</span><br><span class="line">for (int i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">    CloseableHttpResponse response = httpclient.execute(</span><br><span class="line">            targetHost, httpget, context);</span><br><span class="line">    try &#123;</span><br><span class="line">        HttpEntity entity = response.getEntity();</span><br><span class="line"></span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        response.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="ntlm认证">NTLM认证</span></h2><p>从版本4.1开始，HttpClient就全面支持NTLMv1、NTLMv2和NTLM2认证。当人我们可以仍旧使用外部的NTLM引擎（比如Samba开发的JCIFS库）作为与Windows互操作性程序的一部分。</p>
+<h3><span id="ntlm连接持久性">NTLM连接持久性</span></h3><p>相比Basic和Digest认证，NTLM认证要明显需要更多的计算开销，性能影响也比较大。这也可能是微软把NTLM协议设计成有状态连接的主要原因之一。也就是说，NTLM连接一旦建立，用户的身份就会在其整个生命周期和它相关联。NTLM连接的状态性使得连接持久性更加复杂，The stateful nature of NTLM connections makes connection persistence more complex, as for the obvious reason persistent NTLM connections may not be re-used by users with a different user identity. HttpClient中标准的连接管理器就可以管理有状态的连接。但是，同一会话中逻辑相关的请求，必须使用相同的执行上下文，这样才能使用用户的身份信息。否则，HttpClient就会结束旧的连接，为了获取被NTLM协议保护的资源，而为每个HTTP请求，创建一个新的Http连接。更新关于Http状态连接的信息，点击此处。</p>
+<p>由于NTLM连接是有状态的，一般推荐使用比较轻量级的方法来处罚NTLM认证（如GET、Head方法），然后使用这个已经建立的连接在执行相对重量级的方法，尤其是需要附件请求实体的请求（如POST、PUT请求）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">CloseableHttpClient httpclient = &lt;...&gt;</span><br><span class="line"></span><br><span class="line">    CredentialsProvider credsProvider = new BasicCredentialsProvider();</span><br><span class="line">    credsProvider.setCredentials(AuthScope.ANY,</span><br><span class="line">            new NTCredentials(&quot;user&quot;, &quot;pwd&quot;, &quot;myworkstation&quot;, &quot;microsoft.com&quot;));</span><br><span class="line"></span><br><span class="line">    HttpHost target = new HttpHost(&quot;www.microsoft.com&quot;, 80, &quot;http&quot;);</span><br><span class="line"></span><br><span class="line">    //使用相同的上下文来执行逻辑相关的请求</span><br><span class="line">    HttpClientContext context = HttpClientContext.create();</span><br><span class="line">    context.setCredentialsProvider(credsProvider);</span><br><span class="line"></span><br><span class="line">    //使用轻量级的请求来触发NTLM认证</span><br><span class="line">    HttpGet httpget = new HttpGet(&quot;/ntlm-protected/info&quot;);</span><br><span class="line">    CloseableHttpResponse response1 = httpclient.execute(target, httpget, context);</span><br><span class="line">    try &#123;</span><br><span class="line">        HttpEntity entity1 = response1.getEntity();</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        response1.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //使用相同的上下文，执行重量级的方法</span><br><span class="line">    HttpPost httppost = new HttpPost(&quot;/ntlm-protected/form&quot;);</span><br><span class="line">    httppost.setEntity(new StringEntity(&quot;lots and lots of data&quot;));</span><br><span class="line">    CloseableHttpResponse response2 = httpclient.execute(target, httppost, context);</span><br><span class="line">    try &#123;</span><br><span class="line">        HttpEntity entity2 = response2.getEntity();</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        response2.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>转载自 <a href="http://free0007.iteye.com/blog/2012311" target="_blank" rel="noopener">http://free0007.iteye.com/blog/2012311</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/java-http/auth/" data-id="cjoqzsr43003ih0izm8f350h6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/http/">http</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-gradle/install" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/gradle/install/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.950Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/gradle/install/">Gradle 安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#gradle-安装">Gradle 安装</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="gradle-安装">Gradle 安装</span></h1><p>1，安装JDK，并配置JAVA_HOME环境变量。因为Gradle是用Groovy编写的，而Groovy基于JAVA。另外，Java版本要不小于1.5.<br>2，下载。地址是：<a href="http://www.gradle.org/downloads。在这里下载你要的版本。" target="_blank" rel="noopener">http://www.gradle.org/downloads。在这里下载你要的版本。</a><br>3，解压。如果你下载的是gradle-xx-all.zip的完整包，它会有以下内容：</p>
+<ul>
+<li>二进制文件</li>
+<li>用户手册（包括PDF和HTML两种版本）</li>
+<li>DSL参考指南</li>
+<li>API手册（包括Javadoc和Groovydoc）</li>
+<li>样例</li>
+<li>源代码，仅供参考使用。<br>4，配置环境变量。配置GRADLE_HOME到你的gradle根目录当中，然后把%GRADLE_HOME%/bin（linux或mac的是$GRADLE_HOME/bin）加到PATH的环境变量。<br>linux用户可以在~/.bashrc文件中配置。</li>
+</ul>
+<p>配置完成之后，运行gradle -v，检查一下是否安装无误。如果安装正确，它会打印出Gradle的版本信息，包括它的构建信息，Groovy, Ant, Ivy, 当前JVM和当前系统的版本信息。</p>
+<p>另外，可以通过GRADLE_OPTS或JAVA_OPTS来配置Gradle运行时的JVM参数。不过，JAVA_OPTS设置的参数也会影响到其他的JAVA应用程序。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/gradle/install/" data-id="cjoqzsr2g0011h0izqesdnrlt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-gradle/des" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/gradle/des/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.950Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/gradle/des/">Gradle——构建基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#gradle构建基础">Gradle——构建基础</a><ul>
+<li><a href="#projects和tasks">Projects和tasks</a></li>
+<li><a href="#快速定义任务">快速定义任务</a></li>
+<li><a href="#代码即脚本">代码即脚本</a></li>
+<li><a href="#任务依赖">任务依赖</a></li>
+<li><a href="#任务操纵">任务操纵</a><ul>
+<li><a href="#增加依赖">增加依赖</a></li>
+</ul>
+</li>
+<li><a href="#短标记法">短标记法</a></li>
+<li><a href="#增加自定义属性">增加自定义属性</a></li>
+<li><a href="#调用ant任务">调用Ant任务</a></li>
+<li><a href="#定义默认任务">定义默认任务</a></li>
+<li><a href="#dag配置">DAG配置</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="gradle构建基础">Gradle——构建基础</span></h1><p>学习Gradle前，需要有一个Groovy语言的基础，以免被Groovy的语法困扰，反而忽略了Gradle的知识。这里有一个Groovy的简明中文教程文档，可以快速学习Groovy的一些语法：<a href="http://download.csdn.net/detail/maosidiaoxian/8049823" target="_blank" rel="noopener">http://download.csdn.net/detail/maosidiaoxian/8049823</a></p>
+<h2><span id="projects和tasks">Projects和tasks</span></h2><p>先明确两个概念，projects和tasks，它们是Gradle中的两个重要概念。</p>
+<p>任何一个Gradle构建，都是由一个或多个projects组成的。Project就是你想要用Gradle做什么，比如构建一个jar包，构建一个web应用。Project也不单指构建操作，部署你的应用或搭建一个环境，也可以是一个project。</p>
+<p>一个project由多个task组成。每个task代表了构建过程当中的一个原子性操作，比如编译，打包，生成javadoc，发布等等这些操作。</p>
+<p>##编写第一个构建脚本<br>新建一个文件build.gradle，然后添加以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">task hello &#123;  </span><br><span class="line">    doLast &#123;  </span><br><span class="line">        println &apos;Hello, Gradle!&apos;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是本系列文章里的第一个构建脚本，它定义了一个叫hello的task，task的内容是在最后打印出“Hello, Gradle!”。<br>我们输入命令gradle hello来执行它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle hello  </span><br><span class="line">:hello  </span><br><span class="line">Hello, Gradle!  </span><br><span class="line">BUILD SUCCESSFUL</span><br></pre></td></tr></table></figure>
+<p>Gradle是领域驱动设计的构建工具，在它的实现当中，Project接口对应上面的project概念，Task接口对应上面的task概念，实际上除此之外还有一个重要的领域对象，即Action，对应的是task里面具体的某一个操作。一个project由多个task组成，一个task也是由多个action组成。</p>
+<p>当执行gradle hello的时候，Gradle就会去调用这个hello task来执行给定操作(Action)。这个操作其实就是一个用Groovy代码写的闭包，代码中的task是Project类里的一个方法，通过调用这里的task方法创建了一个Task对象，并在对象的doLast方法中传入println ‘Hello, Gradle!’这个闭包。这个闭包就是一个Action。</p>
+<p>Task是Gradle里定义的一个接口，表示上述概念中的task。它定义了一系列的诸如doLast, doFirst等抽象方法，具体可以看gradle api里org.gradle.api.Task的文档。</p>
+<p>在上面执行了gradle hello后，除了输出“Hello, Gradle!”之外，我们发现像“:hello”这样的其他内容。这其实是Gradle打印出来的日志，如果不想输出这些内容，可以在gradle后面加上参数 -q。即：gradle -q hello。</p>
+<h2><span id="快速定义任务">快速定义任务</span></h2><p>上面的代码，还有一种更简洁的写法，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">task hello &lt;&lt; &#123;  </span><br><span class="line">    println &apos;Hello, Gradle!&apos;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行这个脚本，打印出来的是一样的。也就是我们把像doLast这样的代码，直接简化为&lt;&lt;这个符号了。这其实是Gradle利用了Groovy的操作符重载的特性，把左位移操作符实现为将action加到task的最后，相当于调用doLast方法。看Gradle的api文档里对doLast()和leftShift()这两个方法的介绍，可知它们的作用是一样的，所以在这里，&lt;&lt;左移操作符即doLast的简写方式。</p>
+<h2><span id="代码即脚本">代码即脚本</span></h2><p>Gradle脚本是采用Groovy编写的，所以也像Groovy一样，以脚本方式来执行代码，如下面例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">task upper &lt;&lt; &#123;  </span><br><span class="line">    String someString = &apos;mY_nAmE&apos;  </span><br><span class="line">    println &quot;Original: &quot; + someString   </span><br><span class="line">    println &quot;Upper case: &quot; + someString.toUpperCase()  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果如下，它将定义的字符串转为大写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q upper  </span><br><span class="line">Original: mY_nAmE  </span><br><span class="line">Upper case: MY_NAME</span><br></pre></td></tr></table></figure>
+<p>这也就是说，我们在写Gradle脚本的时候，可以像写Groovy代码一样。而Groovy是基于Java的，兼容Java语法，所以Java的朋友们，是不是忽然发现Gradle脚本很好上手了呢？</p>
+<h2><span id="任务依赖">任务依赖</span></h2><p>我们可以通过以下方式创建依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">task hello &lt;&lt; &#123;  </span><br><span class="line">    print &apos;Hello, &apos;  </span><br><span class="line">&#125;  </span><br><span class="line">task intro(dependsOn: hello) &lt;&lt; &#123;  </span><br><span class="line">    println &quot;Gradle!&quot;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义一个任务hello，输出“Hello, ”，然后定义一个任务intro，并依赖hello，输出“Gradle!”。结果是打印出“Hello, Gradle!”，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q intro  </span><br><span class="line">Hello, Gradle!</span><br></pre></td></tr></table></figure>
+<p>另外，被依赖的task不必放在前面声明，在后面也是可以的，这一点在后面将会用到。</p>
+<p>##动态任务<br>借助于强大的Groovy，我们还可以动态地创建任务。如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">times &#123; counter -&gt;  </span><br><span class="line">    task &quot;task$counter&quot; &lt;&lt; &#123;  </span><br><span class="line">        println &quot;I&apos;m task number $counter&quot;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们定义了4个task，分别是task0, task1, task2, task3。我们来执行task1，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q task1  </span><br><span class="line">I&apos;m task number 1</span><br></pre></td></tr></table></figure>
+<p>另外，gradle tasks命令可以查看我们定义的task，从这里我们也可以看到定义的task，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...  </span><br><span class="line">Other tasks  </span><br><span class="line">-----------  </span><br><span class="line">task0  </span><br><span class="line">task1  </span><br><span class="line">task2  </span><br><span class="line">task3  </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>注意，如果任务还未定义，不能使用短标记法（见本篇后续内容）来运行任务。</p>
+<h2><span id="任务操纵">任务操纵</span></h2><p>在Gradle当中，任务创建之后可以通过API进行访问，这是Gradle与Ant的不同之处。</p>
+<h3><span id="增加依赖">增加依赖</span></h3><p>还是以上面的例子，但是我们添加一行代码，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">4.times &#123; counter -&gt;  </span><br><span class="line">    task &quot;task$counter&quot; &lt;&lt; &#123;  </span><br><span class="line">        println &quot;I&apos;m task number $counter&quot;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">task1.dependsOn task0, task3</span><br></pre></td></tr></table></figure>
+<p>然后还是执行 gradle -q task1，看看结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q task1  </span><br><span class="line">I&apos;m task number 0  </span><br><span class="line">I&apos;m task number 3  </span><br><span class="line">I&apos;m task number 1</span><br></pre></td></tr></table></figure>
+<p>它先执行了task0和task3，因为task1依赖于这两个。</p>
+<p>7.2 增加任务行为<br>如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">task hello &lt;&lt; &#123;  </span><br><span class="line">    println &apos;Hello, Gradle!&apos;  </span><br><span class="line">&#125;  </span><br><span class="line">hello.doFirst &#123;  </span><br><span class="line">    println &apos;I am first.&apos;  </span><br><span class="line">&#125;  </span><br><span class="line">hello.doLast &#123;  </span><br><span class="line">    println &apos;I am last.&apos;  </span><br><span class="line">&#125;  </span><br><span class="line">hello &lt;&lt; &#123;  </span><br><span class="line">    println &apos;I am the the last&apos;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行后的输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q hello  </span><br><span class="line">I am first.  </span><br><span class="line">Hello, Gradle!  </span><br><span class="line">I am last.  </span><br><span class="line">I am the the last</span><br></pre></td></tr></table></figure>
+<h2><span id="短标记法">短标记法</span></h2><p>如果你对groovy有一定了解，那你也许会注意到，每个task都是一个构建脚本的属性，所以可以通过“$”这种短标记法来访问任务。如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">task hello &lt;&lt; &#123;  </span><br><span class="line">    println &apos;Hello, Gradle!&apos;  </span><br><span class="line">&#125;  </span><br><span class="line">hello.doLast &#123;  </span><br><span class="line">    println &quot;Greetings from the $hello.name task.&quot;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q hello  </span><br><span class="line">Hello, Gradle!  </span><br><span class="line">Greetings from the hello task.</span><br></pre></td></tr></table></figure>
+<p>注意，通过这种方法访问的任务一定是要已经定义的。</p>
+<h2><span id="增加自定义属性">增加自定义属性</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">task myTask &#123;  </span><br><span class="line">    ext.myProperty = &quot;myValue&quot;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">task printTaskProperties &lt;&lt; &#123;  </span><br><span class="line">    println myTask.myProperty  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q printTaskProperties  </span><br><span class="line">myValue</span><br></pre></td></tr></table></figure>
+<h2><span id="调用ant任务">调用Ant任务</span></h2><p>比如利用AntBuilder执行ant.loadfiile。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">task loadfile &lt;&lt; &#123;  </span><br><span class="line">    def files = file(&apos;config&apos;).listFiles().sort()  </span><br><span class="line">    files.each &#123; File file -&gt;  </span><br><span class="line">        if (file.isFile()) &#123;  </span><br><span class="line">            ant.loadfile(srcFile: file, property: file.name)  </span><br><span class="line">            println &quot; *** $file.name ***&quot;  </span><br><span class="line">            println &quot;$&#123;ant.properties[file.name]&#125;&quot;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q loadfile  </span><br><span class="line"> *** db.config ***  </span><br><span class="line">db=mysql  </span><br><span class="line">username=root  </span><br><span class="line">password=123456  </span><br><span class="line">  </span><br><span class="line"> *** user.config ***  </span><br><span class="line">username=admin  </span><br><span class="line">writeable=true</span><br></pre></td></tr></table></figure>
+<p>##方法抽取<br>在上面的脚本中，我们可以把部分代码抽取出来，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">task loadfile &lt;&lt; &#123;  </span><br><span class="line">    fileList(&apos;config&apos;).each &#123; File file -&gt;  </span><br><span class="line">        ant.loadfile(srcFile: file, property: file.name)  </span><br><span class="line">        println &quot; *** $file.name ***&quot;  </span><br><span class="line">        println &quot;$&#123;ant.properties[file.name]&#125;&quot;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">File[] fileList(String dir) &#123;  </span><br><span class="line">    file(dir).listFiles(&#123;file -&gt; file.isFile() &#125; as FileFilter).sort()  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果一样。</p>
+<h2><span id="定义默认任务">定义默认任务</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">defaultTasks &apos;clean&apos;, &apos;run&apos;  </span><br><span class="line">  </span><br><span class="line">task clean &lt;&lt; &#123;  </span><br><span class="line">    println &apos;Default Cleaning!&apos;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">task run &lt;&lt; &#123;  </span><br><span class="line">    println &apos;Default Running!&apos;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">task other &lt;&lt; &#123;  </span><br><span class="line">    println &quot;I&apos;m not a default task!&quot;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q   </span><br><span class="line">Default Cleaning!  </span><br><span class="line">Default Running!</span><br></pre></td></tr></table></figure>
+<h2><span id="dag配置">DAG配置</span></h2><p>Gradle使用DAG（Directed acyclic graph，有向非循环图）来决定任务执行的顺序。通过这一特性，我们可以实现依赖任务做不同输出。<br>如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">task distribution &lt;&lt; &#123;  </span><br><span class="line">    println &quot;We build the zip with version=$version&quot;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">task release(dependsOn: &apos;distribution&apos;) &lt;&lt; &#123;  </span><br><span class="line">    println &apos;We release now&apos;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">gradle.taskGraph.whenReady &#123;taskGraph -&gt;  </span><br><span class="line">    if (taskGraph.hasTask(release)) &#123;  </span><br><span class="line">        version = &apos;1.0&apos;  </span><br><span class="line">    &#125; else &#123;  </span><br><span class="line">        version = &apos;1.0-SNAPSHOT&apos;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q distribution  </span><br><span class="line">We build the zip with version=1.0-SNAPSHOT  </span><br><span class="line">msdx@msdx-ubuntu:~/tmp$ gradle -q release  </span><br><span class="line">We build the zip with version=1.0  </span><br><span class="line">We release now  </span><br><span class="line">msdx@msdx-ubuntu</span><br></pre></td></tr></table></figure>
+<p>在上面的脚本代码中，whenReady会在release任务执行之前影响它，即使这个任务不是主要的任务（即不是通过命令行传入参数来调用）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/gradle/des/" data-id="cjoqzsr42003hh0izmdjxptx6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-gradle/README" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/gradle/README/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.949Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/gradle/README/">gradle</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#gradle介绍">#Gradle介绍</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="gradle介绍">#Gradle介绍</span></h1><p>Gradle是一个基于JVM的构建工具，它提供了：<br>像Ant一样，通用灵活的构建工具<br>可以切换的，基于约定的构建框架<br>强大的多工程构建支持<br>基于Apache Ivy的强大的依赖管理<br>支持maven, Ivy仓库<br>支持传递性依赖管理，而不需要远程仓库或者是pom.xml和ivy.xml配置文件。<br>对Ant的任务做了很好的集成<br>基于Groovy，build脚本使用Groovy编写<br>有广泛的领域模型支持构建</p>
+<p>##Gradle 概述<br>1，基于声明和基于约定的构建。<br>2，依赖型的编程语言。<br>3，可以结构化构建，易于维护和理解。<br>4，有高级的API允许你在构建执行的整个过程当中，对它的核心进行监视，或者是配置它的行为。<br>5，有良好的扩展性。有增量构建功能来克服性能瓶颈问题。<br>6，多项目构建的支持。<br>7，多种方式的依赖管理。<br>8，是第一个构建集成工具。集成了Ant, maven的功能。<br>9，易于移值。<br>10，脚本采用Groovy编写，易于维护。<br>11，通过Gradle Wrapper允许你在没有安装Gradle的机器上进行Gradle构建。<br>12，自由，开源。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/gradle/README/" data-id="cjoqzsr2e000zh0iz6v6koen8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-exception/README" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/exception/README/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.948Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/exception/README/">Java异常处理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#java异常处理">Java异常处理</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="java异常处理">Java异常处理</span></h1><p>无论程序设计得如何巧妙，一旦达到一定的复杂程度难免会出现错误。即使是简单的程序也难以完全避免出错。程序运行出错往往是始料不及的。如果程序经常出错且不健壮是没有人愿意使用的。有的程序由于没有预料到某种错误会对运行环境产生影响，甚至会对计算机系统产生影响。程序在运行中出现很大的难以预料的错误称为异常（exception）。Java的异常处理机制就是尽最大努力，提供一套机制保证程序能编写完整的异常处理代码，使程序在运行阶段顺利处理异常，从而使程序稳定、可靠地运行且不损伤运行系统。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/exception/README/" data-id="cjoqzsr2c000xh0izlzf2ze5l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/exception/">exception</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-base/jdk" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/base/jdk/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.948Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/base/jdk/">jdk</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#jdk">jdk</a><ul>
+<li><a href="#sdk">SDK</a></li>
+<li><a href="#组成">组成</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="jdk">jdk</span></h1><blockquote>
+<p>JDK是 Java 语言的软件开发工具包，主要用于移动设备、嵌入式设备上的java应用程序。JDK是整个java开发的核心，它包含了JAVA的运行环境，JAVA工具和JAVA基础的类库。</p>
+</blockquote>
+<h2><span id="sdk">SDK</span></h2><p>JDK(Java Development Kit) 是 Java 语言的软件开发工具包(SDK)。</p>
+<ul>
+<li><p>SE(J2SE)，standard edition，标准版，是我们通常用的一个版本，从JDK 5.0开始，改名为Java SE。</p>
+</li>
+<li><p>EE(J2EE)，enterprise edition，企业版，使用这种JDK开发J2EE应用程序，从JDK 5.0开始，改名为Java EE。</p>
+</li>
+<li><p>ME(J2ME)，micro edition，主要用于移动设备、嵌入式设备上的java应用程序，从JDK 5.0开始，改名为Java ME。</p>
+</li>
+</ul>
+<p>没有JDK的话，无法编译Java程序，如果想只运行Java程序，要确保已安装相应的JRE。</p>
+<h2><span id="组成">组成</span></h2><p>JDK包含的基本组件包括：</p>
+<ul>
+<li><p>javac – 编译器，将源程序转成字节码</p>
+</li>
+<li><p>jar – 打包工具，将相关的类文件打包成一个文件</p>
+</li>
+<li><p>javadoc – 文档生成器，从源码注释中提取文档</p>
+</li>
+<li><p>jdb – debugger，查错工具</p>
+</li>
+<li><p>java – 运行编译后的java程序（.class后缀的）</p>
+</li>
+<li><p>appletviewer：小程序浏览器，一种执行HTML文件上的Java小程序的Java浏览器。</p>
+</li>
+<li><p>Javah：产生可以调用Java过程的C过程，或建立能被Java程序调用的C过程的头文件。</p>
+</li>
+<li><p>Javap：Java反汇编器，显示编译类文件中的可访问功能和数据，同时显示字节代码含义。</p>
+</li>
+<li><p>Jconsole: Java进行系统调试和监控的工具</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/base/jdk/" data-id="cjoqzsr2b000vh0izfq7rsri7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-base/env" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/base/env/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.947Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/base/env/">Java开发环境配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#linux环境安装">Linux环境安装</a></li>
+<li><a href="#mac环境安装">mac环境安装</a></li>
+</ul>
+<!-- tocstop -->
+<p># </p>
+<h2><span id="linux环境安装">Linux环境安装</span></h2><ul>
+<li>rpm安装</li>
+</ul>
+<p>JDK默认安装在/usr/java中。<br>这是我认为最懒的方式，环境变量一般都不用配置了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# rpm -ivh jre-8u91-linux-x64.rpm </span><br><span class="line">[root@localhost ~]# java -version</span><br><span class="line">java version &quot;1.8.0_91&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_91-b14)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>bin安装</li>
+<li>tar.gz 安装</li>
+</ul>
+<h2><span id="mac环境安装">mac环境安装</span></h2><p>mac本身都带java</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/base/env/" data-id="cjoqzsr2a000th0izu5dtyszj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Servlet/baseFramework" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/Servlet/baseFramework/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.946Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/Servlet/baseFramework/">Servlet的基本架构</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#servlet的基本架构">Servlet的基本架构</a><ul>
+<li><a href="#servlet工作原理">Servlet工作原理</a></li>
+<li><a href="#servlet接口">Servlet接口</a><ul>
+<li><a href="#httpservlet-api">HTTPServlet API</a><ul>
+<li><a href="#init方法">init（）方法</a></li>
+<li><a href="#service方法">service（）方法</a></li>
+<li><a href="#destroy方法">destroy（）方法</a></li>
+<li><a href="#getservletconfig方法">GetServletConfig（）方法</a></li>
+<li><a href="#getservletinfo方法">GetServletInfo（）方法</a></li>
+<li><a href="#常用重载方法">常用重载方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="servlet的基本架构">Servlet的基本架构</span></h1><h2><span id="servlet工作原理">Servlet工作原理</span></h2><p>Servlet运行与基于Java的Web服务器中，可以动态的扩展服务器的功能，并采用请求——响应模式提供Web服务。</p>
+<p>Servlet的主要功能是提供交互式的浏览和修改数据的能力，并生成动态Web页面。Servlet首先接收来自客户端的请求，将处理结果以动态网页的形式返回客户端浏览器，以浏览器——服务器方式工作。其工作原理如下：</p>
+<ul>
+<li>客户端浏览器发送请求至Web服务器。</li>
+<li>Web服务器将请求信息发送至Servlet。</li>
+<li>Servlet生成响应内容，并将结果返回给Web服务器。响应的内容通常根据客户端的请求来动态生成。</li>
+<li>Web服务器将响应结果返回给客户端浏览器。</li>
+</ul>
+<p>Servlet运行在由Servlet引擎管理的JVM（Java Virtual Machine, Java虚拟机）中，通过它导入特定的属于Java Servlet API的包。Servlet不像CGI那样需要为每一个请求都创建对应的新进程，在JVM中只需要装载一个Servlet就可以处理所有的请求，每个新的请求只使用内存中同一个Servlet的一个线程。</p>
+<p><img src="servlet原理.jpeg" alt="img"></p>
+<h2><span id="servlet接口">Servlet接口</span></h2><p>在Servlet中最重要的接口就是Servlet接口（Servlet Interface），所有的Servlet都需要执行此接口。Servlet接口提供了Servlet与客户端联系的方法。当Servlet接收来自客户端的调用请求时，它接收两个对象，即ServletRequest和ServletResponse。ServletRequest和ServletResponse接口允许直接与Web服务器通信。</p>
+<p>ServletRequest接口可以获取发自客户端的信息，如名称、客户端使用的通信协议、产生请求并接收请求的服务器远端主机名以及提供获取数据流的方法等。一个ServletRequest接口可以让Servlet获取更多的协议特性数据。</p>
+<p>ServletResponse接口给出相应的客户端的Servlet方法，它允许Servlet设置内容长度和回应的MIME类型。通过使用getWriter（）方法（返回文本数据）或getOutputStream（）方法（返回二进制数据）返回相应的数据。</p>
+<h3><span id="httpservlet-api">HTTPServlet API</span></h3><p>Servlet方法<br>HttpServlet类是一个抽象类，要创建一个HTTP Servlet，需要通过从HttpServlet类派生一个扩展子类来实现，该类是用专门的方法来处理HTML表单数据的GenericServlet的一个子类。HttpServlet类包含init（）、destroy（）、service（）等方法。其中init（）和destroy（）方法是继承的。</p>
+<h4><span id="init方法">init（）方法</span></h4><p>在Servlet的生命期中，仅执行一次init（）方法。它是在服务器装入Servlet时执行的，可以配置服务器，以在启动服务器或客户机首次访问Servlet时装入Servlet，无论有多少客户机访问Servlet，都不会重复执行init（）。</p>
+<h4><span id="service方法">service（）方法</span></h4><p>service（）方法是Servlet的核心。当访问Web站点的客户端浏览器向Web服务器发送请求后，Web服务器将请求转发给HTTP Servlet, HTTP Servlet将处理后的响应结果返回给服务器，服务器再将响应结果发送给客户端浏览器。每当客户请求一个HttpServlet对象时，该对象的service（）方法就要被调用，而且传递给这个方法一个“请求”（ServletRequest）对象和一个“响应”（ServletResponse）对象作为参数。在HttpServlet中已存在service（）方法。默认的服务功能是调用与HTTP请求的方法相应的do功能。例如，如果HTTP的请求方法为GET，则默认情况下就调用doGet（）。Servlet应该为HTTP方法重载do功能。因为service（）方法会检查请求方法是否调用了适当的处理方法，因此不必重载该方法，而只需重载相应的do方法就可以了。表19.1中列出了HTTP Servlet子类在应用中经常需要重载的方法。</p>
+<h4><span id="destroy方法">destroy（）方法</span></h4><p>destroy（）方法仅执行一次，即在服务器停止且卸装Servlet时执行该方法。典型的情况是，将Servlet作为服务器进程的一部分来关闭。默认的destroy（）方法通常是符合要求的，但也可以覆盖它，典型的是管理服务器端资源。例如，如果Servlet在运行时会累计统计数据，则可以编写一个destroy（）方法，该方法用于在未装入Servlet时将统计数字保存在文件中。另一个示例是关闭数据库链接。</p>
+<h4><span id="getservletconfig方法">GetServletConfig（）方法</span></h4><p>GetServletConfig（）方法返回一个ServletConfig对象，该对象用来返回初始化参数和ServletContext。ServletContext接口提供有关Servlet的环境信息。</p>
+<h4><span id="getservletinfo方法">GetServletInfo（）方法</span></h4><p>GetServletInfo（）方法是一个可选的方法，它提供有关Servlet的信息，如作者、版本、版权。当服务器调用Servlet的Service（）、doGet（）和doPost（）这3个方法时，均需要“请求”和“响应”对象作为参数。“请求”对象提供有关请求的信息，而“响应”对象提供了一个将响应信息返回给浏览器的通信途径。javax.servlet软件包中的相关类为ServletResponse和ServletRequest，而在javax.servlet.http软件包中的相关类为HttpServletRequest和HttpServletResponse。Servlet通过这些对象与服务器通信并最终与客户机通信。Servlet能通过调用“请求（request）”对象的方法获知客户机环境、服务器环境的信息和所有由客户机提供的信息。Servlet可以调用“响应”对象的方法发送响应，该响应是准备发回客户机的。</p>
+<h4><span id="常用重载方法">常用重载方法</span></h4><ul>
+<li>doGet</li>
+<li>doPost</li>
+<li>doPut</li>
+<li>doDelete</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/Servlet/baseFramework/" data-id="cjoqzsr28000rh0iztjodf0jl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/servlet/">servlet</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Servlet/README" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/Servlet/README/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.945Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/Servlet/README/">Servlet概述</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#servlet概述">Servlet概述</a><ul>
+<li><a href="#servlet的特点">Servlet的特点</a></li>
+<li><a href="#servlet的应用范围">Servlet的应用范围</a></li>
+<li><a href="#servlet与jsp的关系">Servlet与JSP的关系</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="servlet概述">Servlet概述</span></h1><p>Servlet是一种独立于平台和协议的服务器端的Java应用程序，可以生成动态的Web页面。它是位于Web服务器内部由服务器端调用和执行的Java类，与传统的从命令行启动的Java应用程序不同，Servlet由Web服务器进行加载，该Web服务器必须包含支持Servlet的Java虚拟机。</p>
+<p>Servlet相当于在服务器端运行的Applet，但是它与Applet也有区别，由于Servlet运行在服务器端，因此它是可信赖的程序，不受Java安全性限制，拥有和普通Java应用程序一样的权限。</p>
+<h2><span id="servlet的特点">Servlet的特点</span></h2><ul>
+<li>高效：在服务器上仅有一个Java虚拟机在运行，只有当Servlet被调用时，它才被加载。一旦Servlet被加载，在它被更改之前都不需要重新加载，同时，在Servlet被更改后再次加载时，不需要重新启动服务器。Servlet最主要的优势是，当Servlet被客户端的请求激活后，它将继续运行于后台，等待以后的请求，每个请求都只会生成一个新的线程，而不是一个完整的进程。</li>
+<li>可移植性强：由于Servlet是用Java编写的，所以具有跨平台性，Servlet API（Application Programming Interface应用程序接口）具有完善的标准，因此Servlet不需要任何修改就可以在几乎所有的主流服务器上运行。</li>
+<li>灵活：Servlet提供了大量的实用工具例程，并且可以和HTML页面、JSP页面、Applet以及Java Bean进行交流。例如，可以从客户发来的HTML表单中读取数据，并将这些数据保存在服务器中。也可以将Servlet的运行结果送到JSP中或从Java Bean获取运行结果，还可以读取和设置HTTP头、处理Cookie、跟踪会话状态等。</li>
+<li>功能强大：Servlet能够直接和Web服务器交互，还能够在各个程序之间共享数据，使数据库链接功能很容易实现。</li>
+<li>投资小：不仅有许多廉价甚至免费的Web服务器可供个人或小规模网站使用，而且对于现有的服务器，即使不支持Servlet但要加上这部分功能也是免费的。</li>
+</ul>
+<h2><span id="servlet的应用范围">Servlet的应用范围</span></h2><p>Servlet的主要功能在于交互式的浏览和修改数据，生成动态Web内容，具有广泛的应用范围。具体如下：</p>
+<ul>
+<li>可以处理HTTP请求，并将HTTP响应反馈给客户端。</li>
+<li>可以用于处理HTTP表单通过HTTP协议产生的POST/GET数据，如买卖订单、信用卡数据等。</li>
+<li>可以同时处理多个请求。</li>
+<li>可以将请求转送给其他服务器和Servlet，按照任务类型或组织范围，允许在几个服务器中划分逻辑上的服务器。</li>
+</ul>
+<h2><span id="servlet与jsp的关系">Servlet与JSP的关系</span></h2><p>在JSP之前，Sun公司最先推出的是Servlet，用于替代功能有限的CGI技术，从某种程度上可以认为Servlet是JSP的前身。Servlet在编写HTML文本时，采用print或println方法逐句打印，这给编程人员带来了很大不便，限制了Servlet的应用。为了适应网络编程的需要，Sun又在Servlet的基础上推出了JSP技术。JSP技术从根本上改变了Servlet的编程方法，该技术通过HTML（或XML）与Java代码的结合，并在其中加入JSP标记来实现JSP文件的编写。在第17章中我们已经详细地介绍了这种技术。</p>
+<p>推出JSP及Java Bean的初衷就是要取代Servlet，但是学习Servlet还是非常有必要的。当运行某个JSP页面时，这个页面首先会被服务器编译成一个Servlet然后才被执行。这一过程是由Servlet引擎自动完成的，而不需要编程人员介入，因此极大地提高了程序编写的效率。但是相对于直接应用Servlet来说，这样会降低响应的速度。而且现有的程序中还有不少是使用Servlet编写的，因此程序编写人员还必须能够读懂这些程序。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/Servlet/README/" data-id="cjoqzsr26000ph0izq6xfnvpq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/servlet/">servlet</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/Learn-Java/page/3/">&laquo; Prev</a><a class="page-number" href="/Learn-Java/">1</a><a class="page-number" href="/Learn-Java/page/2/">2</a><a class="page-number" href="/Learn-Java/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/Learn-Java/page/5/">5</a><a class="page-number" href="/Learn-Java/page/6/">6</a><a class="extend next" rel="next" href="/Learn-Java/page/5/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HeapSize/">HeapSize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/bean/">bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/coolection/">coolection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/exception/">exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/io/">io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java-bean/">java bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jmeter/">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jsp/">jsp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mvn/">mvn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/netty/">netty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/nio/">nio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/serializable/">serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/test/">test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/tomcat/">tomcat</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Learn-Java/tags/HeapSize/" style="font-size: 10px;">HeapSize</a> <a href="/Learn-Java/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/Learn-Java/tags/bean/" style="font-size: 10px;">bean</a> <a href="/Learn-Java/tags/coolection/" style="font-size: 10px;">coolection</a> <a href="/Learn-Java/tags/exception/" style="font-size: 10px;">exception</a> <a href="/Learn-Java/tags/gradle/" style="font-size: 13.33px;">gradle</a> <a href="/Learn-Java/tags/http/" style="font-size: 15px;">http</a> <a href="/Learn-Java/tags/io/" style="font-size: 10px;">io</a> <a href="/Learn-Java/tags/java/" style="font-size: 16.67px;">java</a> <a href="/Learn-Java/tags/java-bean/" style="font-size: 10px;">java bean</a> <a href="/Learn-Java/tags/jdbc/" style="font-size: 10px;">jdbc</a> <a href="/Learn-Java/tags/jmeter/" style="font-size: 10px;">jmeter</a> <a href="/Learn-Java/tags/jsp/" style="font-size: 11.67px;">jsp</a> <a href="/Learn-Java/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/Learn-Java/tags/mvn/" style="font-size: 20px;">mvn</a> <a href="/Learn-Java/tags/mybatis/" style="font-size: 11.67px;">mybatis</a> <a href="/Learn-Java/tags/netty/" style="font-size: 10px;">netty</a> <a href="/Learn-Java/tags/network/" style="font-size: 11.67px;">network</a> <a href="/Learn-Java/tags/nio/" style="font-size: 20px;">nio</a> <a href="/Learn-Java/tags/quartz/" style="font-size: 11.67px;">quartz</a> <a href="/Learn-Java/tags/serializable/" style="font-size: 10px;">serializable</a> <a href="/Learn-Java/tags/servlet/" style="font-size: 11.67px;">servlet</a> <a href="/Learn-Java/tags/socket/" style="font-size: 10px;">socket</a> <a href="/Learn-Java/tags/test/" style="font-size: 10px;">test</a> <a href="/Learn-Java/tags/thread/" style="font-size: 18.33px;">thread</a> <a href="/Learn-Java/tags/tomcat/" style="font-size: 11.67px;">tomcat</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Learn-Java/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/21/test/jmeter/">JMETER</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/performance/">tomcat 性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/virtual/">Tomcat服务器虚拟目录的映射方式</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/thread/">线程</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/synchronized/">线程同步详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Neo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Learn-Java/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Learn-Java/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/Learn-Java/fancybox/jquery.fancybox.css">
+  <script src="/Learn-Java/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/Learn-Java/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

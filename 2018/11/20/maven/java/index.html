@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>使用Maven创建java项目 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="使用Maven创建java项目 Maven目录布局     使用Maven创建java项目##从 Maven 模板创建一个项目在终端（* UNIX或Mac）或命令提示符（Windows）中，浏览到要创建 Java 项目的文件夹。键入以下命令： 1mvn archetype:generate -DgroupId=&amp;#123;project-packaging&amp;#125; -DartifactId">
+<meta name="keywords" content="mvn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Maven创建java项目">
+<meta property="og:url" content="https://lv-neo.github.io/Learn-Java/2018/11/20/maven/java/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="使用Maven创建java项目 Maven目录布局     使用Maven创建java项目##从 Maven 模板创建一个项目在终端（* UNIX或Mac）或命令提示符（Windows）中，浏览到要创建 Java 项目的文件夹。键入以下命令： 1mvn archetype:generate -DgroupId=&amp;#123;project-packaging&amp;#125; -DartifactId">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-11-20T12:08:42.961Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Maven创建java项目">
+<meta name="twitter:description" content="使用Maven创建java项目 Maven目录布局     使用Maven创建java项目##从 Maven 模板创建一个项目在终端（* UNIX或Mac）或命令提示符（Windows）中，浏览到要创建 Java 项目的文件夹。键入以下命令： 1mvn archetype:generate -DgroupId=&amp;#123;project-packaging&amp;#125; -DartifactId">
+  
+    <link rel="alternate" href="/Learn-Java/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/Learn-Java/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Learn-Java/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/Learn-Java/">Home</a>
+        
+          <a class="main-nav-link" href="/Learn-Java/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/Learn-Java/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://lv-neo.github.io/Learn-Java"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-maven/java" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/maven/java/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.960Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用Maven创建java项目
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#使用maven创建java项目">使用Maven创建java项目</a><ul>
+<li><a href="#maven目录布局">Maven目录布局</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="使用maven创建java项目">使用Maven创建java项目</span></h1><p>##从 Maven 模板创建一个项目<br>在终端（* UNIX或Mac）或命令提示符（Windows）中，浏览到要创建 Java 项目的文件夹。键入以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate -DgroupId=&#123;project-packaging&#125; -DartifactId=&#123;project-name&#125;-DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false</span><br></pre></td></tr></table></figure>
+<p>这告诉 Maven 来从 maven-archetype-quickstart 模板创建 Java 项目。如果忽视 archetypeArtifactId 选项，一个巨大的 Maven 模板列表将列出。</p>
+<p>在上述情况下，一个新的Java项目命名 “NumberGenerator”, 而整个项目的目录结构会自动创建。</p>
+<blockquote>
+<p>有少数用户说 mvn archetype:generate 命令未能生成项目结构。 如果您有任何类似的问题，不用担心，只需跳过此步骤，手动创建文件夹，请参阅步骤2的项目结构</p>
+</blockquote>
+<h3><span id="maven目录布局">Maven目录布局</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">NumberGenerator</span><br><span class="line">   |-src</span><br><span class="line">   |---main</span><br><span class="line">   |-----java</span><br><span class="line">   |-------com</span><br><span class="line">   |---------yiibai   </span><br><span class="line">   |-----------App.java</span><br><span class="line">   |---test|-----java</span><br><span class="line">   |-------com</span><br><span class="line">   |---------yiibai</span><br><span class="line">   |-----------AppTest.java</span><br><span class="line">   |-pom.xml</span><br></pre></td></tr></table></figure>
+<p>很简单的，所有的源代码放在文件夹 /src/main/java/, 所有的单元测试代码放入 /src/test/java/.</p>
+<p>注意，请阅读 <a href="http://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html" target="_blank" rel="noopener">Maven标准目录布局</a><br>附加的一个标准的 pom.xml 被生成。这个POM文件类似于 Ant build.xml 文件，它描述了整个项目的信息，一切从目录结构，项目的插件，项目依赖，如何构建这个项目等，请阅读[POM官方指南] (<a href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html" target="_blank" rel="noopener">http://maven.apache.org/guides/introduction/introduction-to-the-pom.html</a>)</p>
+<p>附录<br><a href="http://www.yiibai.com/maven/create-a-java-project-with-maven.html" target="_blank" rel="noopener">http://www.yiibai.com/maven/create-a-java-project-with-maven.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/maven/java/" data-id="cjoqzsr2r001gh0iz3r6ck1n4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/mvn/">mvn</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Learn-Java/2018/11/20/maven/jar/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          将jar文件加到Maven的local repository中
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Learn-Java/2018/11/20/maven/env/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用maven profile实现多环境可移植构建</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HeapSize/">HeapSize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/bean/">bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/coolection/">coolection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/exception/">exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/io/">io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java-bean/">java bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jmeter/">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jsp/">jsp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mvn/">mvn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/netty/">netty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/nio/">nio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/serializable/">serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/test/">test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/tomcat/">tomcat</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Learn-Java/tags/HeapSize/" style="font-size: 10px;">HeapSize</a> <a href="/Learn-Java/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/Learn-Java/tags/bean/" style="font-size: 10px;">bean</a> <a href="/Learn-Java/tags/coolection/" style="font-size: 10px;">coolection</a> <a href="/Learn-Java/tags/exception/" style="font-size: 10px;">exception</a> <a href="/Learn-Java/tags/gradle/" style="font-size: 13.33px;">gradle</a> <a href="/Learn-Java/tags/http/" style="font-size: 15px;">http</a> <a href="/Learn-Java/tags/io/" style="font-size: 10px;">io</a> <a href="/Learn-Java/tags/java/" style="font-size: 16.67px;">java</a> <a href="/Learn-Java/tags/java-bean/" style="font-size: 10px;">java bean</a> <a href="/Learn-Java/tags/jdbc/" style="font-size: 10px;">jdbc</a> <a href="/Learn-Java/tags/jmeter/" style="font-size: 10px;">jmeter</a> <a href="/Learn-Java/tags/jsp/" style="font-size: 11.67px;">jsp</a> <a href="/Learn-Java/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/Learn-Java/tags/mvn/" style="font-size: 20px;">mvn</a> <a href="/Learn-Java/tags/mybatis/" style="font-size: 11.67px;">mybatis</a> <a href="/Learn-Java/tags/netty/" style="font-size: 10px;">netty</a> <a href="/Learn-Java/tags/network/" style="font-size: 11.67px;">network</a> <a href="/Learn-Java/tags/nio/" style="font-size: 20px;">nio</a> <a href="/Learn-Java/tags/quartz/" style="font-size: 11.67px;">quartz</a> <a href="/Learn-Java/tags/serializable/" style="font-size: 10px;">serializable</a> <a href="/Learn-Java/tags/servlet/" style="font-size: 11.67px;">servlet</a> <a href="/Learn-Java/tags/socket/" style="font-size: 10px;">socket</a> <a href="/Learn-Java/tags/test/" style="font-size: 10px;">test</a> <a href="/Learn-Java/tags/thread/" style="font-size: 18.33px;">thread</a> <a href="/Learn-Java/tags/tomcat/" style="font-size: 11.67px;">tomcat</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Learn-Java/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/21/test/jmeter/">JMETER</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/performance/">tomcat 性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/virtual/">Tomcat服务器虚拟目录的映射方式</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/thread/">线程</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/synchronized/">线程同步详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Neo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Learn-Java/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Learn-Java/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/Learn-Java/fancybox/jquery.fancybox.css">
+  <script src="/Learn-Java/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/Learn-Java/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

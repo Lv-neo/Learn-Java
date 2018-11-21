@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Socket及其语言 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Socket及其语言   Socket及其语言ocket概念来源于Berkeley UNIX中使用的TCP socket（套接字），可以把它看做一个通信实体，负责完成位于不同主机上的应用程序间通信。该套接字提供了一组原语（一组最基本的操作），保证客户端和服务器端顺利地建立通信链接并传输数据，最后释放链接。这组原语已经广泛应用在网络程序设计中。理解了这组原语对于理解客户/服务器通信过程的建立和释">
+<meta name="keywords" content="socket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Socket及其语言">
+<meta property="og:url" content="https://lv-neo.github.io/Learn-Java/2018/11/20/network/socket/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Socket及其语言   Socket及其语言ocket概念来源于Berkeley UNIX中使用的TCP socket（套接字），可以把它看做一个通信实体，负责完成位于不同主机上的应用程序间通信。该套接字提供了一组原语（一组最基本的操作），保证客户端和服务器端顺利地建立通信链接并传输数据，最后释放链接。这组原语已经广泛应用在网络程序设计中。理解了这组原语对于理解客户/服务器通信过程的建立和释">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://lv-neo.github.io/Learn-Java/2018/11/20/network/socket/socket.jpeg">
+<meta property="og:updated_time" content="2018-11-20T12:08:42.964Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Socket及其语言">
+<meta name="twitter:description" content="Socket及其语言   Socket及其语言ocket概念来源于Berkeley UNIX中使用的TCP socket（套接字），可以把它看做一个通信实体，负责完成位于不同主机上的应用程序间通信。该套接字提供了一组原语（一组最基本的操作），保证客户端和服务器端顺利地建立通信链接并传输数据，最后释放链接。这组原语已经广泛应用在网络程序设计中。理解了这组原语对于理解客户/服务器通信过程的建立和释">
+<meta name="twitter:image" content="https://lv-neo.github.io/Learn-Java/2018/11/20/network/socket/socket.jpeg">
+  
+    <link rel="alternate" href="/Learn-Java/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/Learn-Java/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Learn-Java/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/Learn-Java/">Home</a>
+        
+          <a class="main-nav-link" href="/Learn-Java/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/Learn-Java/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://lv-neo.github.io/Learn-Java"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-network/socket" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/network/socket/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.964Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Socket及其语言
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#socket及其语言">Socket及其语言</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="socket及其语言">Socket及其语言</span></h1><p>ocket概念来源于Berkeley UNIX中使用的TCP socket（套接字），可以把它看做一个通信实体，负责完成位于不同主机上的应用程序间通信。该套接字提供了一组原语（一组最基本的操作），保证客户端和服务器端顺利地建立通信链接并传输数据，最后释放链接。这组原语已经广泛应用在网络程序设计中。理解了这组原语对于理解客户/服务器通信过程的建立和释放很有帮助。表15.2列出了8个原语。</p>
+<p>其中前4个原语由服务器按照表中声明的顺序依次调用。SOCKET调用创建了新的通信端点，即新的套接字，但是此时它没有网络地址，所以调用BIND原语为套接字绑定网络地址，一旦绑定成功，客户端就可以同服务器建立链接。继续调用LISTEN原语，该原语为进来的链接请求建立排队空间。此时的LISTEN调用不会阻塞服务器进程，所以服务器继续调用ACCEPT原语，当客户端发出了一个链接请求，则服务器端停止阻塞，创建与该客户端链接的一个新Socket。此时服务器可以启动一个新线程来处理刚刚建立的客户端与服务器端的Socket链接，而服务器继续等待新的链接。</p>
+<p><img src="socket.jpeg" alt="img"></p>
+<p>客户端同样也使用SOCKET原语创建一个套接字，而后调用CONNECT原语负责调用，并主动发起对服务器的链接，一旦CONNECT调用完成，客户进程与服务器建立了链接。此时双方就可以使用SEND和RECV在建立的链接上进行通信。</p>
+<p>建立套接字的双方对称地释放链接，允许一方关闭Socket，此时说明它不再发送数据但是可以接收数据，当双方都调用了CLOSE原语后，该通信链接释放。</p>
+<p>在Java中，提供了3种套接字类，以满足用户编写网络程序的需要。它们分别是java.net.Socket、java.net.ServerSocket和java.net.DatagramSocket。其中Socket和ServerSocket是建立在TCP可靠链接基础上的，而DatagramSocket是建立在不可靠的UDP协议上的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/network/socket/" data-id="cjoqzsr34001rh0izg4am7k93" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/socket/">socket</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Learn-Java/2018/11/20/network/tcpip/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          TCP／IP协议
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Learn-Java/2018/11/20/mybaits/conf/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">配置简介</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HeapSize/">HeapSize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/bean/">bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/coolection/">coolection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/exception/">exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/io/">io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java-bean/">java bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jmeter/">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jsp/">jsp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mvn/">mvn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/netty/">netty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/nio/">nio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/serializable/">serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/test/">test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/tomcat/">tomcat</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Learn-Java/tags/HeapSize/" style="font-size: 10px;">HeapSize</a> <a href="/Learn-Java/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/Learn-Java/tags/bean/" style="font-size: 10px;">bean</a> <a href="/Learn-Java/tags/coolection/" style="font-size: 10px;">coolection</a> <a href="/Learn-Java/tags/exception/" style="font-size: 10px;">exception</a> <a href="/Learn-Java/tags/gradle/" style="font-size: 13.33px;">gradle</a> <a href="/Learn-Java/tags/http/" style="font-size: 15px;">http</a> <a href="/Learn-Java/tags/io/" style="font-size: 10px;">io</a> <a href="/Learn-Java/tags/java/" style="font-size: 16.67px;">java</a> <a href="/Learn-Java/tags/java-bean/" style="font-size: 10px;">java bean</a> <a href="/Learn-Java/tags/jdbc/" style="font-size: 10px;">jdbc</a> <a href="/Learn-Java/tags/jmeter/" style="font-size: 10px;">jmeter</a> <a href="/Learn-Java/tags/jsp/" style="font-size: 11.67px;">jsp</a> <a href="/Learn-Java/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/Learn-Java/tags/mvn/" style="font-size: 20px;">mvn</a> <a href="/Learn-Java/tags/mybatis/" style="font-size: 11.67px;">mybatis</a> <a href="/Learn-Java/tags/netty/" style="font-size: 10px;">netty</a> <a href="/Learn-Java/tags/network/" style="font-size: 11.67px;">network</a> <a href="/Learn-Java/tags/nio/" style="font-size: 20px;">nio</a> <a href="/Learn-Java/tags/quartz/" style="font-size: 11.67px;">quartz</a> <a href="/Learn-Java/tags/serializable/" style="font-size: 10px;">serializable</a> <a href="/Learn-Java/tags/servlet/" style="font-size: 11.67px;">servlet</a> <a href="/Learn-Java/tags/socket/" style="font-size: 10px;">socket</a> <a href="/Learn-Java/tags/test/" style="font-size: 10px;">test</a> <a href="/Learn-Java/tags/thread/" style="font-size: 18.33px;">thread</a> <a href="/Learn-Java/tags/tomcat/" style="font-size: 11.67px;">tomcat</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Learn-Java/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/21/test/jmeter/">JMETER</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/performance/">tomcat 性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/virtual/">Tomcat服务器虚拟目录的映射方式</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/thread/">线程</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/synchronized/">线程同步详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Neo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Learn-Java/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Learn-Java/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/Learn-Java/fancybox/jquery.fancybox.css">
+  <script src="/Learn-Java/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/Learn-Java/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

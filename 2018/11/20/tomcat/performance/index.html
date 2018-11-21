@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>tomcat 性能优化 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="tomcat 性能优化 tomcat 内存优化 tomcat 线程优化 禁用DNS查询 设置session过期时间 Apr插件提高Tomcat性能     tomcat 性能优化tomcat默认参数是为开发环境制定，而非适合生产环境，尤其是内存和线程的配置，默认都很低，容易成为性能瓶颈。 tomcat 内存优化linux修改TOMCAT_HOME/bin/catalina.sh，在前面加入 1">
+<meta name="keywords" content="tomcat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tomcat 性能优化">
+<meta property="og:url" content="https://lv-neo.github.io/Learn-Java/2018/11/20/tomcat/performance/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="tomcat 性能优化 tomcat 内存优化 tomcat 线程优化 禁用DNS查询 设置session过期时间 Apr插件提高Tomcat性能     tomcat 性能优化tomcat默认参数是为开发环境制定，而非适合生产环境，尤其是内存和线程的配置，默认都很低，容易成为性能瓶颈。 tomcat 内存优化linux修改TOMCAT_HOME/bin/catalina.sh，在前面加入 1">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-11-20T12:08:42.978Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tomcat 性能优化">
+<meta name="twitter:description" content="tomcat 性能优化 tomcat 内存优化 tomcat 线程优化 禁用DNS查询 设置session过期时间 Apr插件提高Tomcat性能     tomcat 性能优化tomcat默认参数是为开发环境制定，而非适合生产环境，尤其是内存和线程的配置，默认都很低，容易成为性能瓶颈。 tomcat 内存优化linux修改TOMCAT_HOME/bin/catalina.sh，在前面加入 1">
+  
+    <link rel="alternate" href="/Learn-Java/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/Learn-Java/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Learn-Java/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/Learn-Java/">Home</a>
+        
+          <a class="main-nav-link" href="/Learn-Java/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/Learn-Java/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://lv-neo.github.io/Learn-Java"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-tomcat/performance" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/tomcat/performance/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.978Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      tomcat 性能优化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#tomcat-性能优化">tomcat 性能优化</a><ul>
+<li><a href="#tomcat-内存优化">tomcat 内存优化</a></li>
+<li><a href="#tomcat-线程优化">tomcat 线程优化</a></li>
+<li><a href="#禁用dns查询">禁用DNS查询</a></li>
+<li><a href="#设置session过期时间">设置session过期时间</a></li>
+<li><a href="#apr插件提高tomcat性能">Apr插件提高Tomcat性能</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="tomcat-性能优化">tomcat 性能优化</span></h1><p>tomcat默认参数是为开发环境制定，而非适合生产环境，尤其是内存和线程的配置，默认都很低，容易成为性能瓶颈。</p>
+<h2><span id="tomcat-内存优化">tomcat 内存优化</span></h2><p>linux修改TOMCAT_HOME/bin/catalina.sh，在前面加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=&quot;-XX:PermSize=64M -XX:MaxPermSize=128m -Xms512m -Xmx1024m -Duser.timezone=Asia/Shanghai&quot;</span><br></pre></td></tr></table></figure>
+<p>新版本或者部分修改TOMCAT_HOME/bin/setenv.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=&apos;-Djava.security.egd=file:/dev/./urandom -server -Xms512m -Xmx5120m -Dfile.encoding=UTF-8&apos;</span><br></pre></td></tr></table></figure>
+<p>windows修改TOMCAT_HOME/bin/catalina.bat，在前面加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set JAVA_OPTS=-XX:PermSize=64M -XX:MaxPermSize=128m -Xms512m -Xmx1024m</span><br></pre></td></tr></table></figure>
+<p>最大堆内存是1024m，对于现在的硬件还是偏低，实施时，还是按照机器具体硬件配置优化。</p>
+<h2><span id="tomcat-线程优化">tomcat 线程优化</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;80&quot; protocol=&quot;HTTP/1.1&quot; maxThreads=&quot;600&quot; minSpareThreads=&quot;100&quot; maxSpareThreads=&quot;500&quot; acceptCount=&quot;700&quot;</span><br><span class="line">connectionTimeout=&quot;20000&quot; redirectPort=&quot;8443&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>maxThreads=”600”       ///最大线程数</li>
+<li>minSpareThreads=”100”///初始化时创建的线程数</li>
+<li>maxSpareThreads=”500”///一旦创建的线程超过这个值，Tomcat就会关闭不再需要的socket线程。</li>
+<li>acceptCount=”700”//指定当所有可以使用的处理请求的线程数都被使用时，可以放到处理队列中的请求数，超过这个数的请求将不予处理</li>
+</ul>
+<p>这里是http connector的优化，如果使用apache和tomcat做集群的负载均衡，并且使用ajp协议做apache和tomcat的协议转发，那么还需要优化ajp connector。$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;8009&quot; protocol=&quot;AJP/1.3&quot; maxThreads=&quot;600&quot; minSpareThreads=&quot;100&quot; maxSpareThreads=&quot;500&quot; acceptCount=&quot;700&quot;</span><br><span class="line">connectionTimeout=&quot;20000&quot; redirectPort=&quot;8443&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>由于tomcat有多个connector，所以tomcat线程的配置，又支持多个connector共享一个线程池。</p>
+<p>首先。打开/conf/server.xml，增加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Executor name=&quot;tomcatThreadPool&quot; namePrefix=&quot;catalina-exec-&quot; maxThreads=&quot;500&quot; minSpareThreads=&quot;20&quot; maxIdleTime=&quot;60000&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>最大线程500（一般服务器足以），最小空闲线程数20，线程最大空闲时间60秒。</p>
+<p>然后，修改<connector ...="">节点，增加executor属性，executor设置为线程池的名字：</connector></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector executor=&quot;tomcatThreadPool&quot; port=&quot;80&quot; protocol=&quot;HTTP/1.1&quot;  connectionTimeout=&quot;60000&quot; keepAliveTimeout=&quot;15000&quot; maxKeepAliveRequests=&quot;1&quot;  redirectPort=&quot;443&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>可以多个connector公用1个线程池，所以ajp connector也同样可以设置使用tomcatThreadPool线程池。</p>
+<h2><span id="禁用dns查询">禁用DNS查询</span></h2><p>当web应用程序向要记录客户端的信息时，它也会记录客户端的IP地址或者通过域名服务器查找机器名 转换为IP地址。</p>
+<p>DNS查询需要占用网络，并且包括可能从很多很远的服务器或者不起作用的服务器上去获取对应的IP的过程，这样会消耗一定的时间。</p>
+<p>修改server.xml文件中的Connector元素，修改属性enableLookups参数值: enableLookups=”false”</p>
+<p>如果为true，则可以通过调用request.getRemoteHost()进行DNS查询来得到远程客户端的实际主机名，若为false则不进行DNS查询，而是返回其ip地址</p>
+<h2><span id="设置session过期时间">设置session过期时间</span></h2><p>conf\web.xml中通过参数指定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;session-config&gt;   </span><br><span class="line">    &lt;session-timeout&gt;180&lt;/session-timeout&gt;     </span><br><span class="line">&lt;/session-config&gt;</span><br></pre></td></tr></table></figure>
+<p>单位为分钟</p>
+<h2><span id="apr插件提高tomcat性能">Apr插件提高Tomcat性能</span></h2><p>Tomcat可以使用APR来提供超强的可伸缩性和性能，更好地集成本地服务器技术.</p>
+<p>APR(Apache Portable Runtime)是一个高可移植库，它是Apache HTTP Server 2.x的核心。APR有很多用途，包括访问高级IO功能(例如sendfile,epoll和OpenSSL)，OS级别功能(随机数生成，系统状态等等)，本地进程管理(共享内存，NT管道和UNIX sockets)。这些功能可以使Tomcat作为一个通常的前台WEB服务器，能更好地和其它本地web技术集成，总体上让Java更有效率作为一个高性能web服务器平台而不是简单作为后台容器。</p>
+<p>在产品环境中，特别是直接使用Tomcat做WEB服务器的时候，应该使用Tomcat Native来提高其性能</p>
+<p>要测APR给tomcat带来的好处最好的方法是在慢速网络上（模拟Internet），将Tomcat线程数开到300以上的水平，然后模拟一大堆并发请求。</p>
+<p>如果不配APR，基本上300个线程狠快就会用满，以后的请求就只好等待。但是配上APR之后，并发的线程数量明显下降，从原来的300可能会马上下降到只有几十，新的请求会毫无阻塞的进来。</p>
+<p>在局域网环境测，就算是400个并发，也是一瞬间就处理/传输完毕，但是在真实的Internet环境下，页面处理时间只占0.1%都不到，绝大部分时间都用来页面传输。如果不用APR，一个线程同一时间只能处理一个用户，势必会造成阻塞。所以生产环境下用apr是非常必要的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(1)安装APR tomcat-native</span><br><span class="line">    apr-1.3.8.tar.gz   安装在/usr/local/apr</span><br><span class="line">    #tar zxvf apr-1.3.8.tar.gz</span><br><span class="line">    #cd apr-1.3.8</span><br><span class="line">    #./configure;make;make install</span><br><span class="line">    </span><br><span class="line">    apr-util-1.3.9.tar.gz  安装在/usr/local/apr/lib</span><br><span class="line">    #tar zxvf apr-util-1.3.9.tar.gz</span><br><span class="line">    #cd apr-util-1.3.9  </span><br><span class="line">    #./configure --with-apr=/usr/local/apr ----with-java-home=JDK;make;make install</span><br><span class="line">    </span><br><span class="line">    #cd apache-tomcat-6.0.20/bin  </span><br><span class="line">    #tar zxvf tomcat-native.tar.gz  </span><br><span class="line">    #cd tomcat-native/jni/native  </span><br><span class="line">    #./configure --with-apr=/usr/local/apr;make;make install</span><br><span class="line">    </span><br><span class="line">  (2)设置 Tomcat 整合 APR</span><br><span class="line">    修改 tomcat 的启动 shell （startup.sh），在该文件中加入启动参数：</span><br><span class="line">      CATALINA_OPTS=&quot;$CATALINA_OPTS -Djava.library.path=/usr/local/apr/lib&quot; 。</span><br><span class="line"> </span><br><span class="line">  (3)判断安装成功:</span><br><span class="line">    如果看到下面的启动日志，表示成功。</span><br><span class="line">      2007-4-26 15:34:32 org.apache.coyote.http11.Http11AprProtocol init</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/tomcat/performance/" data-id="cjoqzsr4b003wh0izzvur5jxa" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/tomcat/">tomcat</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Learn-Java/2018/11/21/test/jmeter/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JMETER
+        
+      </div>
+    </a>
+  
+  
+    <a href="/Learn-Java/2018/11/20/tomcat/virtual/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Tomcat服务器虚拟目录的映射方式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HeapSize/">HeapSize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/bean/">bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/coolection/">coolection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/exception/">exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/io/">io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java-bean/">java bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jmeter/">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jsp/">jsp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mvn/">mvn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/netty/">netty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/nio/">nio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/serializable/">serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/test/">test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/tomcat/">tomcat</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Learn-Java/tags/HeapSize/" style="font-size: 10px;">HeapSize</a> <a href="/Learn-Java/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/Learn-Java/tags/bean/" style="font-size: 10px;">bean</a> <a href="/Learn-Java/tags/coolection/" style="font-size: 10px;">coolection</a> <a href="/Learn-Java/tags/exception/" style="font-size: 10px;">exception</a> <a href="/Learn-Java/tags/gradle/" style="font-size: 13.33px;">gradle</a> <a href="/Learn-Java/tags/http/" style="font-size: 15px;">http</a> <a href="/Learn-Java/tags/io/" style="font-size: 10px;">io</a> <a href="/Learn-Java/tags/java/" style="font-size: 16.67px;">java</a> <a href="/Learn-Java/tags/java-bean/" style="font-size: 10px;">java bean</a> <a href="/Learn-Java/tags/jdbc/" style="font-size: 10px;">jdbc</a> <a href="/Learn-Java/tags/jmeter/" style="font-size: 10px;">jmeter</a> <a href="/Learn-Java/tags/jsp/" style="font-size: 11.67px;">jsp</a> <a href="/Learn-Java/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/Learn-Java/tags/mvn/" style="font-size: 20px;">mvn</a> <a href="/Learn-Java/tags/mybatis/" style="font-size: 11.67px;">mybatis</a> <a href="/Learn-Java/tags/netty/" style="font-size: 10px;">netty</a> <a href="/Learn-Java/tags/network/" style="font-size: 11.67px;">network</a> <a href="/Learn-Java/tags/nio/" style="font-size: 20px;">nio</a> <a href="/Learn-Java/tags/quartz/" style="font-size: 11.67px;">quartz</a> <a href="/Learn-Java/tags/serializable/" style="font-size: 10px;">serializable</a> <a href="/Learn-Java/tags/servlet/" style="font-size: 11.67px;">servlet</a> <a href="/Learn-Java/tags/socket/" style="font-size: 10px;">socket</a> <a href="/Learn-Java/tags/test/" style="font-size: 10px;">test</a> <a href="/Learn-Java/tags/thread/" style="font-size: 18.33px;">thread</a> <a href="/Learn-Java/tags/tomcat/" style="font-size: 11.67px;">tomcat</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Learn-Java/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/21/test/jmeter/">JMETER</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/performance/">tomcat 性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/virtual/">Tomcat服务器虚拟目录的映射方式</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/thread/">线程</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/synchronized/">线程同步详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Neo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Learn-Java/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Learn-Java/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/Learn-Java/fancybox/jquery.fancybox.css">
+  <script src="/Learn-Java/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/Learn-Java/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

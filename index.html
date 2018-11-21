@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://lv-neo.github.io/Learn-Java/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh-cn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/Learn-Java/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/Learn-Java/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Learn-Java/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/Learn-Java/">Home</a>
+        
+          <a class="main-nav-link" href="/Learn-Java/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/Learn-Java/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://lv-neo.github.io/Learn-Java"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-test/jmeter" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/21/test/jmeter/" class="article-date">
+  <time datetime="2018-11-21T07:21:48.152Z" itemprop="datePublished">2018-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/21/test/jmeter/">JMETER</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#jmeter简介mac版本">jmeter简介（MAC版本）</a><ul>
+<li><a href="#虚拟用户组">虚拟用户组</a></li>
+<li><a href="#添加被测页面">添加被测页面</a></li>
+<li><a href="#添加结果监听器">添加结果监听器</a></li>
+<li><a href="#jdbc测试">jdbc测试</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="jmeter简介mac版本">jmeter简介（MAC版本）</span></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">官网地址</span><br><span class="line">http://jmeter.apache.org/</span><br></pre></td></tr></table></figure>
+<p>Apache JMeter是100%纯java桌面应用程序，被设计用来测试客户端/服务器结构的软件（例如web应用程序）。它可以用来测试包括基于静态和动态资源程序的性能，例如静态文件，Java Servlets，Java 对象，数据库，FTP服务器等等。JMeter可以用来在一个服务器、网络或者对象上模拟重负载来测试它的强度或者分析在不同的负载类型下的全面性能。</p>
+<p>另外，JMeter能够通过让你们用断言创建测试脚本来验证我们的应用程序是否返回了我们期望的结果，从而帮助我们回归测试我们的程序。为了最大的灵活性，JMeter允许我们使用正则表达式创建断言。</p>
+<h2><span id="虚拟用户组">虚拟用户组</span></h2><p></p>
+<blockquote>
+<p>右击“测试计划”&gt;添加&gt;Threads（Users）&gt;线程组</p>
+</blockquote>
+<p>JMeter是由Java实现的，并且使用一个Java线程来模拟一个用户，因此线程组（Thread Group）就是指一组用户的意思，换句话说一个线程组就是一组虚拟用户（virtual users），这些虚拟用户用来模拟访问被测系统。</p>
+<p>常用设置：</p>
+<ul>
+<li><p>线程数：这里就是指虚拟用户数，默认的输入是“1”，则表明模拟一个虚拟用户访问被测系统，如果想模拟100个用户，则此处输入100。</p>
+</li>
+<li><p>Ramp-Up Period (in seconds): 虚拟用户增长时长。不明白别着急，xmeter君给你举个栗子：比如你测试的是一个考勤系统，那么实际用户登录使用考勤系统的时候并不是大家喊1、2、3 - 走起，然后一起登录。实际使用场景可能是9点钟上班，那么从8:30开始，考勤系统会陆陆续续有人开始登录，直到9:10左右，那么如果完全按照用户的使用场景，设计该测试的时候此处应输入40（分钟）* 60（秒）= 2400。但是实际测试一般不会设置如此长的Ramp-Up时间，原因嘛，难道你做一次测试要先等上40分钟做登录操作？一般情况下，可以估计出登录频率最高的时间长度，比如此处可能从8:55到9:00登录的人最多，那这里设置成300秒，如果“线程数”输入为100，则意味着在5分钟内100用户登录完毕。</p>
+</li>
+<li><p>循环次数：该处设置一个虚拟用户做多少次的测试。默认为1，意味着一个虚拟用户做完一遍事情之后，该虚拟用户停止运行。如果选中“永远”，则意味着测试运行起来之后就根本停不下来了，除非你把它强制咔嚓。</p>
+</li>
+</ul>
+<h2><span id="添加被测页面">添加被测页面</span></h2><blockquote>
+<p>在Thread Group下&gt;添加&gt;取样器&gt;HTTP请求</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">假设我们要请求</span><br><span class="line">https://lv-neo.github.io/Learn-Java/2018/11/21/test/jmeter/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>协议:http</li>
+<li>服务器名称或者ip:lv-neo.github.io</li>
+<li>端口：80</li>
+<li>内容编码：UTF-8</li>
+<li>HTTP请求<ul>
+<li>路径：Learn-Java/2018/11/21/test/jmeter/</li>
+<li>参数：对应http params</li>
+<li>消息体数据： 对应body</li>
+</ul>
+</li>
+</ul>
+<p>这个时候点测试跑完了没啥反应，你只有在“选项” &gt; “Log Viewer”看看运行的日志。为了直观看到我们需要添加结果监听器。</p>
+<h2><span id="添加结果监听器">添加结果监听器</span></h2><blockquote>
+<p>在Thread Group下&gt;添加&gt;监听器&gt;察看结果树</p>
+</blockquote>
+<p>现在你就可以看到http请求的结果了</p>
+<h2><span id="jdbc测试">jdbc测试</span></h2><p>如果你想执行JDBC测试，你当然需要从供应商得到适当的JDBC驱动。JMeter没有提供任何JDBC驱动。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/21/test/jmeter/" data-id="cjoqzsr4d0041h0iz9cd68ny5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/jmeter/">jmeter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/test/">test</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-tomcat/performance" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/tomcat/performance/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.978Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/tomcat/performance/">tomcat 性能优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#tomcat-性能优化">tomcat 性能优化</a><ul>
+<li><a href="#tomcat-内存优化">tomcat 内存优化</a></li>
+<li><a href="#tomcat-线程优化">tomcat 线程优化</a></li>
+<li><a href="#禁用dns查询">禁用DNS查询</a></li>
+<li><a href="#设置session过期时间">设置session过期时间</a></li>
+<li><a href="#apr插件提高tomcat性能">Apr插件提高Tomcat性能</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="tomcat-性能优化">tomcat 性能优化</span></h1><p>tomcat默认参数是为开发环境制定，而非适合生产环境，尤其是内存和线程的配置，默认都很低，容易成为性能瓶颈。</p>
+<h2><span id="tomcat-内存优化">tomcat 内存优化</span></h2><p>linux修改TOMCAT_HOME/bin/catalina.sh，在前面加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=&quot;-XX:PermSize=64M -XX:MaxPermSize=128m -Xms512m -Xmx1024m -Duser.timezone=Asia/Shanghai&quot;</span><br></pre></td></tr></table></figure>
+<p>新版本或者部分修改TOMCAT_HOME/bin/setenv.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=&apos;-Djava.security.egd=file:/dev/./urandom -server -Xms512m -Xmx5120m -Dfile.encoding=UTF-8&apos;</span><br></pre></td></tr></table></figure>
+<p>windows修改TOMCAT_HOME/bin/catalina.bat，在前面加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set JAVA_OPTS=-XX:PermSize=64M -XX:MaxPermSize=128m -Xms512m -Xmx1024m</span><br></pre></td></tr></table></figure>
+<p>最大堆内存是1024m，对于现在的硬件还是偏低，实施时，还是按照机器具体硬件配置优化。</p>
+<h2><span id="tomcat-线程优化">tomcat 线程优化</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;80&quot; protocol=&quot;HTTP/1.1&quot; maxThreads=&quot;600&quot; minSpareThreads=&quot;100&quot; maxSpareThreads=&quot;500&quot; acceptCount=&quot;700&quot;</span><br><span class="line">connectionTimeout=&quot;20000&quot; redirectPort=&quot;8443&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>maxThreads=”600”       ///最大线程数</li>
+<li>minSpareThreads=”100”///初始化时创建的线程数</li>
+<li>maxSpareThreads=”500”///一旦创建的线程超过这个值，Tomcat就会关闭不再需要的socket线程。</li>
+<li>acceptCount=”700”//指定当所有可以使用的处理请求的线程数都被使用时，可以放到处理队列中的请求数，超过这个数的请求将不予处理</li>
+</ul>
+<p>这里是http connector的优化，如果使用apache和tomcat做集群的负载均衡，并且使用ajp协议做apache和tomcat的协议转发，那么还需要优化ajp connector。$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;8009&quot; protocol=&quot;AJP/1.3&quot; maxThreads=&quot;600&quot; minSpareThreads=&quot;100&quot; maxSpareThreads=&quot;500&quot; acceptCount=&quot;700&quot;</span><br><span class="line">connectionTimeout=&quot;20000&quot; redirectPort=&quot;8443&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>由于tomcat有多个connector，所以tomcat线程的配置，又支持多个connector共享一个线程池。</p>
+<p>首先。打开/conf/server.xml，增加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Executor name=&quot;tomcatThreadPool&quot; namePrefix=&quot;catalina-exec-&quot; maxThreads=&quot;500&quot; minSpareThreads=&quot;20&quot; maxIdleTime=&quot;60000&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>最大线程500（一般服务器足以），最小空闲线程数20，线程最大空闲时间60秒。</p>
+<p>然后，修改<connector ...="">节点，增加executor属性，executor设置为线程池的名字：</connector></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector executor=&quot;tomcatThreadPool&quot; port=&quot;80&quot; protocol=&quot;HTTP/1.1&quot;  connectionTimeout=&quot;60000&quot; keepAliveTimeout=&quot;15000&quot; maxKeepAliveRequests=&quot;1&quot;  redirectPort=&quot;443&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>可以多个connector公用1个线程池，所以ajp connector也同样可以设置使用tomcatThreadPool线程池。</p>
+<h2><span id="禁用dns查询">禁用DNS查询</span></h2><p>当web应用程序向要记录客户端的信息时，它也会记录客户端的IP地址或者通过域名服务器查找机器名 转换为IP地址。</p>
+<p>DNS查询需要占用网络，并且包括可能从很多很远的服务器或者不起作用的服务器上去获取对应的IP的过程，这样会消耗一定的时间。</p>
+<p>修改server.xml文件中的Connector元素，修改属性enableLookups参数值: enableLookups=”false”</p>
+<p>如果为true，则可以通过调用request.getRemoteHost()进行DNS查询来得到远程客户端的实际主机名，若为false则不进行DNS查询，而是返回其ip地址</p>
+<h2><span id="设置session过期时间">设置session过期时间</span></h2><p>conf\web.xml中通过参数指定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;session-config&gt;   </span><br><span class="line">    &lt;session-timeout&gt;180&lt;/session-timeout&gt;     </span><br><span class="line">&lt;/session-config&gt;</span><br></pre></td></tr></table></figure>
+<p>单位为分钟</p>
+<h2><span id="apr插件提高tomcat性能">Apr插件提高Tomcat性能</span></h2><p>Tomcat可以使用APR来提供超强的可伸缩性和性能，更好地集成本地服务器技术.</p>
+<p>APR(Apache Portable Runtime)是一个高可移植库，它是Apache HTTP Server 2.x的核心。APR有很多用途，包括访问高级IO功能(例如sendfile,epoll和OpenSSL)，OS级别功能(随机数生成，系统状态等等)，本地进程管理(共享内存，NT管道和UNIX sockets)。这些功能可以使Tomcat作为一个通常的前台WEB服务器，能更好地和其它本地web技术集成，总体上让Java更有效率作为一个高性能web服务器平台而不是简单作为后台容器。</p>
+<p>在产品环境中，特别是直接使用Tomcat做WEB服务器的时候，应该使用Tomcat Native来提高其性能</p>
+<p>要测APR给tomcat带来的好处最好的方法是在慢速网络上（模拟Internet），将Tomcat线程数开到300以上的水平，然后模拟一大堆并发请求。</p>
+<p>如果不配APR，基本上300个线程狠快就会用满，以后的请求就只好等待。但是配上APR之后，并发的线程数量明显下降，从原来的300可能会马上下降到只有几十，新的请求会毫无阻塞的进来。</p>
+<p>在局域网环境测，就算是400个并发，也是一瞬间就处理/传输完毕，但是在真实的Internet环境下，页面处理时间只占0.1%都不到，绝大部分时间都用来页面传输。如果不用APR，一个线程同一时间只能处理一个用户，势必会造成阻塞。所以生产环境下用apr是非常必要的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(1)安装APR tomcat-native</span><br><span class="line">    apr-1.3.8.tar.gz   安装在/usr/local/apr</span><br><span class="line">    #tar zxvf apr-1.3.8.tar.gz</span><br><span class="line">    #cd apr-1.3.8</span><br><span class="line">    #./configure;make;make install</span><br><span class="line">    </span><br><span class="line">    apr-util-1.3.9.tar.gz  安装在/usr/local/apr/lib</span><br><span class="line">    #tar zxvf apr-util-1.3.9.tar.gz</span><br><span class="line">    #cd apr-util-1.3.9  </span><br><span class="line">    #./configure --with-apr=/usr/local/apr ----with-java-home=JDK;make;make install</span><br><span class="line">    </span><br><span class="line">    #cd apache-tomcat-6.0.20/bin  </span><br><span class="line">    #tar zxvf tomcat-native.tar.gz  </span><br><span class="line">    #cd tomcat-native/jni/native  </span><br><span class="line">    #./configure --with-apr=/usr/local/apr;make;make install</span><br><span class="line">    </span><br><span class="line">  (2)设置 Tomcat 整合 APR</span><br><span class="line">    修改 tomcat 的启动 shell （startup.sh），在该文件中加入启动参数：</span><br><span class="line">      CATALINA_OPTS=&quot;$CATALINA_OPTS -Djava.library.path=/usr/local/apr/lib&quot; 。</span><br><span class="line"> </span><br><span class="line">  (3)判断安装成功:</span><br><span class="line">    如果看到下面的启动日志，表示成功。</span><br><span class="line">      2007-4-26 15:34:32 org.apache.coyote.http11.Http11AprProtocol init</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/tomcat/performance/" data-id="cjoqzsr4b003wh0izzvur5jxa" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/tomcat/">tomcat</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-tomcat/virtual" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/tomcat/virtual/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.978Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/tomcat/virtual/">Tomcat服务器虚拟目录的映射方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#tomcat服务器虚拟目录的映射方式">Tomcat服务器虚拟目录的映射方式</a><ul>
+<li><a href="#虚拟目录的映射方式一在serverxml文件的host元素中配置不推荐">虚拟目录的映射方式一：在server.xml文件的host元素中配置(不推荐)</a></li>
+<li><a href="#虚拟目录的映射方式二让tomcat服务器自动映射">虚拟目录的映射方式二：让tomcat服务器自动映射</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="tomcat服务器虚拟目录的映射方式">Tomcat服务器虚拟目录的映射方式</span></h1><blockquote>
+<p>Web应用开发好后，若想供外界访问，需要把web应用所在目录交给web服务器管理，这个过程称之为虚似目录的映射。那么在Tomcat服务器中，如何进行虚拟目录的映射呢？总共有如下的几种方式：</p>
+</blockquote>
+<h2><span id="虚拟目录的映射方式一在serverxml文件的host元素中配置不推荐">虚拟目录的映射方式一：在server.xml文件的host元素中配置(不推荐)</span></h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Host</span> <span class="attr">name</span>=<span class="string">"localhost"</span>  <span class="attr">appBase</span>=<span class="string">"webapps"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">unpackWARs</span>=<span class="string">"true"</span> <span class="attr">autoDeploy</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">&lt;!-- SingleSignOn valve, share authentication between web applications</span></span><br><span class="line"><span class="comment">            Documentation at: /docs/config/valve.html --&gt;</span></span><br><span class="line">       <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">       &lt;Valve className="org.apache.catalina.authenticator.SingleSignOn" /&gt;</span></span><br><span class="line"><span class="comment">       --&gt;</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">&lt;!-- Access log processes all example.</span></span><br><span class="line"><span class="comment">            Documentation at: /docs/config/valve.html</span></span><br><span class="line"><span class="comment">            <span class="doctag">Note:</span> The pattern used is equivalent to using pattern="common" --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.valves.AccessLogValve"</span> <span class="attr">directory</span>=<span class="string">"logs"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">prefix</span>=<span class="string">"localhost_access_log"</span> <span class="attr">suffix</span>=<span class="string">".txt"</span></span></span><br><span class="line"><span class="tag">              <span class="attr">pattern</span>=<span class="string">"%h %l %u %t &amp;quot;%r&amp;quot; %s %b"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">     <span class="tag">&lt;/<span class="name">Host</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在<figure class="highlight plain"><figcaption><span>path</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">　</span><br><span class="line"></span><br><span class="line">```xml</span><br><span class="line">&lt;Host name=&quot;localhost&quot;  appBase=&quot;webapps&quot;</span><br><span class="line">              unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;</span><br><span class="line">              xmlValidation=&quot;false&quot; xmlNamespaceAware=&quot;false&quot;&gt;</span><br><span class="line"> </span><br><span class="line">&lt;Context path=&quot;/test&quot; docBase=&quot;/vagrant/java/web/test&quot; /&gt;</span><br><span class="line"> &lt;/Host&gt;</span><br></pre></td></tr></table></figure></p>
+<p>其中，Context表示上下文，代表的就是一个JavaWeb应用，Context元素有两个属性，</p>
+<ul>
+<li><p>path：用来配置虚似目录，必须以”/“开头。</p>
+</li>
+<li><p>docBase：配置此虚似目录对应着硬盘上的Web应用所在目录。</p>
+</li>
+</ul>
+<p>　使用浏览器访问”/test”这个虚拟目录下的1.jsp这个web资源，访问结果如下：</p>
+<p>　　1.jsp可以正常访问，这说明我们已经成功地将将在F盘下的JavaWebDemoProject这个JavaWeb应用映射到JavaWebApp这个虚拟目录上了，访问”/JavaWebApp/1.jsp”就相当于访问”F:\JavaWebDemoProject\1.jsp”</p>
+<blockquote>
+<p>注意：在Tomcat6之后中，不再建议在server.xml文件中使用配置context元素的方式来添加虚拟目录的映射，因为每次修改server.xml文件后，Tomcat服务器就必须要重新启动后才能重新加载server.xml文件。在Tomcat服务器的文档<a href="http://localhost:8080/docs/config/context.html" target="_blank" rel="noopener">http://localhost:8080/docs/config/context.html</a> 中有这样的说明：</p>
+</blockquote>
+<p>　　It is NOT recommended to place <context> elements directly in the server.xml file. This is because it makes modifying the Context configuration more invasive since the main conf/server.xml file cannot be reloaded without restarting Tomcat.</context></p>
+<p>Individual Context elements may be explicitly defined:</p>
+<p>In an individual file at /META-INF/context.xml inside the application files. Optionally (based on the Host’s copyXML attribute) this may be copied to $CATALINA_BASE/conf/[enginename]/[hostname]/ and renamed to application’s base file name plus a “.xml” extension.<br>In individual files (with a “.xml” extension) in the $CATALINA_BASE/conf/[enginename]/[hostname]/ directory. The context path and version will be derived from the base name of the file (the file name less the .xml extension). This file will always take precedence over any context.xml file packaged in the web application’s META-INF directory.<br>Inside a Host element in the main conf/server.xml.</p>
+<h2><span id="虚拟目录的映射方式二让tomcat服务器自动映射">虚拟目录的映射方式二：让tomcat服务器自动映射</span></h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/tomcat/virtual/" data-id="cjoqzsr4c003yh0izdrzpim9x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/tomcat/">tomcat</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-thread/thread" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/thread/thread/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.975Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/thread/thread/">线程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#线程">线程</a><ul>
+<li><a href="#介绍">介绍</a></li>
+<li><a href="#特点">特点</a><ul>
+<li><a href="#轻型实体">轻型实体</a></li>
+<li><a href="#独立调度和分派的基本单位">独立调度和分派的基本单位</a></li>
+<li><a href="#可并发执行">可并发执行</a></li>
+<li><a href="#共享进程资源">共享进程资源</a></li>
+</ul>
+</li>
+<li><a href="#与进程比较">与进程比较</a></li>
+<li><a href="#守护线程">守护线程</a></li>
+<li><a href="#线程的同步">线程的同步</a><ul>
+<li><a href="#工作原理">工作原理</a></li>
+<li><a href="#线程属性">线程属性</a></li>
+<li><a href="#线程体">线程体</a></li>
+<li><a href="#线程的状态">线程的状态</a><ul>
+<li><a href="#新线程态new-thread">新线程态（New Thread)</a></li>
+<li><a href="#可运行态runnable">可运行态（Runnable)</a></li>
+<li><a href="#阻塞非运行态not-runnable">阻塞/非运行态（Not Runnable)</a></li>
+<li><a href="#线程-1">线程</a></li>
+<li><a href="#死亡态dead">死亡态（Dead)</a></li>
+<li><a href="#线程优先级">线程优先级</a></li>
+<li><a href="#幽灵线程">幽灵线程</a></li>
+<li><a href="#线程组">线程组</a></li>
+<li><a href="#多线程">多线程</a></li>
+<li><a href="#同步线程">同步线程</a></li>
+<li><a href="#死锁">死锁</a></li>
+<li><a href="#优化">优化</a></li>
+<li><a href="#轻量级锁">轻量级锁</a></li>
+<li><a href="#偏向锁">偏向锁</a></li>
+<li><a href="#分类">分类</a></li>
+<li><a href="#线程的组成">线程的组成</a></li>
+</ul>
+</li>
+<li><a href="#线程状态变化">线程状态变化</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#附录">附录</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="线程">线程</span></h1><h2><span id="介绍">介绍</span></h2><p>线程，有时被称为轻量级进程(Lightweight Process，LWP），是程序执行流的最小单元。</p>
+<p><img src="thread.jpg" alt="线程"></p>
+<p>一个标准的线程由线程ID，当前指令指针(PC），寄存器集合和堆栈组成。</p>
+<p>另外，线程是进程中的一个实体，是被系统独立调度和分派的基本单位，线程自己不拥有系统资源，只拥有一点儿在运行中必不可少的资源，但它可与同属一个进程的其它线程共享进程所拥有的全部资源。</p>
+<p>一个线程可以创建和撤消另一个线程，同一进程中的多个线程之间可以并发执行。</p>
+<p>由于线程之间的相互制约，致使线程在运行中呈现出间断性。</p>
+<p>线程也有就绪、阻塞和运行三种基本状态。</p>
+<ul>
+<li><p>就绪状态是指线程具备运行的所有条件，逻辑上可以运行，在等待处理机；</p>
+</li>
+<li><p>运行状态是指线程占有处理机正在运行；</p>
+</li>
+<li><p>阻塞状态是指线程在等待一个事件（如某个信号量），逻辑上不可执行。</p>
+</li>
+</ul>
+<p>每一个程序都至少有一个线程，若程序只有一个线程，那就是程序本身。</p>
+<p>线程是程序中一个单一的顺序控制流程。</p>
+<p>进程内一个相对独立的、可调度的执行单元，是系统独立调度和分派CPU的基本单位指运行中的程序的调度单位。<br>在单个程序中同时运行多个线程完成不同的工作，称为多线程。</p>
+<h2><span id="特点">特点</span></h2><p>在多线程OS中，通常是在一个进程中包括多个线程，每个线程都是作为利用CPU的基本单位，是花费最小开销的实体。线程具有以下属性。</p>
+<h3><span id="轻型实体">轻型实体</span></h3><p>线程中的实体基本上不拥有系统资源，只是有一点必不可少的、能保证独立运行的资源。<br>线程的实体包括程序、数据和TCB。线程是动态概念，它的动态特性由线程控制块TCB（Thread Control Block）描述。TCB包括以下信息：</p>
+<ul>
+<li>线程状态。</li>
+<li>当线程不运行时，被保存的现场资源。</li>
+<li>一组执行堆栈。</li>
+<li>存放每个线程的局部变量主存区。</li>
+<li>访问同一个进程中的主存和其它资源。<br>用于指示被执行指令序列的程序计数器、保留局部变量、少数状态参数和返回地址等的一组寄存器和堆栈。</li>
+</ul>
+<h3><span id="独立调度和分派的基本单位">独立调度和分派的基本单位</span></h3><p>在多线程OS中，线程是能独立运行的基本单位，因而也是独立调度和分派的基本单位。由于线程很“轻”，故线程的切换非常迅速且开销小（在同一进程中的）。</p>
+<h3><span id="可并发执行">可并发执行</span></h3><p>在一个进程中的多个线程之间，可以并发执行，甚至允许在一个进程中所有线程都能并发执行；同样，不同进程中的线程也能并发执行，充分利用和发挥了处理机与外围设备并行工作的能力。</p>
+<h3><span id="共享进程资源">共享进程资源</span></h3><p>在同一进程中的各个线程，都可以共享该进程所拥有的资源，这首先表现在：所有线程都具有相同的地址空间（进程的地址空间），这意味着，线程可以访问该地址空间的每一个虚地址；此外，还可以访问进程所拥有的已打开文件、定时器、信号量机构等。由于同一个进程内的线程共享内存和文件，所以线程之间互相通信不必调用内核。</p>
+<h2><span id="与进程比较">与进程比较</span></h2><p>进程是资源分配的基本单位。所有与该进程有关的资源，都被记录在进程控制块PCB中。以表示该进程拥有这些资源或正在使用它们。</p>
+<p>另外，进程也是抢占处理机的调度单位，它拥有一个完整的虚拟地址空间。当进程发生调度时，不同的进程拥有不同的虚拟地址空间，而同一进程内的不同线程共享同一地址空间。</p>
+<p>与进程相对应，线程与资源分配无关，它属于某一个进程，并与进程内的其他线程一起共享进程的资源。</p>
+<p>线程只由相关堆栈（系统栈或用户栈）寄存器和线程控制表TCB组成。</p>
+<p>寄存器可被用来存储线程内的局部变量，但不能存储其他线程的相关变量。</p>
+<p>通常在一个进程中可以包含若干个线程，它们可以利用进程所拥有的资源。</p>
+<p>在引入线程的操作系统中，通常都是把进程作为分配资源的基本单位，而把线程作为独立运行和独立调度的基本单位。</p>
+<p>由于线程比进程更小，基本上不拥有系统资源，故对它的调度所付出的开销就会小得多，能更高效的提高系统内多个程序间并发执行的程度，从而显著提高系统资源的利用率和吞吐量。</p>
+<p>因而近年来推出的通用操作系统都引入了线程，以便进一步提高系统的并发性，并把它视为现代操作系统的一个重要指标。</p>
+<p>线程与进程的区别可以归纳为以下4点：</p>
+<ul>
+<li>地址空间和其它资源（如打开文件）：进程间相互独立，同一进程的各线程间共享。某进程内的线程在其它进程不可见。</li>
+<li>通信：进程间通信IPC，线程间可以直接读写进程数据段（如全局变量）来进行通信——需要进程同步和互斥手段的辅助，以保证数据的一致性。</li>
+<li>调度和切换：线程上下文切换比进程上下文切换要快得多。</li>
+<li>在多线程OS中，进程不是一个可执行的实体。</li>
+</ul>
+<h2><span id="守护线程">守护线程</span></h2><p>守护线程是特殊的线程，一般用于在后台为其他线程提供服务.<br>Java中，isDaemon()：判断一个线程是否为守护线程.<br>Java中，setDaemon()：设置一个线程为守护线程.</p>
+<h2><span id="线程的同步">线程的同步</span></h2><p>线程的同步是Java多线程编程的难点，往往开发者搞不清楚什么是竞争资源、什么时候需要考虑同步，怎么同步等等问题，当然，这些问题没有很明确的答案，但有些原则问题需要考虑，是否有竞争资源被同时改动的问题？对于同步，在具体的Java代码中需要完成以下两个操作：把竞争访问的资源标识为private；同步哪些修改变量的代码，使用synchronized关键字同步方法或代码。当然这不是唯一控制并发安全的途径。synchronized关键字使用说明synchronized只能标记非抽象的方法，不能标识成员变量。为了演示同步方法的使用，构建了一个信用卡账户，起初信用额为100w，然后模拟透支、存款等多个操作。显然银行账户User对象是个竞争资源，而多个并发操作的是账户方法oper(int x），当然应该在此方法上加上同步，并将账户的余额设为私有变量，禁止直接访问。</p>
+<h3><span id="工作原理">工作原理</span></h3><ul>
+<li><p>线程是进程中的实体，一个进程可以拥有多个线程，一个线程必须有一个父进程。线程不拥有系统资源，只有运行必须的一些数据结构；它与父进程的其它线程共享该进程所拥有的全部资源。线程可以创建和撤消线程，从而实现程序的并发执行。一般，线程具有就绪、阻塞和运行三种基本状态。</p>
+</li>
+<li><p>在多中央处理器的系统里，不同线程可以同时在不同的中央处理器上运行，甚至当它们属于同一个进程时也是如此。大多数支持多处理器的操作系统都提供编程接口来让进程可以控制自己的线程与各处理器之间的关联度（affinity）。</p>
+</li>
+<li><p>有时候，线程也称作轻量级进程。就象进程一样，线程在程序中是独立的、并发的执行路径，每个线程有它自己的堆栈、自己的程序计数器和自己的局部变量。但是，与分隔的进程相比，进程中的线程之间的隔离程度要小。它们共享内存、文件句柄和其它每个进程应有的状态。</p>
+</li>
+<li><p>进程可以支持多个线程，它们看似同时执行，但互相之间并不同步。一个进程中的多个线程共享相同的内存地址空间，这就意味着它们可以访问相同的变量和对象，而且它们从同一堆中分配对象。尽管这让线程之间共享信息变得更容易，但您必须小心，确保它们不会妨碍同一进程里的其它线程。</p>
+</li>
+<li><p>Java 线程工具和 API看似简单。但是，编写有效使用线程的复杂程序并不十分容易。因为有多个线程共存在相同的内存空间中并共享相同的变量，所以您必须小心，确保您的线程不会互相干扰。</p>
+</li>
+</ul>
+<h3><span id="线程属性">线程属性</span></h3><p>为了正确有效地使用线程，必须理解线程的各个方面并了解Java 实时系统。必须知道如何提供线程体、线程的生命周期、实时系统如 何调度线程、线程组、什么是幽灵线程（Demo nThread）。</p>
+<h3><span id="线程体">线程体</span></h3><p>所有的操作都发生在线程体中，在Java中线程体是从Thread类继承的run（）方法，或实现Runnable接口的类中的run（）方法。当线程产生并初始化后，实时系统调用它的run（）方法。run（）方法内的代码实现所产生线程的行为，它是线程的主要部分。</p>
+<h3><span id="线程的状态">线程的状态</span></h3><p>附图表示了线程在它的生命周期内的任何时刻所能处的状态以及引起状态改变的方法。这图并不是完整的有限状态图，但基本概括了线程中比较感兴趣和普遍的方面。以下讨论有关线程生命周期以此为据。</p>
+<h4><span id="新线程态new-thread">新线程态（New Thread)</span></h4><p>产生一个Thread对象就生成一个新线程。当线程处于”新线程”状态时，仅仅是一个空线程对象，它还没有分配到系统资源。因此只能启动或终止它。任何其他操作都会引发异常。例如，一个线程调用了new方法之后，并在调用start方法之前的处于新线程状态，可以调用start和stop方法。</p>
+<h4><span id="可运行态runnable">可运行态（Runnable)</span></h4><p>start（）方法产生运行线程所必须的资源，调度线程执行，并且调用线程的run（）方法。</p>
+<p>在这时线程的生命状态与周期线程处于可运行态。</p>
+<p>该状态不称为运行态是因为这时的线程并不总是一直占用处理机。</p>
+<p>特别是对于只有一个处理机的PC而言，任何时刻只能有一个处于可运行态的线程占用处理机。</p>
+<p>Java通过调度来实现多线程对处理机的共享。注意，如果线程处于Runnable状态，它也有可能不在运行，这是因为还有优先级和调度问题。</p>
+<h4><span id="阻塞非运行态not-runnable">阻塞/非运行态（Not Runnable)</span></h4><p>当以下事件发生时，线程进入非运行态。</p>
+<h4><span id="线程">线程</span></h4><ol>
+<li>suspend()方法被调用；</li>
+<li>sleep()方法被调用；</li>
+<li>线程使用wait()来等待条件变量；</li>
+<li>线程处于I/O请求的等待。</li>
+</ol>
+<h4><span id="死亡态dead">死亡态（Dead)</span></h4><p>当run（）方法返回，或别的线程调用stop（）方法，线程进入死亡态。通常Applet使用它的stop（）方法来终止它产生的所有线程。</p>
+<p>线程的基本操作：</p>
+<ul>
+<li>派生：线程在进程内派生出来，它即可由进程派生，也可由线程派生。</li>
+<li>阻塞（Block）：如果一个线程在执行过程中需要等待某个事件发生，则被阻塞。</li>
+<li>激活（unblock）：如果阻塞线程的事件发生，则该线程被激活并进入就绪队列。</li>
+<li>调度（schedule）：选择一个就绪线程进入执行状态。</li>
+<li>结束（Finish）：如果一个线程执行结束，它的寄存器上下文以及堆栈内容等将被释放。</li>
+</ul>
+<p><img src="thread_2.jpg" alt="线程的基本操作"></p>
+<p>线程的另一个执行特性是同步。线程中所使用的同步控制机制与进程中所使用的同步控制机制相同。</p>
+<h4><span id="线程优先级">线程优先级</span></h4><p>虽然我们说线程是并发运行的。然而事实常常并非如此。正如前面谈到的，当系统中只有一个CPU时，以某种顺序在单CPU情况下执行多线程被称为调度（scheduling）。</p>
+<p>Java采用的是一种简单、固定的调度法，即固定优先级调度。这种算法是根据处于可运行态线程的相对优先级来实行调度。</p>
+<p>当线程产生时，它继承原线程的优先级，在需要时可对优先级进行修改。在任何时刻，如果有多条线程等待运行，系统选择优先级最高的可运行线程运行。只有当它停止、自动放弃、或由于某种原因成为非运行态低优先级的线程才能运行。</p>
+<p>如果两个线程具有相同的优先级，它们将被交替地运行。</p>
+<p>Java实时系统的线程调度算法还是强制性的，在任何时刻，如果一个比其他线程优先级都高的线程的状态变为可运行态，实时系统将选择该线程来运行。</p>
+<p>一个应用程序可以通过使用线程中的方法setPriority(int），来设置线程的优先级大小。</p>
+<p>有线程进入了就绪状态，需要有线程调度程序来决定何时执行，根据优先级来调度。</p>
+<h4><span id="幽灵线程">幽灵线程</span></h4><p>任何一个Java线程都能成为幽灵线程。它是作为运行于同一个进程内的对象和线程的服务提供者。例如，HotJava浏览器有一个称为” 后台图片阅读器”的幽灵线程,它为需要图片的对象和线程从文件系统或网络读入图片。　幽灵线程是应用中典型的独立线程。它为同一应用中的其他对象和线程提供服务。幽灵线程的run（）方法一般都是无限循环，等待服务请求。</p>
+<h4><span id="线程组">线程组</span></h4><p>每个Java线程都是某个线程组的成员。线程组提供一种机制，使得多个线程集于一个对象内，能对它们实行整体操作。<br>譬如，你能用一个方法调用来启动或挂起组内的所有线程。<br>Java线程组由ThreadGroup类实现。<br>当线程产生时，可以指定线程组或由实时系统将其放入某个缺省的线程组内。线程只能属于一个线程组，并且当线程产生后不能改变它所属的线程组。</p>
+<h4><span id="多线程">多线程</span></h4><p>对于多线程的好处这就不多说了。但是，它同样也带来了某些新的麻烦。只要在设计程序时特别小心留意，克服这些麻烦并不算太困难。在生成线程时必须将线程放在指定的线程组，也可以放在缺省的线程组中，缺省的就是生成该线程的线程所在的线程组。一旦一个线程加入了某个线程组，不能被移出这个组。</p>
+<p><img src="threads.jpg" alt="多线程"></p>
+<h4><span id="同步线程">同步线程</span></h4><p>许多线程在执行中必须考虑与其他线程之间共享数据或协调执行状态。这就需要同步机制。<br>在Java中每个对象都有一把锁与之对应。<br>但Java不提供单独的lock和unlock操作。<br>它由高层的结构隐式实现，来保证操作的对应。<br>（然而，我们注意到Java虚拟机提供单独的monito renter和monitorexit指令来实现lock和unlock操作。）</p>
+<p>synchronized语句计算一个对象引用，试图对该对象完成锁操作，并且在完成锁操作前停止处理。<br>当锁操作完成synchronized语句体得到执行。<br>当语句体执行完毕（无论正常或异常），解锁操作自动完成。<br>作为面向对象的语言，synchronized经常与方法连用。<br>一种比较好的办法是，如果某个变量由一个线程赋值并由别的线程引用或赋值，那么所有对该变量的访问都必须在某个synchromized语句或synchronized方法内。</p>
+<h4><span id="死锁">死锁</span></h4><p>如果程序中有几个竞争资源的并发线程，那么保证均衡是很重要的。<br>系统均衡是指每个线程在执行过程中都能充分访问有限的资源。系统中没有饿死和死锁的线程。<br>Java并不提供对死锁的检测机制。<br>对大多数的Java程序员来说防止死锁是一种较好的选择。<br>最简单的防止死锁的方法是对竞争的资源引入序号，如果一个线程需要几个资源，那么它必须先得到小序号的资源，再申请大序号的资源。</p>
+<h4><span id="优化">优化</span></h4><p>Java的多线程安全是基于Lock机制实现的，而Lock的性能往往不如人意。<br>原因是，monitorenter与monitorexit这两个控制多线程同步的bytecode原语，是JVM依赖操作系统互斥（mutex）来实现的。<br>而互斥是一种会导致线程挂起，并在较短的时间内又需要重新调度回原线程的，较为消耗资源的操作。<br>所以需要进行对线程进行优化，提高效率。</p>
+<h4><span id="轻量级锁">轻量级锁</span></h4><p>轻量级锁（Lightweight Locking）是从Java6开始引入的概念，本意是为了减少多线程进入互斥的几率，并不是要替代互斥。<br>它利用了CPU原语Compare-And-Swap(CAS，汇编指令CMPXCHG），尝试在进入互斥前，进行补救。<br>下面将详细介绍JVM如何利用CAS，实现轻量级锁。</p>
+<p>Java Object Model中定义，Object Header是一个2字（1 word = 4 byte）长度的存储区域。<br>第一个字长度的区域用来标记同步，GC以及hash code等，官方称之为 mark word。<br>第二个字长度的区域是指向到对象的Class。<br>在2个word中，mark word是轻量级锁实现的关键，其结构见右表。</p>
+<p><img src="mark_word.jpg" alt="mark_work"></p>
+<p>从表中可以看到，state为lightweight locked的那行即为轻量级锁标记。<br>bitfieds名为指向lock record的指针，这里的lock record，其实是一块分配在线程堆栈上的空间区域。<br>用于CAS前，拷贝object上的mark word。<br>第三项是重量级锁标记。后面的状态单词很有趣，inflated，译为膨胀，在这里意思其实是锁已升级到OS-level。<br>一般我们只关注第二和第三项即可。<br>lock，unlock与mark word之间的联系如右图所示。<br>在图中，提到了拷贝object mark word，由于脱离了原始mark word，官方将它冠以displaced前缀，即displaced mark word（置换标记字）。<br>这个displaced mark word是整个轻量级锁实现的关键，在CAS中的compare就需要用它作为条件。</p>
+<p>在拷贝完object mark word之后，JVM做了一步交换指针的操作，即流程中第一个橙色矩形框内容所述。将object mark word里的轻量级锁指针指向lock record所在的stack指针，作用是让其他线程知道，该object monitor已被占用。lock record里的owner指针指向object mark word的作用是为了在接下里的运行过程中，识别哪个对象被锁住了。</p>
+<p>最后一步unlock中，我们发现，JVM同样使用了CAS来验证object mark word在持有锁到释放锁之间，有无被其他线程访问。如果其他线程在持有锁这段时间里，尝试获取过锁，则可能自身被挂起，而mark word的重量级锁指针也会被相应修改。此时，unlock后就需要唤醒被挂起的线程。</p>
+<h4><span id="偏向锁">偏向锁</span></h4><p>Java偏向锁（Biased Locking）是Java 6引入的一项多线程优化。它通过消除资源无竞争情况下的同步原语，进一步提高了程序的运行性能。它与轻量级锁的区别在于，轻量级锁是通过CAS来避免进入开销较大的互斥操作，而偏向锁是在无竞争场景下完全消除同步，连CAS也不执行（CAS本身仍旧是一种操作系统同步原语，始终要在JVM与OS之间来回，有一定的开销）。所谓的无竞争场景，就是单线程访问带同步的资源或方法。</p>
+<p>偏向锁，顾名思义，它会偏向于第一个访问锁的线程，如果在接下来的运行过程中，该锁没有被其他的线程访问，则持有偏向锁的线程将永远不需要触发同步。如果在运行过程中，遇到了其他线程抢占锁，则持有偏向锁的线程会被挂起，JVM会尝试消除它身上的偏向锁，将锁恢复到标准的轻量级锁。（偏向锁只能在单线程下起作用）。</p>
+<p>偏向模式和非偏向模式，在mark word表中，主要体现在thread ID字段是否为空。</p>
+<p>挂起持有偏向锁的线程，这步操作类似GC的pause，但不同之处是，它只挂起持有偏向锁的线程（非当前线程）。</p>
+<p>在抢占模式的橙色区域说明中有提到，指向当前堆栈中最近的一个lock record（在轻量级锁中，lock record是进入锁前会在stack上创建的一份内存空间）。这里提到的最近的一个lock record，其实就是当前锁所在的stack frame上分配的lock record。整个步骤是从偏向锁恢复到轻量级锁的过程。</p>
+<p>偏向锁也会带来额外开销。在JDK6中，偏向锁是默认启用的。它提高了单线程访问同步资源的性能。</p>
+<p>但试想一下，如果你的同步资源或代码一直都是多线程访问的，那么消除偏向锁这一步骤对你来说就是多余的。事实上，消除偏向锁的开销还是蛮大的。所以在你非常熟悉自己的代码前提下，大可禁用偏向锁 -XX:-UseBiasedLocking。</p>
+<p><img src="Biased_Locking.jpg" alt="Biased_Locking"></p>
+<h4><span id="分类">分类</span></h4><p>线程有两个基本类型：</p>
+<ul>
+<li>用户级线程：管理过程全部由用户程序完成，操作系统内核心只对进程进行管理。</li>
+<li>系统级线程（核心级线程）：由操作系统内核进行管理。操作系统内核给应用程序提供相应的系统调用和应用程序接口API，以使用户程序可以创建、执行、撤消线程。</li>
+</ul>
+<h4><span id="线程的组成">线程的组成</span></h4><ul>
+<li>一组代表处理器状态的CPU寄存器中的内容</li>
+<li>两个栈，一个用于当线程在内核模式下执行的时候，另一个用于线程在用户模式下执行的时候</li>
+<li>一个被称为线程局部存储器（TLS，thread-local storage）的私有储存区域，各个子系统、运行库和DLL都会用到该储存区域</li>
+<li>一个被称为线程ID（thread ID，线程标识符）的唯一标识符（在内部也被称为客户ID——进程ID和线程ID是在同一个名字空间中生产的，所以它们永远 不会重叠）</li>
+<li>有时候线程也有它们自己的安全环境，如果多线程服务器应用程序要模仿其客户的安全环境，则往往可以利用线程的安全环境</li>
+</ul>
+<h3><span id="线程状态变化">线程状态变化</span></h3><ul>
+<li><p>创建线程<br>当创建一个新的进程时，也创建一个新的线程，进程中的线程可以在同一进程中创建新的线程中创建新的线程。</p>
+</li>
+<li><p>终止线程<br>可以正常终止自己，也可能某个线程执行错误，由其它线程强行终止。终止线程操作主要负责释放线程占有的寄存器和栈</p>
+</li>
+<li><p>阻塞线程<br>当线程等待每个事件无法运行时，停止其运行。</p>
+</li>
+<li><p>唤醒线程<br>当阻塞线程的事件发生时，将被阻塞的线程状态置为就绪态，将其挂到就绪队列。进程仍然具有与执行相关的状态。例如，所谓进程处于“执行”状态，实际上是指该进程中的某线程正在执行。对进程施加的与进程状态有关的操作，也对其线程起作用。例如，把某个进程挂起时，该进程中的所有线程也都被挂起，激活也是同样。</p>
+</li>
+</ul>
+<h1><span id="附录">附录</span></h1><p>转载自<a href="http://baike.baidu.com/view/1053.htm" target="_blank" rel="noopener">http://baike.baidu.com/view/1053.htm</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/thread/thread/" data-id="cjoqzsr4k004ch0izppvqloj9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-thread/synchronized" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/thread/synchronized/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.973Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/thread/synchronized/">线程同步详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#线程同步详解">线程同步详解</a><ul>
+<li><a href="#互斥">互斥</a></li>
+<li><a href="#可见性">可见性</a></li>
+<li><a href="#什么时候必须同步">什么时候必须同步？</a></li>
+<li><a href="#用于一致性的同步">用于一致性的同步</a></li>
+<li><a href="#递增共享计数器">递增共享计数器</a></li>
+<li><a href="#不变性和-final-字段">不变性和 final 字段</a></li>
+<li><a href="#什么时候不需要同步">什么时候不需要同步</a></li>
+<li><a href="#死锁">死锁</a></li>
+<li><a href="#性能考虑事项">性能考虑事项</a></li>
+<li><a href="#同步准则">同步准则</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="线程同步详解">线程同步详解</span></h1><h2><span id="互斥">互斥</span></h2><p>在<a href="shared.md">共享对数据的访问</a>中，我们讨论了 synchronized 块的特征，并在实现典型互斥锁（即，互斥或临界段）时说明了它们，其中每次只有</p>
+<p>一个线程可以执行受给定锁保护的代码块。<br>互斥是同步所做工作的重要部分，但同步还有其它几种特征，这些特征对于在多处理器系统上取得正确结果非常重要。</p>
+<h2><span id="可见性">可见性</span></h2><p>除了互斥，同步（如 volatile）强制某些可见性约束。当对象获取锁时，它首先使自己的高速缓存无效，这样就可以保证直接从主内存中装入变量。</p>
+<p>同样，在对象释放锁之前，它会刷新其高速缓存，强制使已做的任何更改都出现在主内存中。</p>
+<p>这样，会保证在同一个锁上同步的两个线程看到在 synchronized 块内修改的变量的相同值。</p>
+<h2><span id="什么时候必须同步">什么时候必须同步？</span></h2><p>要跨线程维护正确的可见性，只要在几个线程之间共享非 final 变量，就必须使用 synchronized（或 volatile）以确保一个线程可以看见另一个线程做的更改。</p>
+<p>可见性同步的基本规则是在以下情况中必须同步：</p>
+<ul>
+<li>读取上一次可能是由另一个线程写入的变量</li>
+<li>写入下一次可能由另一个线程读取的变量</li>
+</ul>
+<h2><span id="用于一致性的同步">用于一致性的同步</span></h2><p>除了用于可见性的同步，从应用程序角度看，您还必须用同步来确保一致性得到了维护。当修改多个相关值时，您想要其它线程原子地看到这组更改 ― 要么看到全部更改，要么什么也看不到。这适用于相关数据项（如粒子的位置和速率）和元数据项（如链表中包含的数据值和列表自身中的数据项的链）。</p>
+<p>考虑以下示例，它实现了一个简单（但不是线程安全的）的整数堆栈：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class UnsafeStack &#123;</span><br><span class="line">  public int top = 0;</span><br><span class="line">  public int[] values = new int[1000];</span><br><span class="line"></span><br><span class="line">  public void push(int n) &#123;</span><br><span class="line">    values[top++] = n;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public int pop() &#123;</span><br><span class="line">    return values[--top];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果多个线程试图同时使用这个类，会发生什么？这可能是个灾难。因为没有同步，多个线程可以同时执行 push() 和 pop()。如果一个线程调用 push()，而另一个线程正好在递增了 top 并要把它用作 values 的下标之间调用 push()，会发生什么？结果，这两个线程会把它们的新值存储到相同的位置！当多个线程依赖于数据值之间的已知关系，但没有确保只有一个线程可以在给定时间操作那些值时，可能会发生许多形式的数据损坏，而这只是其中之一。</p>
+<p>对于这种情况，补救办法很简单：同步 push() 和 pop() 这两者，您将防止线程执行相互干扰。</p>
+<p>请注意，使用 volatile 还不够 ― 需要使用 synchronized 来确保 top 和 values 之间的关系保持一致。</p>
+<h2><span id="递增共享计数器">递增共享计数器</span></h2><p>通常，如果正在保护一个基本变量（如一个整数），有时只使用 volatile 就可以侥幸过关。但是，如果变量的新值派生自以前的值，就必须使用同步。为什么？考虑这个类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Counter &#123;</span><br><span class="line">  private int counter = 0;</span><br><span class="line"></span><br><span class="line">  public int  get()      &#123; return counter; &#125;</span><br><span class="line">  public void set(int n) &#123; counter = n; &#125;</span><br><span class="line">  public void increment() &#123;</span><br><span class="line">    set(get() + 1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们要递增计数器时，会发生什么？请看 increment() 的代码。它很清楚，但不是线程安全的。如果两个线程试图同时执行 increment()，会发生什么？计数器也许会增加 1，也许增加 2。令人惊奇的是，把 counter 标记成 volatile 没有帮助，使 get() 和 set() 都变成 synchronized 也没有帮助。</p>
+<p>设想计数器是零，而两个线程同时执行递增操作代码。这两个线程会调用 Counter.get()，并且看到计数器是零。现在两个线程都对它加一，然后调用 Counter.set()。如果我们的计时不太凑巧，那么这两个线程都看不到对方的更新，即使 counter 是 volatile，或者 get() 和 set() 是 synchronized。现在，即使计数器递增了两次，得到的值也许只是一，而不是二。</p>
+<p>要使递增操作正确运行，不仅 get() 和 set() 必须是 synchronized，而且 increment() 也必需是 synchronized！否则，调用 increment() 的线程可能会中断另一个调用 increment() 的线程。如果您不走运，最终结果将会是计数器只增加了一次，不是两次。同步 increment() 防止了这种情况的发生，因为整个递增操作是原子的。</p>
+<p>当循环遍历 Vector 的元素时，同样如此。即使同步了 Vector 的方法，但在循环遍历时，Vector 的内容仍然会更改。如果要确保 Vector 的内容在循环遍历时不更改，必须同步整个代码块。</p>
+<h2><span id="不变性和-final-字段">不变性和 final 字段</span></h2><p>许多 Java 类，包括 String、Integer 和 BigDecimal，都是不可改变的：一旦构造之后，它们的状态就永远不会更改。如果某个类的所有字段都被声明成 final，那么这个类就是不可改变的。（实际上，许多不可改变的类都有非 final 字段，用于高速缓存以前计算的方法结果，如 String.hashCode()，但调用者看不到这些字段。）</p>
+<p>不可改变的类使并发编程变得非常简单。因为不能更改它们的字段，所以就不需要担心把状态的更改从一个线程传递到另一个线程。在正确构造了对象之后，可以把它看作是常量。</p>
+<p>同样，final 字段对于线程也更友好。因为 final 字段在初始化之后，它们的值就不能更改，所以当在线程之间共享 final 字段时，不需要担心同步访问。</p>
+<h2><span id="什么时候不需要同步">什么时候不需要同步</span></h2><p>在某些情况中，您不必用同步来将数据从一个线程传递到另一个，因为 JVM 已经隐含地为您执行同步。这些情况包括：</p>
+<ul>
+<li>由静态初始化器（在静态字段上或 static{} 块中的初始化器）初始化数据时</li>
+<li>访问 final 字段时</li>
+<li>在创建线程之前创建对象时</li>
+<li>线程可以看见它将要处理的对象时</li>
+</ul>
+<h2><span id="死锁">死锁</span></h2><p>只要您拥有多个进程，而且它们要争用对多个锁的独占访问，那么就有可能发生死锁。如果有一组进程或线程，其中每个都在等待一个只有其它进程或线程才可以执行的操作，那么就称它们被死锁了。 </p>
+<p>最常见的死锁形式是当线程 1 持有对象 A 上的锁，而且正在等待与 B 上的锁，而线程 2 持有对象 B 上的锁，却正在等待对象 A 上的锁。这两个线程永远都不会获得第二个锁，或者释放第一个锁。它们只会永远等待下去。</p>
+<p>要避免死锁，应该确保在获取多个锁时，在所有的线程中都以相同的顺序获取锁。</p>
+<h2><span id="性能考虑事项">性能考虑事项</span></h2><p>关于同步的性能代价有许多说法 ― 其中有许多是错的。同步，尤其是争用的同步，确实有性能问题，但这些问题并没有象人们普遍怀疑的那么大。</p>
+<p>许多人都使用别出心裁但不起作用的技巧以试图避免必须使用同步，但最终都陷入了麻烦。一个典型的示例是双重检查锁定模式（请参阅<a href="https://www.ibm.com/developerworks/cn/education/java/j-threads/j-threads.html#resources" target="_blank" rel="noopener">参考资料</a>，其中有几篇文章讲述了这种模式有什么问题）。这种看似无害的结构据说可以避免公共代码路径上的同步，但却令人费解地失败了，而且所有试图修正它的尝试也失败了。</p>
+<p>在编写并发代码时，除非看到性能问题的确凿证据，否则不要过多考虑性能。瓶颈往往出现在我们最不会怀疑的地方。投机性地优化一个也许最终根本不会成为性能问题的代码路径 ― 以程序正确性为代价 ― 是一桩赔本的生意。</p>
+<h2><span id="同步准则">同步准则</span></h2><p>当编写 synchronized 块时，有几个简单的准则可以遵循，这些准则在避免死锁和性能危险的风险方面大有帮助：</p>
+<ul>
+<li>使代码块保持简短。Synchronized 块应该简短 ― 在保证相关数据操作的完整性的同时，尽量简短。把不随线程变化的预处理和后处理移出 synchronized 块。</li>
+<li>不要阻塞。 不要在 synchronized 块或方法中调用可能引起阻塞的方法，如 InputStream.read()。</li>
+<li>在持有锁的时候，不要对其它对象调用方法。这听起来可能有些极端，但它消除了最常见的死锁源头。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/thread/synchronized/" data-id="cjoqzsr4a003th0iz90qq7g2p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-thread/shared" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/thread/shared/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.973Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/thread/shared/">共享对数据的访问</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#共享对数据的访问">共享对数据的访问</a><ul>
+<li><a href="#共享变量">共享变量</a></li>
+<li><a href="#存在于同一个内存空间中的所有线程">存在于同一个内存空间中的所有线程</a></li>
+<li><a href="#受控访问的同步">受控访问的同步</a></li>
+<li><a href="#确保共享数据更改的可见性">确保共享数据更改的可见性</a></li>
+<li><a href="#用锁保护的原子代码块">用锁保护的原子代码块</a></li>
+<li><a href="#java-锁定">Java 锁定</a></li>
+<li><a href="#同步的方法">同步的方法</a></li>
+<li><a href="#同步的块">同步的块</a></li>
+<li><a href="#大多数类并没有同步">大多数类并没有同步</a></li>
+<li><a href="#示例简单的线程安全的高速缓存">示例：简单的线程安全的高速缓存</a></li>
+<li><a href="#小结">小结</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="共享对数据的访问">共享对数据的访问</span></h1><h2><span id="共享变量">共享变量</span></h2><p>要使多个线程在一个程序中有用，它们必须有某种方法可以互相通信或共享它们的结果。<br>让线程共享其结果的最简单方法是使用共享变量。它们还应该使用同步来确保值从一个线程正确传播到另一个线程，以及防止当一个线程正在更新一些相关数据项时，另一个线程看到不一致的中间结果。</p>
+<p>以下示例使用了一个共享布尔变量，用于表示指定的时间段已经过去了。这说明了在线程间共享数据最简单的形式是：轮询共享变量以查看另一个线程是否已经完成执行某项任务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">##本示例使用两个线程，一个用于计时，一个用于执行实际工作。主线程使用非常简单的算法计算素数。</span><br><span class="line">在它启动之前，它创建并启动一个计时器线程，这个线程会休眠十秒钟，然后设置一个主线程要检查的标志。十秒钟之后，主线程将停止。请注意，共享标志被声明成 volatile。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * CalculatePrimes -- calculate as many primes as we can in ten seconds </span><br><span class="line"> */ </span><br><span class="line"></span><br><span class="line">public class CalculatePrimes extends Thread &#123;</span><br><span class="line"></span><br><span class="line">    public static final int MAX_PRIMES = 1000000;</span><br><span class="line">    public static final int TEN_SECONDS = 10000;</span><br><span class="line"></span><br><span class="line">    public volatile boolean finished = false;</span><br><span class="line"></span><br><span class="line">    public void run() &#123;</span><br><span class="line">        int[] primes = new int[MAX_PRIMES];</span><br><span class="line">        int count = 0;</span><br><span class="line"></span><br><span class="line">        for (int i=2; count&lt;MAX_PRIMES; i++) &#123;</span><br><span class="line"></span><br><span class="line">            // Check to see if the timer has expired</span><br><span class="line">            if (finished) &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            boolean prime = true;</span><br><span class="line">            for (int j=0; j&lt;count; j++) &#123;</span><br><span class="line">                if (i % primes[j] == 0) &#123;</span><br><span class="line">                    prime = false;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (prime) &#123;</span><br><span class="line">                primes[count++] = i;</span><br><span class="line">                System.out.println(&quot;Found prime: &quot; + i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        CalculatePrimes calculator = new CalculatePrimes();</span><br><span class="line">        calculator.start();</span><br><span class="line">        try &#123;</span><br><span class="line">            Thread.sleep(TEN_SECONDS);</span><br><span class="line">        &#125;</span><br><span class="line">        catch (InterruptedException e) &#123;</span><br><span class="line">            // fall through</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        calculator.finished = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="存在于同一个内存空间中的所有线程">存在于同一个内存空间中的所有线程</span></h2><p>正如前面讨论过的，线程与进程有许多共同点，不同的是线程与同一进程中的其它线程共享相同的进程上下文，包括内存。这非常便利，但也有重大责任。只要访问共享变量（静态或实例字段），线程就可以方便地互相交换数据，但线程还必须确保它们以受控的方式访问共享变量，以免它们互相干扰对方的更改。</p>
+<p>任何线程可以访问所有其作用域内的变量，就象主线程可以访问该变量一样。素数示例使用了一个公用实例字段，叫做 finished，用于表示已经过了指定的时间。当计时器过期时，一个线程会写这个字段；另一个线程会定期读取这个字段，以检查它是否应该停止。注：这个字段被声明成 volatile，这对于这个程序的正确运行非常重要。</p>
+<h2><span id="受控访问的同步">受控访问的同步</span></h2><p>为了确保可以在线程之间以受控方式共享数据，Java 语言提供了两个关键字：synchronized 和 volatile。</p>
+<p>Synchronized 有两个重要含义：它确保了一次只有一个线程可以执行代码的受保护部分（互斥，mutual exclusion 或者说 mutex），而且它确保了一个线程更改的数据对于其它线程是可见的（更改的可见性）。</p>
+<p>如果没有同步，数据很容易就处于不一致状态。例如，如果一个线程正在更新两个相关值（比如，粒子的位置和速率），而另一个线程正在读取这两个值，有可能在第一个线程只写了一个值，还没有写另一个值的时候，调度第二个线程运行，这样它就会看到一个旧值和一个新值。同步让我们可以定义必须原子地运行的代码块，这样对于其他线程而言，它们要么都执行，要么都不执行。</p>
+<p>同步的原子执行或互斥方面类似于其它操作环境中的临界段的概念。</p>
+<h2><span id="确保共享数据更改的可见性">确保共享数据更改的可见性</span></h2><p>同步可以让我们确保线程看到一致的内存视图。</p>
+<p>处理器可以使用高速缓存加速对内存的访问（或者编译器可以将值存储到寄存器中以便进行更快的访问）。在一些多处理器体系结构上，如果在一个处理器的高速缓存中修改了内存位置，没有必要让其它处理器看到这一修改，直到刷新了写入器的高速缓存并且使读取器的高速缓存无效。</p>
+<p>这表示在这样的系统上，对于同一变量，在两个不同处理器上执行的两个线程可能会看到两个不同的值！这听起来很吓人，但它却很常见。它只是表示在访问其它线程使用或修改的数据时，必须遵循某些规则。</p>
+<p>Volatile 比同步更简单，只适合于控制对基本变量（整数、布尔变量等）的单个实例的访问。当一个变量被声明成 volatile，任何对该变量的写操作都会绕过高速缓存，直接写入主内存，而任何对该变量的读取也都绕过高速缓存，直接取自主内存。这表示所有线程在任何时候看到的 volatile 变量值都相同。</p>
+<p>如果没有正确的同步，线程可能会看到旧的变量值，或者引起其它形式的数据损坏。</p>
+<h2><span id="用锁保护的原子代码块">用锁保护的原子代码块</span></h2><p>Volatile 对于确保每个线程看到最新的变量值非常有用，但有时我们需要保护比较大的代码片段，如涉及更新多个变量的片段。<br>同步使用监控器（monitor）或锁的概念，以协调对特定代码块的访问。</p>
+<p>每个 Java 对象都有一个相关的锁。同一时间只能有一个线程持有 Java 锁。当线程进入 synchronized 代码块时，线程会阻塞并等待，直到锁可用，当它可用时，就会获得这个锁，然后执行代码块。当控制退出受保护的代码块时，即到达了代码块末尾或者抛出了没有在 synchronized 块中捕获的异常时，它就会释放该锁。</p>
+<p>这样，每次只有一个线程可以执行受给定监控器保护的代码块。从其它线程的角度看，该代码块可以看作是原子的，它要么全部执行，要么根本不执行。</p>
+<h2><span id="java-锁定">Java 锁定</span></h2><p>Java 锁定合并了一种互斥形式。每次只有一个线程可以持有锁。锁用于保护代码块或整个方法，必须记住是锁的身份保护了代码块，而不是代码块本身，这一点很重要。一个锁可以保护许多代码块或方法。</p>
+<p>反之，仅仅因为代码块由锁保护并不表示两个线程不能同时执行该代码块。它只表示如果两个线程正在等待相同的锁，则它们不能同时执行该代码。</p>
+<p>在以下示例中，两个线程可以同时不受限制地执行 setLastAccess() 中的 synchronized 块，因为每个线程有一个不同的 thingie 值。因此，synchronized 代码块受到两个正在执行的线程中不同锁的保护。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class SyncExample &#123;</span><br><span class="line">  public static class Thingie &#123;</span><br><span class="line"></span><br><span class="line">    private Date lastAccess;</span><br><span class="line"></span><br><span class="line">    public synchronized void setLastAccess(Date date) &#123;</span><br><span class="line">      this.lastAccess = date;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static class MyThread extends Thread &#123; </span><br><span class="line">    private Thingie thingie;</span><br><span class="line"></span><br><span class="line">    public MyThread(Thingie thingie) &#123;</span><br><span class="line">      this.thingie = thingie;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void run() &#123;</span><br><span class="line">      thingie.setLastAccess(new Date());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static void main() &#123; </span><br><span class="line">    Thingie thingie1 = new Thingie(), </span><br><span class="line">      thingie2 = new Thingie();</span><br><span class="line"></span><br><span class="line">    new MyThread(thingie1).start();</span><br><span class="line">    new MyThread(thingie2).start();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="同步的方法">同步的方法</span></h2><p>创建 synchronized 块的最简单方法是将方法声明成 synchronized。这表示在进入方法主体之前，调用者必须获得锁：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Point &#123;</span><br><span class="line">  public synchronized void setXY(int x, int y) &#123;</span><br><span class="line">    this.x = x;</span><br><span class="line">    this.y = y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于普通的 synchronized方法，这个锁是一个对象，将针对它调用方法。对于静态 synchronized 方法，这个锁是与 Class 对象相关的监控器，在该对象中声明了方法。</p>
+<p>仅仅因为 setXY() 被声明成 synchronized 并不表示两个不同的线程不能同时执行 setXY()，只要它们调用不同的 Point 实例的 setXY() 就可同时执行。对于一个 Point 实例，一次只能有一个线程执行 setXY()，或 Point的任何其它 synchronized 方法。</p>
+<h2><span id="同步的块">同步的块</span></h2><p>synchronized 块的语法比 synchronized 方法稍微复杂一点，因为还需要显式地指定锁要保护哪个块。Point的以下版本等价于前一页中显示的版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Point &#123;</span><br><span class="line">  public void setXY(int x, int y) &#123;</span><br><span class="line">    synchronized (this) &#123;</span><br><span class="line">      this.x = x;</span><br><span class="line">      this.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用 this 引用作为锁很常见，但这并不是必需的。这表示该代码块将与这个类中的 synchronized 方法使用同一个锁。</p>
+<p>由于同步防止了多个线程同时执行一个代码块，因此性能上就有问题，即使是在单处理器系统上。最好在尽可能最小的需要保护的代码块上使用同步。</p>
+<p>访问局部（基于堆栈的）变量从来不需要受到保护，因为它们只能被自己所属的线程访问。</p>
+<h2><span id="大多数类并没有同步">大多数类并没有同步</span></h2><p>因为同步会带来小小的性能损失，大多数通用类，如 java.util 中的 Collection 类，不在内部使用同步。这表示在没有附加同步的情况下，不能在多个线程中使用诸如 HashMap 这样的类。</p>
+<p>通过每次访问共享集合中的方法时使用同步，可以在多线程应用程序中使用 Collection 类。对于任何给定的集合，每次必须用同一个锁进行同步。通常可以选择集合对象本身作为锁。</p>
+<p>下面的示例类 SimpleCache 显示了如何使用 HashMap 以线程安全的方式提供高速缓存。但是，通常适当的同步并不只是意味着同步每个方法。</p>
+<p>Collections 类提供了一组便利的用于 List、Map 和 Set 接口的封装器。您可以用 Collections.synchronizedMap 封装 Map，它将确保所有对该映射的访问都被正确同步。</p>
+<p>如果类的文档没有说明它是线程安全的，那么您必须假设它不是。</p>
+<h2><span id="示例简单的线程安全的高速缓存">示例：简单的线程安全的高速缓存</span></h2><p>如以下代码样本所示，SimpleCache.java 使用 HashMap 为对象装入器提供了一个简单的高速缓存。load() 方法知道怎样按对象的键装入对象。在一次装入对象之后，该对象就被存储到高速缓存中，这样以后的访问就会从高速缓存中检索它，而不是每次都全部地装入它。对共享高速缓存的每个访问都受到 synchronized 块保护。由于它被正确同步，所以多个线程可以同时调用 getObject 和 clearCache 方法，而没有数据损坏的风险。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class SimpleCache &#123;</span><br><span class="line">  private final Map cache = new HashMap();</span><br><span class="line"></span><br><span class="line">  public Object load(String objectName) &#123; </span><br><span class="line">    // load the object somehow</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public void clearCache() &#123; </span><br><span class="line">    synchronized (cache) &#123; </span><br><span class="line">      cache.clear();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public Object getObject(String objectName) &#123;</span><br><span class="line">    synchronized (cache) &#123; </span><br><span class="line">      Object o = cache.get(objectName);</span><br><span class="line">      if (o == null) &#123;</span><br><span class="line">        o = load(objectName);</span><br><span class="line">        cache.put(objectName, o);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return o;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="小结">小结</span></h2><p>由于线程执行的计时是不确定的，我们需要小心，以控制线程对共享数据的访问。否则，多个并发线程会互相干扰对方的更改，从而损坏数据，或者其它线程也许不能及时看到对共享数据的更改。</p>
+<p>通过使用同步来保护对共享变量的访问，我们可以确保线程以可预料的方式与程序变量进行交互。</p>
+<p>每个 Java 对象都可以充当锁，synchronized 块可以确保一次只有一个线程执行由给定锁保护的 synchronized代码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/thread/shared/" data-id="cjoqzsr49003rh0izs9ogpr7v" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-thread/lock" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/thread/lock/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.971Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/thread/lock/">线程锁</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#线程锁">线程锁</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="线程锁">线程锁</span></h1><p><a href="http://yhjhappy234.blog.163.com/blog/static/3163283220135178183769/" target="_blank" rel="noopener">http://yhjhappy234.blog.163.com/blog/static/3163283220135178183769/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/thread/lock/" data-id="cjoqzsr3a0023h0izam64mh4r" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-thread/java" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/thread/java/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.971Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/thread/java/">Java线程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#java线程">Java线程</a><ul>
+<li><a href="#线程的实现">线程的实现</a><ul>
+<li><a href="#thread-类">Thread 类</a></li>
+<li><a href="#runnable接口">Runnable接口</a></li>
+</ul>
+</li>
+<li><a href="#线程的状态">线程的状态</a></li>
+<li><a href="#线程的优先级">线程的优先级</a></li>
+<li><a href="#线程的同步">线程的同步</a><ul>
+<li><a href="#synchronized-关键字">synchronized 关键字</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="java线程">Java线程</span></h1><h2><span id="线程的实现">线程的实现</span></h2><p>Java中线程的实现继承Thread类或者实现Runnable接口</p>
+<h3><span id="thread-类">Thread 类</span></h3><p>Thread 类是一个具体的类，即不是抽象类，该类封装了线程的行为。要创建一个线程，程序员必须创建一个从 Thread 类导出的新类。程序员必须覆盖 Thread 的 run() 函数来完成有用的工作。用户并不直接调用此函数；而是必须调用 Thread 的 start() 函数，该函数再调用 run()。下面的代码说明了它的用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line">class TimePrinter extends Thread &#123;</span><br><span class="line">    int pauseTime;</span><br><span class="line">    String name;</span><br><span class="line">    public TimePrinter(int x, String n) &#123;</span><br><span class="line">        pauseTime = x;</span><br><span class="line">        name = n;</span><br><span class="line">    &#125;</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        while(true) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                System.out.println(name + &quot;:&quot; + new </span><br><span class="line">                    Date(System.currentTimeMillis()));</span><br><span class="line">                Thread.sleep(pauseTime);</span><br><span class="line">            &#125; catch(Exception e) &#123;</span><br><span class="line">                System.out.println(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    static public void main(String args[]) &#123;</span><br><span class="line">        TimePrinter tp1 = new TimePrinter(1000, &quot;Fast Guy&quot;);</span><br><span class="line">        tp1.start();</span><br><span class="line">        TimePrinter tp2 = new TimePrinter(3000, &quot;Slow Guy&quot;);</span><br><span class="line">        tp2.start();</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在本例中，我们可以看到一个简单的程序，它按两个不同的时间间隔（1 秒和 3 秒）在屏幕上显示当前时间。这是通过创建两个新线程来完成的，包括 main() 共三个线程。但是，因为有时要作为线程运行的类可能已经是某个类层次的一部分，所以就不能再按这种机制创建线程。虽然在同一个类中可以实现任意数量的接口，但 Java 编程语言只允许一个类有一个父类。同时，某些程序员避免从 Thread 类导出，因为它强加了类层次。对于这种情况，就要runnable 接口。</p>
+<h3><span id="runnable接口">Runnable接口</span></h3><p>此接口只有一个函数，run()，此函数必须由实现了此接口的类实现。但是，就运行这个类而论，其语义与前一个示例稍有不同。我们可以用 runnable 接口改写前一个示例。（不同的部分用黑体表示。）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line">class TimePrinter </span><br><span class="line">        implements Runnable &#123;</span><br><span class="line">    int pauseTime;</span><br><span class="line">    String name;</span><br><span class="line">    public TimePrinter(int x, String n) &#123;</span><br><span class="line">        pauseTime = x;</span><br><span class="line">        name = n;</span><br><span class="line">    &#125;</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        while(true) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                System.out.println(name + &quot;:&quot; + new </span><br><span class="line">                    Date(System.currentTimeMillis()));</span><br><span class="line">                Thread.sleep(pauseTime);</span><br><span class="line">            &#125; catch(Exception e) &#123;</span><br><span class="line">                System.out.println(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    static public void main(String args[]) &#123;</span><br><span class="line">        Thread t1 = new Thread (new TimePrinter(1000, &quot;Fast Guy&quot;));</span><br><span class="line">        t1.start();</span><br><span class="line">        Thread t2 = new Thread (new TimePrinter(3000, &quot;Slow Guy&quot;));</span><br><span class="line">        t2.start();</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意，当使用 runnable 接口时，您不能直接创建所需类的对象并运行它；必须从 Thread 类的一个实例内部运行它。许多程序员更喜欢 runnable 接口，因为从 Thread 类继承会强加类层次。</p>
+<h2><span id="线程的状态">线程的状态</span></h2><p><a href="thread.md">请阅读什么是线程</a></p>
+<h2><span id="线程的优先级">线程的优先级</span></h2><p>线程的优先级表示一个线程被CPU执行的机会多少。注意，这里用“机会多少”而不是用“先后顺序”来表达。在Java中虽然定义了设置线程优先级高低的方法，但是优先级低并不意味着在不同优先级的线程中就不会被执行，优先级低只说明该线程被执行的概率小，同理优先级高的线程获得CPU周期的概率就大。</p>
+<p>通过Thread类的setPriority（）方法设置线程的优先级，该方法的参数为int型。其实Java提供了3个优先级别，都为Thread类的常量，从高到低依次为Thread.MAX_PRIORITY、Thread.NORM_PRIORITY、Thread.MIN_PRIORITY。这里再次重申，优先级低并不意味着线程得不到执行，而是线程被执行的概率小。这也说明设置线程的优先级不会造成死锁的发生。</p>
+<h2><span id="线程的同步">线程的同步</span></h2><p>在多线程中经常遇到的一个问题就是资源共享问题。假设两个线程同时访问一个数据区，一个读数据，一个写数据，在一个线程读数据前另一个线程修改了数据，则读数据线程读到的不是原始数据而是被修改过的数据，显然这样是不允许的。而在多线程编程中经常会遇到访问共享资源的问题，这些资源可以是数据、文件、一块内存区或是外围设备的访问等。所以必须解决在多线程编程中实现资源共享的问题，在Java中称为线程的同步问题。在多数的编程语言中解决共享资源冲突的方法是采用顺序机制（Serialize），通过为共享资源加锁的方法实现资源的顺序访问。</p>
+<h3><span id="synchronized-关键字">synchronized 关键字</span></h3><p>在设计多线程模式中，解决线程冲突问题都是采用synchronized关键字来实现的。这意味着在给定时刻只允许一个线程访问共享资源。通常是在代码前加上一条锁语句实现的，这就保证了在一段时间内只有一个线程运行这段代码。如果另一个线程需要访问这段共享资源，必须等待当前的线程释放锁。可见锁语句产生了一种互斥的效果，所以常常称锁为“互斥量”（mutex）。</p>
+<ul>
+<li>同步控制方法：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Point &#123;</span><br><span class="line">  public synchronized void setXY(int x, int y) &#123;</span><br><span class="line">    this.x = x;</span><br><span class="line">    this.y = y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于普通的 synchronized方法，这个锁是一个对象，将针对它调用方法。对于静态 synchronized 方法，这个锁是与 Class 对象相关的监控器，在该对象中声明了方法。<br>仅仅因为 setXY() 被声明成 synchronized 并不表示两个不同的线程不能同时执行 setXY()，只要它们调用不同的 Point 实例的 setXY() 就可同时执行。对于一个 Point 实例，一次只能有一个线程执行 setXY()，或 Point的任何其它 synchronized 方法。</p>
+<ul>
+<li>同步控制块：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Point &#123;</span><br><span class="line">  public void setXY(int x, int y) &#123;</span><br><span class="line">    synchronized (this) &#123;</span><br><span class="line">      this.x = x;</span><br><span class="line">      this.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>使用 this 引用作为锁很常见，但这并不是必需的。这表示该代码块将与这个类中的 synchronized 方法使用同一个锁。<br>由于同步防止了多个线程同时执行一个代码块，因此性能上就有问题，即使是在单处理器系统上。最好在尽可能最小的需要保护的代码块上使用同步。<br>访问局部（基于堆栈的）变量从来不需要受到保护，因为它们只能被自己所属的线程访问。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/thread/java/" data-id="cjoqzsr3b0025h0iz4v8n5ful" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-thread/controller" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/thread/controller/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.970Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/thread/controller/">线程的控制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#线程的控制">线程的控制</a><ul>
+<li><a href="#创建线程">创建线程</a></li>
+<li><a href="#创建线程和启动线程并不相同">创建线程和启动线程并不相同</a></li>
+<li><a href="#挂起和恢复线程">挂起和恢复线程</a></li>
+<li><a href="#结束线程">结束线程</a></li>
+<li><a href="#加入线程">加入线程</a></li>
+<li><a href="#调度">调度</a></li>
+<li><a href="#休眠">休眠</a></li>
+<li><a href="#守护程序线程">守护程序线程</a></li>
+<li><a href="#等待和通知">等待和通知</a></li>
+<li><a href="#示例用多个线程分解大任务">示例：用多个线程分解大任务</a></li>
+<li><a href="#小结">小结</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="线程的控制">线程的控制</span></h1><h2><span id="创建线程">创建线程</span></h2><p>在 Java 程序中创建线程有几种方法。每个 Java 程序至少包含一个线程：主线程。其它线程都是通过 Thread 构造器或实例化继承类 Thread 的类来创建的。</p>
+<p>Java 线程可以通过直接实例化 Thread 对象或实例化继承 Thread 的对象来创建其它线程。在<a href="java.md">java线程</a>中的示例（其中，我们在十秒钟之内计算尽量多的素数）中，我们通过实例化 CalculatePrimes 类型的对象（它继承了 Thread），创建了一个线程。</p>
+<p>当我们讨论 Java 程序中的线程时，也许会提到两个相关实体：完成工作的实际线程或代表线程的 Thread 对象。正在运行的线程通常是由操作系统创建的；Thread 对象是由 Java VM 创建的，作为控制相关线程的一种方式。</p>
+<h2><span id="创建线程和启动线程并不相同">创建线程和启动线程并不相同</span></h2><p>在一个线程对新线程的 Thread 对象调用 start() 方法之前，这个新线程并没有真正开始执行。Thread 对象在其线程真正启动之前就已经存在了，而且其线程退出之后仍然存在。这可以让您控制或获取关于已创建的线程的信息，即使线程还没有启动或已经完成了。</p>
+<p>通常在构造器中通过 start() 启动线程并不是好主意。这样做，会把部分构造的对象暴露给新的线程。如果对象拥有一个线程，那么它应该提供一个启动该线程的 start() 或 init() 方法，而不是从构造器中启动它。 </p>
+<h2><span id="挂起和恢复线程">挂起和恢复线程</span></h2><p>在Java2之前，用户会看到suspend（）和resume（）方法用来阻塞和唤醒线程，但是在Java2中这两个方法不再使用了。首先分析一下使用suspend（）方法会发生什么问题。suspend（）方法的作用是挂起拥有锁的线程，但是与wait（）方法不同，它不会释放锁。如果一个线程调用suspend（）方法，把另一个线程挂起，此时被挂起的线程在等待恢复，而挂起它的线程在等待获得锁（该锁就是被挂起的线程对象），此时就会发生死锁。</p>
+<h2><span id="结束线程">结束线程</span></h2><p>程会以以下三种方式之一结束：</p>
+<ul>
+<li>线程到达其 run() 方法的末尾。</li>
+<li>线程抛出一个未捕获到的 Exception 或 Error。</li>
+<li>另一个线程调用一个弃用的 stop() 方法。弃用是指这些方法仍然存在，但是您不应该在新代码中使用它们，并且应该尽量从现有代码中除去它们。</li>
+</ul>
+<p>当 Java 程序中的所有线程都完成时，程序就退出了。</p>
+<p>如果想要安全地结束线程又不使用stop（）方法，则只有通过某种替代方法了。这里提供一种通过线程间协作终止线程的间接方法：在线程内部设计一个变量和一个可以设置该变量的方法，而该变量的取值作为结束线程的标志。</p>
+<h2><span id="加入线程">加入线程</span></h2><p>Thread API 包含了等待另一个线程完成的方法：join() 方法。当调用 Thread.join() 时，调用线程将阻塞，直到目标线程完成为止。</p>
+<p>Thread.join() 通常由使用线程的程序使用，以将大问题划分成许多小问题，每个小问题分配一个线程。本章结尾处的示例创建了十个线程，启动它们，然后使用 Thread.join() 等待它们全部完成。</p>
+<h2><span id="调度">调度</span></h2><p>除了何时使用 Thread.join() 和 Object.wait() 外，线程调度和执行的计时是不确定的。如果两个线程同时运行，而且都不等待，您必须假设在任何两个指令之间，其它线程都可以运行并修改程序变量。如果线程要访问其它线程可以看见的变量，如从静态字段（全局变量）直接或间接引用的数据，则必须使用同步以确保数据一致性。</p>
+<p>在以下的简单示例中，我们将创建并启动两个线程，每个线程都打印两行到 System.out：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class TwoThreads &#123;</span><br><span class="line"></span><br><span class="line">    public static class Thread1 extends Thread &#123;</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            System.out.println(&quot;A&quot;);</span><br><span class="line">            System.out.println(&quot;B&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static class Thread2 extends Thread &#123;</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            System.out.println(&quot;1&quot;);</span><br><span class="line">            System.out.println(&quot;2&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        new Thread1().start();</span><br><span class="line">        new Thread2().start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们并不知道这些行按什么顺序执行，只知道“1”在“2”之前打印，以及“A”在“B”之前打印。输出可能是以下结果中的任何一种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 2 A B</span><br><span class="line">1 A 2 B</span><br><span class="line">1 A B 2</span><br><span class="line">A 1 2 B</span><br><span class="line">A 1 B 2</span><br><span class="line">A B 1 2</span><br></pre></td></tr></table></figure>
+<p>不仅不同机器之间的结果可能不同，而且在同一机器上多次运行同一程序也可能生成不同结果。永远不要假设一个线程会在另一个线程之前执行某些操作，除非您已经使用了同步以强制一个特定的执行顺序。</p>
+<h2><span id="休眠">休眠</span></h2><p>Thread API 包含了一个 sleep(int miliseconds) 方法，它将使当前线程进入等待状态，直到过了一段指定时间，或者直到另一个线程对当前线程的 Thread 对象调用了 Thread.interrupt()，从而中断了线程。当过了指定时间后，线程又将变成可运行的，并且回到调度程序的可运行线程队列中。</p>
+<p>如果线程是由对 Thread.interrupt() 的调用而中断的，那么休眠的线程会抛出 InterruptedException，这样线程就知道它是由中断唤醒的，就不必查看计时器是否过期。</p>
+<p>Thread.yield() 方法就象 Thread.sleep() 一样，但它并不引起休眠，而只是暂停当前线程片刻，这样其它线程就可以运行了。在大多数实现中，当较高优先级的线程调用 Thread.yield() 时，较低优先级的线程就不会运行。</p>
+<p>CalculatePrimes 示例使用了一个后台线程计算素数，然后休眠十秒钟。当计时器过期后，它就会设置一个标志，表示已经过了十秒。</p>
+<h2><span id="守护程序线程">守护程序线程</span></h2><p>我们提到过当 Java 程序的所有线程都完成时，该程序就退出，但这并不完全正确。隐藏的系统线程，如垃圾收集线程和由 JVM 创建的其它线程会怎么样？我们没有办法停止这些线程。如果那些线程正在运行，那么 Java 程序怎么退出呢？</p>
+<p>这些系统线程称作守护程序线程。Java 程序实际上是在它的所有非守护程序线程完成后退出的。</p>
+<p>任何线程都可以变成守护程序线程。可以通过调用Thread.setDaemon() 方法来指明某个线程是守护程序线程。您也许想要使用守护程序线程作为在程序中创建的后台线程，如计时器线程或其它延迟的事件线程，只有当其它非守护程序线程正在运行时，这些线程才有用。</p>
+<h2><span id="等待和通知">等待和通知</span></h2><p>等待和通知实现了线程之间的协调机制，使得线程之间可以建立“和谐”的协作关系。Java提供了线程对象的wait（）、notifty（）或notifyAll（）方法来实现这种协作，wait（）方法使线程挂起一段时间，而notifty（）或notifyAll（）方法使线程从wait（）方法调用的状态中恢复到就绪状态。</p>
+<p>wait（）和sleep（）方法相似，都是让线程暂时挂起，都可以接受一个时间参数来确定线程挂起时间。但是wait（）方法有如下特殊之处：</p>
+<ul>
+<li>线程一旦调用wait（）方法，线程中同步方法的锁被释放，其他线程可以调用该线程中相应的同步方法。</li>
+<li>使用wait（）方法的线程可以使用notifty（）或notifyAll（）方法获得执行的权利，即获得抢占CPU周期的权利。</li>
+</ul>
+<p>wait（）可以使线程在等待外部输入条件时，让线程暂时休眠，等待notify（）或notifyAll（）方法来唤醒线程以检查是否有外部条件的输入。可见wait（）方法为线程之间的同步提供了方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public class ThreadWait &#123;</span><br><span class="line"></span><br><span class="line">    private String mydata;</span><br><span class="line"></span><br><span class="line">    private boolean flag = false;</span><br><span class="line"></span><br><span class="line">    public synchronized String getMydata() &#123;</span><br><span class="line">        while (flag == false) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                //调用wait方法，释放对象锁，等待下一次获得对象锁</span><br><span class="line">                wait();</span><br><span class="line">            &#125; catch (InterruptedException e) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            //设置标志变了flag为false后，通知所有等待该对象锁的线程</span><br><span class="line">            flag = false;</span><br><span class="line">            notifyAll();</span><br><span class="line">        &#125;</span><br><span class="line">        return mydata;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public synchronized void setMydata(String str) &#123;</span><br><span class="line">        while (flag == true) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                //flag的值不满足方法继续执行条件，调用wait()方法释放对象锁，等待下一次获取</span><br><span class="line">                wait();</span><br><span class="line">            &#125; catch (InterruptedException e) &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            mydata = str;</span><br><span class="line">            //设置标志变量的flag为true后，通知所有等待该对象锁的线程</span><br><span class="line">            flag = true;</span><br><span class="line">            notifyAll();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在唤醒线程时推荐优先使用notifyAll（），而不是notify（），因为notify（）仅唤醒一个线程。如果用户知道只有一个线程处于等待状态，这是可行的。但是当多个线程处于等待状态，用户就无法预期被唤醒的是哪个线程，而这由JVM决定，用户无法控制。</p>
+<p>假设有两个线程处于等待状态，其中一个等待某个输入条件，后来完成输入条件的那段代码调用了notify（），但它只能唤醒一个线程。由于两个线程都在等待，所以等待输入条件的线程不见得被唤醒。因此使用notify（）唤醒线程需要一定的条件：</p>
+<ul>
+<li>用户确定只有一个线程处于等待状态。</li>
+<li>多个线程处于等待状态且等待同样的条件，这样总有一个线程被唤醒，但是仍无法确定是哪个线程被唤醒。</li>
+</ul>
+<p>notifyAll（）唤醒所有等待状态的线程。只要有一段代码调用该函数就可以确保所有等待中的线程都将被唤醒。所以在使用唤醒机制时最好使用notifyAll（），它唤醒所有等待中的线程，但是需要注意被唤醒的这些线程并不是都获得了对象锁，而是需要抢占对象锁。这种抢占顺序是无法预料的。</p>
+<h2><span id="示例用多个线程分解大任务">示例：用多个线程分解大任务</span></h2><p>在这个示例中，TenThreads 显示了一个创建了十个线程的程序，每个线程都执行一部分工作。该程序等待所有线程全部完成，然后收集结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Creates ten threads to search for the maximum value of a large matrix.</span><br><span class="line"> * Each thread searches one portion of the matrix.</span><br><span class="line"> */</span><br><span class="line">public class TenThreads &#123;</span><br><span class="line"></span><br><span class="line">    private static class WorkerThread extends Thread &#123;</span><br><span class="line">        int max = Integer.MIN_VALUE;</span><br><span class="line">        int[] ourArray;</span><br><span class="line"></span><br><span class="line">        public WorkerThread(int[] ourArray) &#123;</span><br><span class="line">            this.ourArray = ourArray;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // Find the maximum value in our particular piece of the array</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            for (int i = 0; i &lt; ourArray.length; i++) </span><br><span class="line">                max = Math.max(max, ourArray[i]);                </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public int getMax() &#123;</span><br><span class="line">            return max;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        WorkerThread[] threads = new WorkerThread[10];</span><br><span class="line">        int[][] bigMatrix = getBigHairyMatrix();</span><br><span class="line">        int max = Integer.MIN_VALUE;</span><br><span class="line">        </span><br><span class="line">        // Give each thread a slice of the matrix to work with</span><br><span class="line">        for (int i=0; i &lt; 10; i++) &#123;</span><br><span class="line">            threads[i] = new WorkerThread(bigMatrix[i]);</span><br><span class="line">            threads[i].start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // Wait for each thread to finish</span><br><span class="line">        try &#123;</span><br><span class="line">            for (int i=0; i &lt; 10; i++) &#123;</span><br><span class="line">                threads[i].join();</span><br><span class="line">                max = Math.max(max, threads[i].getMax());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (InterruptedException e) &#123;</span><br><span class="line">            // fall through</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;Maximum value was &quot; + max);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="小结">小结</span></h2><p>就象程序一样，线程有生命周期：它们启动、执行，然后完成。一个程序或进程也许包含多个线程，而这些线程看来互相单独地执行。</p>
+<p>线程是通过实例化 Thread 对象或实例化继承 Thread 的对象来创建的，但在对新的 Thread 对象调用 start()方法之前，这个线程并没有开始执行。当线程运行到其 run() 方法的末尾或抛出未经处理的异常时，它们就结束了。</p>
+<p>sleep() 方法可以用于等待一段特定时间；而 join() 方法可能用于等到另一个线程完成。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/thread/controller/" data-id="cjoqzsr47003oh0izq4pipjjs" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-syntax/primitiveType" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/syntax/primitiveType/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.969Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/syntax/primitiveType/">8种基本类型（primitive type）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#8种基本类型primitive-type">8种基本类型（primitive type）</a><ul>
+<li><a href="#byte">byte：</a></li>
+<li><a href="#short">short：</a></li>
+<li><a href="#int">int：</a></li>
+<li><a href="#long">long：</a></li>
+<li><a href="#float">float：</a></li>
+<li><a href="#double">double：</a></li>
+<li><a href="#boolean">boolean：</a></li>
+<li><a href="#char">char：</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="8种基本类型primitive-type">8种基本类型（primitive type）</span></h1><p>其中有4种整型、2种浮点类型、1种用于表示Unicode编码的字符单元的字符类型char和1种用于表示真值的boolean类型。</p>
+<h2><span id="byte">byte：</span></h2><pre><code>byte 数据类型是8位、有符号的，以二进制补码表示的整数；
+最小值是 -128（-2^7）；
+最大值是 127（2^7-1）；
+默认值是 0；
+byte 类型用在大型数组中节约空间，主要代替整数，因为 byte 变量占用的空间只有 int 类型的四分之一；
+例子：byte a = 100，byte b = -50。
+</code></pre><h2><span id="short">short：</span></h2><pre><code>short 数据类型是 16 位、有符号的以二进制补码表示的整数
+最小值是 -32768（-2^15）；
+最大值是 32767（2^15 - 1）；
+Short 数据类型也可以像 byte 那样节省空间。一个short变量是int型变量所占空间的二分之一；
+默认值是 0；
+例子：short s = 1000，short r = -20000。
+</code></pre><h2><span id="int">int：</span></h2><pre><code>int 数据类型是32位、有符号的以二进制补码表示的整数；
+最小值是 -2,147,483,648（-2^31）；
+最大值是 2,147,483,647（2^31 - 1）；
+一般地整型变量默认为 int 类型；
+默认值是 0 ；
+例子：int a = 100000, int b = -200000。
+</code></pre><h2><span id="long">long：</span></h2><pre><code>    long 数据类型是 64 位、有符号的以二进制补码表示的整数；
+    最小值是 -9,223,372,036,854,775,808（-2^63）；
+    最大值是 9,223,372,036,854,775,807（2^63 -1）；
+    这种类型主要使用在需要比较大整数的系统上；
+    默认值是 0L；
+    例子： long a = 100000L，Long b = -200000L。 &quot;L&quot;理论上不分大小写，但是若写成&quot;l&quot;容易与数字&quot;1&quot;混淆，不容易分辩。所以最好大写。
+</code></pre><h2><span id="float">float：</span></h2><pre><code>float 数据类型是单精度、32位、符合IEEE 754标准的浮点数；
+float 在储存大型浮点数组的时候可节省内存空间；
+默认值是 0.0f；
+浮点数不能用来表示精确的值，如货币；
+例子：float f1 = 234.5f。
+</code></pre><h2><span id="double">double：</span></h2><pre><code>double 数据类型是双精度、64 位、符合IEEE 754标准的浮点数；
+浮点数的默认类型为double类型；
+double类型同样不能表示精确的值，如货币；
+默认值是 0.0d；
+例子：double d1 = 123.4。
+</code></pre><h2><span id="boolean">boolean：</span></h2><pre><code>boolean数据类型表示一位的信息；
+只有两个取值：true 和 false；
+这种类型只作为一种标志来记录 true/false 情况；
+默认值是 false；
+例子：boolean one = true。
+</code></pre><h2><span id="char">char：</span></h2><pre><code>char类型是一个单一的 16 位 Unicode 字符；
+最小值是 \u0000（即为0）；
+最大值是 \uffff（即为65,535）；
+char 数据类型可以储存任何字符；
+例子：char letter = &apos;A&apos;;。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/syntax/primitiveType/" data-id="cjoqzsr390021h0izc75saebj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/Learn-Java/page/2/">2</a><a class="page-number" href="/Learn-Java/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/Learn-Java/page/6/">6</a><a class="extend next" rel="next" href="/Learn-Java/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HeapSize/">HeapSize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/bean/">bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/coolection/">coolection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/exception/">exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/io/">io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java-bean/">java bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jmeter/">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jsp/">jsp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mvn/">mvn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/netty/">netty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/nio/">nio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/serializable/">serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/test/">test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/tomcat/">tomcat</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Learn-Java/tags/HeapSize/" style="font-size: 10px;">HeapSize</a> <a href="/Learn-Java/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/Learn-Java/tags/bean/" style="font-size: 10px;">bean</a> <a href="/Learn-Java/tags/coolection/" style="font-size: 10px;">coolection</a> <a href="/Learn-Java/tags/exception/" style="font-size: 10px;">exception</a> <a href="/Learn-Java/tags/gradle/" style="font-size: 13.33px;">gradle</a> <a href="/Learn-Java/tags/http/" style="font-size: 15px;">http</a> <a href="/Learn-Java/tags/io/" style="font-size: 10px;">io</a> <a href="/Learn-Java/tags/java/" style="font-size: 16.67px;">java</a> <a href="/Learn-Java/tags/java-bean/" style="font-size: 10px;">java bean</a> <a href="/Learn-Java/tags/jdbc/" style="font-size: 10px;">jdbc</a> <a href="/Learn-Java/tags/jmeter/" style="font-size: 10px;">jmeter</a> <a href="/Learn-Java/tags/jsp/" style="font-size: 11.67px;">jsp</a> <a href="/Learn-Java/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/Learn-Java/tags/mvn/" style="font-size: 20px;">mvn</a> <a href="/Learn-Java/tags/mybatis/" style="font-size: 11.67px;">mybatis</a> <a href="/Learn-Java/tags/netty/" style="font-size: 10px;">netty</a> <a href="/Learn-Java/tags/network/" style="font-size: 11.67px;">network</a> <a href="/Learn-Java/tags/nio/" style="font-size: 20px;">nio</a> <a href="/Learn-Java/tags/quartz/" style="font-size: 11.67px;">quartz</a> <a href="/Learn-Java/tags/serializable/" style="font-size: 10px;">serializable</a> <a href="/Learn-Java/tags/servlet/" style="font-size: 11.67px;">servlet</a> <a href="/Learn-Java/tags/socket/" style="font-size: 10px;">socket</a> <a href="/Learn-Java/tags/test/" style="font-size: 10px;">test</a> <a href="/Learn-Java/tags/thread/" style="font-size: 18.33px;">thread</a> <a href="/Learn-Java/tags/tomcat/" style="font-size: 11.67px;">tomcat</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Learn-Java/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/21/test/jmeter/">JMETER</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/performance/">tomcat 性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/virtual/">Tomcat服务器虚拟目录的映射方式</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/thread/">线程</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/synchronized/">线程同步详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Neo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Learn-Java/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Learn-Java/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/Learn-Java/fancybox/jquery.fancybox.css">
+  <script src="/Learn-Java/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/Learn-Java/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

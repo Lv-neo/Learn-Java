@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://lv-neo.github.io/Learn-Java/page/6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh-cn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/Learn-Java/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/Learn-Java/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/Learn-Java/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/Learn-Java/">Home</a>
+        
+          <a class="main-nav-link" href="/Learn-Java/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/Learn-Java/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://lv-neo.github.io/Learn-Java"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-IO/stream" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/IO/stream/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.941Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/IO/stream/">java流</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#流stream的概念"># 流（Stream）的概念</a><ul>
+<li><a href="#字符流">字符流</a><ul>
+<li><a href="#输入流类inputstream">输入流类InputStream</a></li>
+<li><a href="#输出流类outputstream">输出流类OutputStream</a></li>
+</ul>
+</li>
+<li><a href="#字节流">字节流</a><ul>
+<li><a href="#writer类">Writer类</a></li>
+<li><a href="#reader类">Reader类</a></li>
+</ul>
+</li>
+<li><a href="#file类">File类</a><ul>
+<li><a href="#创建文件夹目录">创建文件夹（目录）</a></li>
+<li><a href="#创建文件">创建文件</a></li>
+<li><a href="#复制文件">复制文件</a></li>
+<li><a href="#删除文件">删除文件</a></li>
+<li><a href="#删除文件夹">删除文件夹</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="流stream的概念"># 流（Stream）的概念</span></h1><p>Java的I/O系统涉及流的概念。一个读取字节序列的对象被称为输入流，一个可以写入字节序列的对象称为输出流。输出流和输入流是相对于程序本身而言的。程序读取数据称为打开输入流，程序向其他源写入数据称为打开输出流。</p>
+<p>程序读入数据，首先打开一个输入流，流以流对象的形式出现，数据文件或网络链接信息包装在流对象内，流对象一旦启动，程序可以从输入流依次读入数据。</p>
+<p>当程序需要输出数据时，就打开一个输出流对象，该对象知道把数据写到什么地点（一个文件或通过网络传输到其他机器上的文件），数据是依次写入，通过输出流对象把数据写入目标文件。</p>
+<p>在java.io包中有各种I/O流类，这里按照输入输出流处理的不同数据类型对流进行分类，即字符（Character）流和字节（Byte）流。</p>
+<h2><span id="字符流">字符流</span></h2><p>在Java的I/O系统提供了InputStream和OutputStream两个抽象类实现字节（8位）数据的输入/输出，其中InputStream是输入流的抽象类，提供了read（）方法，每个实现了该类的子类都要实现该方法，如ObjectInputStream类继承InputStream抽象类，重新定义了方法read（）来读取字节数据。本节介绍抽象类InputStream和OutputStream及其相对应的子类。</p>
+<h3><span id="输入流类inputstream">输入流类InputStream</span></h3><p>抽象类InputStream表示从不同的输入源输入数据的类，这些数据源的数据类型多样，可以是字节数组、String对象、类的序列化对象，文件、管道或网络连接。对于多样的数据类型有相应的输入流类与其对应。下面介绍这些流类，使读者对这些类的功能和使用方法有基本的了解。</p>
+<p>InputStream是个抽象类，提供了抽象read（）方法，下面几个类是继承自InputStream的子类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">* ByteArrayInputStream(字节数组输入流)</span><br><span class="line">允许带缓冲区的输入流，显然该类的功能就是允许将内存缓冲区作为输入流使用，它包装了FilterInputStream对象，把该对象的输入文件作为实际数据输入到ByteArray InputStream流对象的缓冲区中。FilterInputStream包含几个子类，分别是LineNumberInputStream、DataInputStream、BufferedInputStream和PushbackInputStream。</span><br><span class="line"></span><br><span class="line">* FileInputStream (文件输入流)</span><br><span class="line">从文件中读取数据，其构造函数参数可以是文件对象、字符串或FileDescriptor对象。通过FilterInputStream流类的包装对程序提供读数据的接口。</span><br><span class="line"></span><br><span class="line">* PipedInputStream (管道输入流)</span><br><span class="line">该类产生输入管道流，该流又产生写入输出管道流的数据，这样就实现了管道化通信，通常在多线程编程中作为线程间通信的实现方式。</span><br><span class="line"></span><br><span class="line">* SequenceInputStream (序列化输入流)</span><br><span class="line">该流把多个输入流对象链接成一个输入流，该类的构造函数参数是两个InputStream对象或一个包含InputStream对象的枚举器对象。</span><br><span class="line"></span><br><span class="line">* StringBufferInputStream (字符串缓冲输入流)</span><br><span class="line">该类的功能是把String转换成输入流。应用程序创建一个该类的输入流，把构造函数的参数中的String数据作为程序的输入。构造函数为StringBufferInputStream（String str）。</span><br><span class="line"></span><br><span class="line">* ObjectInputStream (对象输入流)</span><br><span class="line">对象输入流读取输入流对象中的各种对象类型数据，用来处理序列化对象的传输。</span><br><span class="line"></span><br><span class="line">* FilterInputStream (过滤器输入流)</span><br><span class="line">该类继承了抽象类InputStream，实现了抽象方法read（）。</span><br></pre></td></tr></table></figure>
+<p>以下的类继承自FilterInputStream（过滤器输入流），同时实现了DataInput接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">* LineNumberInputStream</span><br><span class="line">该类实现对输入流中的行数的计数，对输入流增加了行号，该类的构造函数是InputStream流对象。</span><br><span class="line"></span><br><span class="line">* DataInputStream</span><br><span class="line">数据输入流允许程序从底层的输入流中读取基本类型的数据，如int型、float型和Byte型等。该类包含了读取基本类型的所有方法，如readByte（）、readBoolean（）、readChar（）、readDouble（）和readFloat（）等。其构造函数参数为一个InputStream流对象。</span><br><span class="line"></span><br><span class="line">* BufferedInputStream</span><br><span class="line">带缓冲的输入流，可以把数据先放入缓冲区，防止每次读取时进行实际的读写操作，减少了数据实际访问的时间开销。数据以字节数组的形式存放在缓冲区中，该类提供了read（）方法，每次从输入流读取一个字节数据。构造函数的参数为InputStream对象。</span><br><span class="line"></span><br><span class="line">* PushbackInputStream</span><br><span class="line">该类一般不被程序员使用，是为Java编译器而设计的。</span><br></pre></td></tr></table></figure>
+<h3><span id="输出流类outputstream">输出流类OutputStream</span></h3><p>抽象类OutputStream是表示输出数据流的抽象类，与抽象输入流对应，提供各种流对象的数据输出。下面介绍的输出流类，可以使读者了解输出流类的功能和使用方式。</p>
+<p>OutputStream是个抽象类，提供了抽象write方法，下面几个类是继承自OutputStream的子类，这些类都实现了write（）方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">* ByteOutputStream(字节数组输入流类)</span><br><span class="line">在向输出流写入数据前先将数据缓冲处理，其缓冲区大小通过构造函数的参数设置。</span><br><span class="line"></span><br><span class="line">* FileOutputStream(文件输出流类)</span><br><span class="line">通过该输出流把数据写入文件，构造函数的参数可以是字符串、文件对象、文件或FileDescriptor对象。</span><br><span class="line"></span><br><span class="line">* ObjectOutputStream(对象输出流类)</span><br><span class="line">对象输出流把各种对象类型数据写入输出流文件中，用来处理序列化对象的传输。</span><br><span class="line"></span><br><span class="line">* PipedOutputStream(管道输出流类)</span><br><span class="line">与管道输入流（PipedInputStream）对应，任何管道输入流都通过输出流写出。两者搭配使用实现管道通信。</span><br><span class="line"></span><br><span class="line">* FilterOutputStream(过滤器输出流类)</span><br><span class="line">该类继承了抽象类OutputStream，实现了抽象方法write（）。</span><br></pre></td></tr></table></figure>
+<p>下面3个类继承自FilterOutputStream类并实现了DataOut接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">* DataOutputStream(数据输出流类)</span><br><span class="line">数据输出流同数据输入流（DataInputStream）对应，实现把基本类型数据写入输出流。该类提供了把数据写入输出流的所有方法，如writeBoolean（Boolean v）、writeByte（int v）、writeBytes（String s）、writeChar（int v）和wirteChars（String s）等。</span><br><span class="line"></span><br><span class="line">* BufferedOutputStream(缓冲输出流类)</span><br><span class="line">该类实现输出数据时首先进行数据缓冲，该类提供了flush（）方法实现清空数据缓冲区。该类的构造函数参数为输出流对象或输出流对象和输出缓冲区大小，即：</span><br><span class="line"></span><br><span class="line">* PrintStream(打印输出流类)</span><br><span class="line">该类的目的是实现Java基本数据类型的格式化输出。</span><br></pre></td></tr></table></figure>
+<h2><span id="字节流">字节流</span></h2><p>Java在设计其I/O系统时，把输入/输出的数据类型分为两类，一类是字符流，如上节介绍的InputStream和OutputStream类及其子类都是字符（16 bit）流。另一类是字节流。本节介绍字节（8 bit）流，字节流也分为读流数据类和写流数据类，即Reader类和Writer类及其子类。</p>
+<h3><span id="writer类">Writer类</span></h3><p>Writer类是字符（Character）流输出类的父类，它是抽象类，所有继承自该类的子类都必须实现抽象方法write（），具体的实现类中write（）方法的使用可以参考相应的JavaDoc文档。这里为了区别InputStream和OutputStream使用了Reader和Writer，为了使读者习惯于使用Reader和Writer，并且中文中没有合适的词汇表达相应的流的概念，所以不再具体翻译为中文，读者使用时只要知道Reader类负责读流数据，而Writer类负责向流中写数据即可。下面列出继承自Writer类的子类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">* BufferedWriter(带缓冲的Writer)</span><br><span class="line">该类将文本写入字符流，将字节转换为字符同时缓冲读取每个字符，提供单个字符、数据和字符串的写入。该类提供两种构造函数指定缓冲区大小，一种是指定大小，另一种是采用默认值。一般情况下采用默认值就足够使用。在使用Writer类向文件写入数据时最好使用BufferedWriter包装开销大的write操作，如FileWriter类。这样可以缓冲字节或字符流，而不是把字符转换成字节后立即写入到文件（这样造成不断地读写数据，显然效率低）。</span><br><span class="line"></span><br><span class="line">* CharArrayWriter(字符组的Writer)</span><br><span class="line">该类作为Writer的字符缓冲区。该缓冲区随着向流中写入数据而自动增长。该类的构造函数提供两种形式，一种是默认的形式，另一种是有整型参数的形式。第二种构造函数构造指定初始容量的CharArrayWriter。</span><br><span class="line"></span><br><span class="line">* FilterWriter(带过滤器的Writer)</span><br><span class="line">该类把字符写入文件，文件位置在构造函数中指定，其构造函数接受默认的字符编码和默认的字节缓冲区大小。该类用于写入字符流，如果要写入的是原始字节流，则参考FiltOutputStream流来实现。</span><br><span class="line"></span><br><span class="line">* OutputStreamWriter</span><br><span class="line">该类提供了字符流向字节流的转换功能，并向流中写入字符。每次调用该类的write（）方法都会导致向输出流写入一个或多个字节。为了提高字节到字符的转换效率，可以使用缓冲机制。如可以把OutputStreamReader类包装在BufferedReader中以提高字符读取的效率。</span><br><span class="line"></span><br><span class="line">* PrintWriter(打印Writer)</span><br><span class="line">该类提供了字符流向字节流的转换功能，并向流中写入字符。每次调用该类的write（）方法都会导致向输出流写入一个或多个字节。为了提高字节到字符的转换效率，可以使用缓冲机制。如可以把OutputStreamReader类包装在BufferedReader中以提高字符读取的效率。</span><br><span class="line"></span><br><span class="line">* PipedWriter(管道Writer)</span><br><span class="line">管道Writer类创建管道通信的输出流，通过该输出流把数据写入文件，和管道Reader相对应建立起管道通信。</span><br><span class="line"></span><br><span class="line">* StringWriter(字符串Writer)</span><br><span class="line">显然该类是一个字符流，利用其字符串缓冲区中的输出字符构造字符串。该类的构造函数有两种，一种是创建默认初始字符串缓冲区大小的新字符串Writer，另一种是创建具有指定初始字符串缓冲区大小的新字符串Writer。</span><br></pre></td></tr></table></figure>
+<h3><span id="reader类">Reader类</span></h3><p>Reader类是读取字符（Character）流的父类，它是抽象类，所有继承自该类的子类都必须实现抽象方法read（）和close（），具体的实现类中read（）方法的使用可以参考相应的JavaDoc文档。下面列出继承自Reader类的子类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">* BufferedReader(带缓冲Reader)</span><br><span class="line">该类完成从字符输入流中读取文本，且缓冲读到的字符。用户可以指定缓冲区的大小，或者使用默认的缓冲区大小。为了实现高效的读取文本建议read（）操作开销高的Reader，如FileReader采用BufferedReader包装，将缓冲FileReader指定文件的输入。如果不使用缓冲机制，则每次调用read（）或readLine（）都会导致从文件中读取字节而后直接转换成字符返回退出方法，显然这样的效率很低。</span><br><span class="line"></span><br><span class="line">* CharArrayReader(字符数组Reader)</span><br><span class="line">该类继承了Reader抽象类，实现用做字符输入流的字符缓冲区读取字符。</span><br><span class="line"></span><br><span class="line">* FileReader(文件Reader)</span><br><span class="line">该类继承自InputStreamReader类，读取字符流，其构造函数默认采用了合适的字符编码和字节缓冲区大小。该类通过指定一个File对象、一个文件名或指定FileDescriptor的条件下创建一个新FileReader对象。</span><br><span class="line"></span><br><span class="line">* FilterReader(过滤器Reader)</span><br><span class="line">该类是个抽象类，用于读取已过滤的字符流。</span><br><span class="line"></span><br><span class="line">* InputStreamReader(带行号Reader)</span><br><span class="line">该类提供了字节流向字符流的转换功能，并读取字符流。每次调用该类的read（）方法都会从输入流中读取一个或多个字节。为了提高字节到字符的转换效率，可以使用缓冲机制从输入流中读取更多的字节后再进行转换，如可以把InputStreamReader类包装在BufferedReader中以提高字符读取的效率。</span><br><span class="line"></span><br><span class="line">* LineNumberReader</span><br><span class="line">跟踪行号的缓冲字符输入流。该类提供了两个方法void setLineNumber（int）和int getLineNumber（），分别用于设置和获取当前行号。</span><br><span class="line"></span><br><span class="line">* PipedReader(管道Reader)</span><br><span class="line">字符输入流，通过管道的方式从PipedWriter流读字符流。</span><br><span class="line"></span><br><span class="line">* PushbackReader(推回Reader)</span><br><span class="line">该类读取字符流，允许字符退回到流中的字符流。</span><br><span class="line"></span><br><span class="line">* StringReader(字符串Reader)</span><br><span class="line">从源数据流为字符串流的源读取字符串。</span><br></pre></td></tr></table></figure>
+<h2><span id="file类">File类</span></h2><p>File类最初看起来像是代表文件，Java为该类起名确实有迷惑读者的地方，其实File类可以表示特定文件名（带绝对路径），也可以是某个目录下多一组文件，该类提供了方法可以用来访问多个文件。File类提供了丰富的方法来处理和文件或目录相关的操作，如创建和删除文件、创建和删除文件夹以及通过和其他类配合使用实现文件的复制和移动等。本节将介绍File类提供的这些功能。</p>
+<h3><span id="创建文件夹目录">创建文件夹（目录）</span></h3><p>File类提供了丰富的接口函数供用户调用。创建目录是文件操作中经常遇到的情形，目录提供了文件存放的位置，用户可以根据需要在磁盘空间上建立目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">File mypath = new File(filepath);</span><br><span class="line">if (!mypath.exists()) &#123;</span><br><span class="line">	mypath.mkdir();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="创建文件">创建文件</span></h3><p>在Java的File类中创建新文件只需要调用该类的一个<br>方法createNewFile（），但是在实际操作中需要注意一些事项，如判断文件是否存在，以及如何向新建文件中写入数据等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">File myFile = new File(fileName);</span><br><span class="line">if(!myFile.exists()) &#123;</span><br><span class="line">	myFile.createNewFile();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="复制文件">复制文件</span></h3><p>文件的复制涉及文件流的概念，在下面将更详细地介绍文件流操作。为了实现文件操作，本节使用了FileInputStream和FileOutputStream两个流类，通过文件输入流读取源文件，通过文件输入流把读入缓冲区的字节数据写入新文件。如果该新文件已经存在，则覆盖掉该文件；如果不存在，则新建一个文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int bytesum = byteread = 0;</span><br><span class="line">File oldfile = new File(oldFile);</span><br><span class="line">if (oldfile.exists() ) &#123;</span><br><span class="line">	InputStream ins =new FileInputStream(oldFile);</span><br><span class="line">	FileOutputStream outs = new FileOutputStream(newFile);</span><br><span class="line">	byte[] buffer = new byte[500];</span><br><span class="line">	while( (byteread = ins.read(buffer) ) != -1 ) &#123;</span><br><span class="line">	bytesum +=byteread;</span><br><span class="line">	System.out.println(bytesum);</span><br><span class="line">	out.write(buffer, 0, byteread);</span><br><span class="line">	&#125;</span><br><span class="line">	ins.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="删除文件">删除文件</span></h3><p>在Java的File类中删除文件只需要调用该类的一个方法delete（），该方法可以删除指定的文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">File deletedFile = new File(derecator);</span><br><span class="line">deletedFile.delete();</span><br></pre></td></tr></table></figure></p>
+<h3><span id="删除文件夹">删除文件夹</span></h3><p>在Java的File类中删除文件夹，需要首先删除掉文件夹中的文件，再删除空文件夹。删除空文件夹的方法与删除文件的方法相同，所以关键是如何实现删除文件夹下的所有文件。上面已经知道如何删除一个文件，可以想象欲删除一个目录下的所有文件只要获得该文件的目录和文件名，使用一个循环调用来依次删除文件夹中的文件即可。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/IO/stream/" data-id="cjoqzsr40003fh0izq7nqnpgu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/io/">io</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JSP/BasicSyntax" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/JSP/BasicSyntax/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.941Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/JSP/BasicSyntax/">JSP基本语法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#jsp基本语法">JSP基本语法</a><ul>
+<li><a href="#声明">声明</a></li>
+<li><a href="#表达式">表达式</a></li>
+<li><a href="#脚本">脚本</a></li>
+<li><a href="#注释">注释</a></li>
+<li><a href="#指令">指令</a></li>
+<li><a href="#动作">动作</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="jsp基本语法">JSP基本语法</span></h1><h2><span id="声明">声明</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%! java_declaration1;[java_declaration2;....]%&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>声明必须以分号结尾。</li>
+<li>声明的变量和函数只在本页面有效。</li>
+<li>对于被＜%@page%＞包含进来的变量和函数，不需要再次声明。</li>
+<li>不但可以声明变量和函数，也可以声明完整的类。</li>
+</ul>
+<h2><span id="表达式">表达式</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%=java_expression%&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>表达式不能用分号作为结束符。</li>
+<li>表达式的元素可以包含任何在Java规范中的有效表达式。</li>
+<li>有时表达式作为其他JSP元素的属性值，这时，一个表达式可以嵌套多个表达式。</li>
+</ul>
+<h2><span id="脚本">脚本</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%java_scriptlet%&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>该程序段中只能包含符合Java语法的代码，不允许出现任何HTML标记、JSP标记和JSP指令元素。</li>
+<li>在脚本中也可以对变量进行声明。</li>
+<li>脚本中也可以包含表达式，但是必须是用分号作为其结束符。</li>
+</ul>
+<h2><span id="注释">注释</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--注释--%&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注释在系统进行编译时将被忽略。</li>
+<li>在浏览器端查看源文件时，看不到使用JSP注释标记的语句，而使用HTML注释标记（＜！–注释–＞）的语句是可以看到的。</li>
+<li>脚本程序段中的注释方法与Java语法相同。</li>
+</ul>
+<h2><span id="指令">指令</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@指令属性=&quot;值&quot;%&gt;</span><br></pre></td></tr></table></figure>
+<h2><span id="动作">动作</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:动作名动作内容&gt;&lt;/jsp:动作名&gt;或&lt;jsp:动作名动作内容/&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/JSP/BasicSyntax/" data-id="cjoqzsr20000ih0iz6tal6vyq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/jsp/">jsp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Collection/README" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/Collection/README/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.940Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/Collection/README/">Java容器类</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#java容器类">Java容器类</a><ul>
+<li><a href="#容器类框架">容器类框架</a></li>
+<li><a href="#collection接口">Collection接口</a></li>
+<li><a href="#list接口">List接口</a><ul>
+<li><a href="#arraylist">ArrayList</a></li>
+<li><a href="#linkedlist">LinkedList</a></li>
+<li><a href="#vector">Vector</a></li>
+<li><a href="#stack">Stack</a></li>
+</ul>
+</li>
+<li><a href="#set接口">Set接口</a><ul>
+<li><a href="#hashset">HashSet</a></li>
+<li><a href="#treeset">TreeSet</a></li>
+<li><a href="#linkedhashset">LinkedHashSet</a></li>
+<li><a href="#enumset">EnumSet</a></li>
+</ul>
+</li>
+<li><a href="#map接口">Map接口</a><ul>
+<li><a href="#hashmap">HashMap</a></li>
+<li><a href="#hashtable">HashTable</a></li>
+<li><a href="#treemap">TreeMap</a></li>
+<li><a href="#weakhashmap">WeakHashMap</a></li>
+</ul>
+</li>
+<li><a href="#iterator">Iterator</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h1><span id="java容器类">Java容器类</span></h1><p>Java容器类是java提供的工具包，包含了常用的数据结构：集合、链表、队列、栈、数组、映射等。从本文开始将开启一个系列详细分析Java容器中的每个成员，包括源代码分析，性能分析，不同容器之间对比等等。</p>
+<p>Java容器主要可以划分为4个部分：List列表、Set集合、Map映射、工具类（Iterator迭代器、Enumeration枚举类、Arrays和Collections）</p>
+<h2><span id="容器类框架">容器类框架</span></h2><p><img src="Collection.jpg" alt="Java容器工具包框架图"></p>
+<p>通过上图，可以把握两个基本主体，即Collection和Map。</p>
+<ul>
+<li><p>Collection是一个接口，是高度抽象出来的集合，它包含了集合的基本操作和属性。Collection包含了List和Set两大分支。</p>
+</li>
+<li><p>List是一个有序的队列，每一个元素都有它的索引。第一个元素的索引值是0。List的实现类有LinkedList, ArrayList, Vector, Stack。</p>
+</li>
+<li><p>Set是一个不允许有重复元素的集合。 Set的实现类有HastSet和TreeSet。HashSet依赖于HashMap，它实际上是通过HashMap实现的；TreeSet依赖于TreeMap，它实际上是通过TreeMap实现的。</p>
+</li>
+<li><p>Map是一个映射接口，即key-value键值对。Map中的每一个元素包含“一个key”和“key对应的value”。</p>
+</li>
+<li><p>AbstractMap是个抽象类，它实现了Map接口中的大部分API。而HashMap，TreeMap，WeakHashMap都是继承于AbstractMap。</p>
+</li>
+<li><p>Hashtable虽然继承于Dictionary，但它实现了Map接口。</p>
+</li>
+<li><p>Iterator是遍历集合的工具，即我们通常通过Iterator迭代器来遍历集合。我们说Collection依赖于Iterator，是因为Collection的实现类都要实现iterator()函数，返回一个Iterator对象。ListIterator是专门为遍历List而存在的。</p>
+</li>
+<li><p>Enumeration是JDK 1.0引入的抽象类。作用和Iterator一样，也是遍历集合；但是Enumeration的功能要比Iterator少。在上面的框图中，Enumeration只能在Hashtable, Vector, Stack中使用。</p>
+</li>
+<li><p>Arrays和Collections是操作数组、集合的两个工具类。</p>
+</li>
+</ul>
+<p>有了上面的整体框架之后，我们接下来对每个类分别进行分析。</p>
+<h2><span id="collection接口">Collection接口</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public interface Collection&lt;E&gt; extends Iterable&lt;E&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>它是一个接口，是高度抽象出来的集合，它包含了集合的基本操作：添加、删除、清空、遍历(读取)、是否为空、获取大小、是否保护某元素等等。</p>
+<p>在Java中所有实现了Collection接口的类都必须提供两套标准的构造函数，一个是无参，用于创建一个空的Collection，一个是带有Collection参数的有参构造函数，用于创建一个新的Collection，这个新的Collection与传入进来的Collection具备相同的元素。</p>
+<p>Collection的API：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">abstract boolean         add(E object)</span><br><span class="line">abstract boolean         addAll(Collection&lt;? extends E&gt; collection)</span><br><span class="line">abstract void            clear()</span><br><span class="line">abstract boolean         contains(Object object)</span><br><span class="line">abstract boolean         containsAll(Collection&lt;?&gt; collection)</span><br><span class="line">abstract boolean         equals(Object object)</span><br><span class="line">abstract int             hashCode()</span><br><span class="line">abstract boolean         isEmpty()</span><br><span class="line">abstract Iterator&lt;E&gt;     iterator()</span><br><span class="line">abstract boolean         remove(Object object)</span><br><span class="line">abstract boolean         removeAll(Collection&lt;?&gt; collection)</span><br><span class="line">abstract boolean         retainAll(Collection&lt;?&gt; collection)</span><br><span class="line">abstract int             size()</span><br><span class="line">abstract &lt;T&gt; T[]         toArray(T[] array)</span><br><span class="line">abstract Object[]        toArray()</span><br></pre></td></tr></table></figure></p>
+<h2><span id="list接口">List接口</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public interface List&lt;E&gt; extends Collection&lt;E&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>List是一个继承于Collection的接口，即List是集合中的一种。List是有序的队列，List中的每一个元素都有一个索引；第一个元素的索引值是0，往后的元素的索引值依次+1。和Set不同，List中允许有重复的元素。</p>
+<blockquote>
+<p>官方文档：A List is a collection which maintains an ordering for its elements. Every element in the List has an index. Each element can thus be accessed by its index, with the first index being zero. Normally, Lists allow duplicate elements, as compared to Sets, where elements have to be unique.</p>
+</blockquote>
+<p>关于API方面。既然List是继承于Collection接口，它自然就包含了Collection中的全部函数接口；由于List是有序队列，它也额外的有自己的API接口。主要有“添加、删除、获取、修改指定位置的元素”、“获取List中的子队列”等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// Collection的API</span><br><span class="line">abstract boolean         add(E object)</span><br><span class="line">abstract boolean         addAll(Collection&lt;? extends E&gt; collection)</span><br><span class="line">abstract void            clear()</span><br><span class="line">abstract boolean         contains(Object object)</span><br><span class="line">abstract boolean         containsAll(Collection&lt;?&gt; collection)</span><br><span class="line">abstract boolean         equals(Object object)</span><br><span class="line">abstract int             hashCode()</span><br><span class="line">abstract boolean         isEmpty()</span><br><span class="line">abstract Iterator&lt;E&gt;     iterator()</span><br><span class="line">abstract boolean         remove(Object object)</span><br><span class="line">abstract boolean         removeAll(Collection&lt;?&gt; collection)</span><br><span class="line">abstract boolean         retainAll(Collection&lt;?&gt; collection)</span><br><span class="line">abstract int             size()</span><br><span class="line">abstract &lt;T&gt; T[]         toArray(T[] array)</span><br><span class="line">abstract Object[]        toArray()</span><br><span class="line">// 相比与Collection，List新增的API：</span><br><span class="line">abstract void                add(int location, E object)</span><br><span class="line">abstract boolean             addAll(int location, Collection&lt;? extends E&gt; collection)</span><br><span class="line">abstract E                   get(int location)</span><br><span class="line">abstract int                 indexOf(Object object)</span><br><span class="line">abstract int                 lastIndexOf(Object object)</span><br><span class="line">abstract ListIterator&lt;E&gt;     listIterator(int location)</span><br><span class="line">abstract ListIterator&lt;E&gt;     listIterator()</span><br><span class="line">abstract E                   remove(int location)</span><br><span class="line">abstract E                   set(int location, E object)</span><br><span class="line">abstract List&lt;E&gt;             subList(int start, int end)</span><br></pre></td></tr></table></figure>
+<p>实现List接口的集合主要有：ArrayList、LinkedList、Vector、Stack。</p>
+<h3><span id="arraylist">ArrayList</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;</span><br><span class="line">implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p>ArrayList是一个动态数组，也是我们最常用的集合。它允许任何符合规则的元素插入甚至包括null。每一个ArrayList都有一个初始容量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static final int DEFAULT_CAPACITY = 10;</span><br></pre></td></tr></table></figure>
+<p>随着容器中的元素不断增加，容器的大小也会随着增加。在每次向容器中增加元素的同时都会进行容量检查，当快溢出时，就会进行扩容操作。所以如果我们明确所插入元素的多少，最好指定一个初始容量值，避免过多的进行扩容操作而浪费时间、效率。</p>
+<p>size、isEmpty、get、set、iterator 和 listIterator 操作都以固定时间运行。add 操作以分摊的固定时间运行，也就是说，添加 n 个元素需要 O(n) 时间（由于要考虑到扩容，所以这不只是添加元素会带来分摊固定时间开销那样简单）。</p>
+<p>ArrayList擅长于随机访问。同时ArrayList是非同步的。</p>
+<h3><span id="linkedlist">LinkedList</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class LinkedList&lt;E&gt; extends AbstractSequentialList&lt;E&gt;</span><br><span class="line">implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p>同样实现List接口的LinkedList与ArrayList不同，ArrayList是一个动态数组，而LinkedList是一个双向链表。所以它除了有ArrayList的基本操作方法外还额外提供了get，remove，insert方法在LinkedList的首部或尾部。</p>
+<p>由于实现的方式不同，LinkedList不能随机访问，它所有的操作都是要按照双重链表的需要执行。在列表中索引的操作将从开头或结尾遍历列表（从靠近指定索引的一端，节约一半时间）。这样做的好处就是可以通过较低的代价在List中进行插入和删除操作。</p>
+<p>与ArrayList一样，LinkedList也是非同步的。如果多个线程同时访问一个List，则必须自己实现访问同步。一种解决方法是在创建List时构造一个同步的List：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List list = Collections.synchronizedList(new LinkedList(…));</span><br></pre></td></tr></table></figure>
+<h3><span id="vector">Vector</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class Vector&lt;E&gt; extends AbstractList&lt;E&gt;</span><br><span class="line">implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p>与ArrayList相似，但是Vector是同步的。所以说Vector是线程安全的动态数组。它的操作与ArrayList几乎一样。</p>
+<h3><span id="stack">Stack</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class Stack&lt;E&gt; extends Vector&lt;E&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>Stack继承自Vector，实现一个后进先出的堆栈。Stack提供5个额外的方法使得Vector得以被当作堆栈使用。基本的push和pop方法，还有peek方法得到栈顶的元素，empty方法测试堆栈是否为空，search方法检测一个元素在堆栈中的位置。Stack刚创建后是空栈。</p>
+<h2><span id="set接口">Set接口</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public interface Set&lt;E&gt; extends Collection&lt;E&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>Set是一个继承于Collection的接口，Set是一种不包括重复元素的Collection。它维持它自己的内部排序，所以随机访问没有任何意义。与List一样，它同样运行null的存在但是仅有一个。由于Set接口的特殊性，所有传入Set集合中的元素都必须不同，</p>
+<p>关于API方面。Set的API和Collection完全一样。</p>
+<p>实现了Set接口的集合有：HashSet、TreeSet、LinkedHashSet、EnumSet。</p>
+<h3><span id="hashset">HashSet</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class HashSet&lt;E&gt; extends AbstractSet&lt;E&gt;</span><br><span class="line">implements Set&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p>HashSet堪称查询速度最快的集合，因为其内部是以HashCode来实现的。集合元素可以是null,但只能放入一个null。它内部元素的顺序是由哈希码来决定的，所以它不保证set的迭代顺序；特别是它不保证该顺序恒久不变。</p>
+<h3><span id="treeset">TreeSet</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class TreeSet&lt;E&gt; extends AbstractSet&lt;E&gt;</span><br><span class="line">implements NavigableSet&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p>TreeSet是二叉树实现的，基于TreeMap，生成一个总是处于排序状态的set，内部以TreeMap来实现，不允许放入null值。它是使用元素的自然顺序对元素进行排序，或者根据创建Set时提供的 Comparator 进行排序，具体取决于使用的构造方法。</p>
+<h3><span id="linkedhashset">LinkedHashSet</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class LinkedHashSet&lt;E&gt; extends HashSet&lt;E&gt;</span><br><span class="line">implements Set&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p>LinkedHashSet集合同样是根据元素的hashCode值来决定元素的存储位置，但是它同时使用链表维护元素的次序。这样使得元素看起 来像是以插入顺序保存的，也就是说，当遍历该集合时候，LinkedHashSet将会以元素的添加顺序访问集合的元素。LinkedHashSet在迭代访问Set中的全部元素时，性能比HashSet好，但是插入时性能稍微逊色于HashSet。</p>
+<h3><span id="enumset">EnumSet</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public abstract class EnumSet&lt;E extends Enum&lt;E&gt;&gt; extends AbstractSet&lt;E&gt;</span><br><span class="line">implements Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p>EnumSet中所有值都必须是指定枚举类型的值，它的元素也是有序的，以枚举值在枚举类的定义顺序来决定集合元素的顺序。EnumSet集合不允许加入null元素，否则会抛出NullPointerException异常。EnumSet类没有暴露任何构造器来创建该类的实例，程序应该通过它提供的static方法来创建EnumSet对象，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        //创建一个EnumSet空集合，指定其集合元素是season1的枚举值</span><br><span class="line">		EnumSet&lt;MyEnum&gt;eSet1 = EnumSet.noneOf(MyEnum.class); </span><br><span class="line">		</span><br><span class="line">		////创建一个EnumSet集合，集合元素就是Season里的全部枚举值</span><br><span class="line">		EnumSet&lt;MyEnum&gt;eSet2 = EnumSet.allOf(MyEnum.class);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	enum MyEnum &#123;  </span><br><span class="line">	    BLACK, WHITE, RED, BLUR, GREEN, YELLOW  </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>来看一个例子感受一下存储元素的区别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">static Collection fill(Collection&lt;String&gt; collection) &#123;</span><br><span class="line">		collection.add(&quot;rat&quot;);</span><br><span class="line">		collection.add(&quot;cat&quot;);</span><br><span class="line">		collection.add(&quot;dog&quot;);</span><br><span class="line">		collection.add(&quot;dog&quot;);</span><br><span class="line">		return collection;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		System.out.println(fill(new HashSet&lt;String&gt;()));</span><br><span class="line">		System.out.println(fill(new TreeSet&lt;&gt;()));</span><br><span class="line">		System.out.println(fill(new LinkedHashSet&lt;&gt;()));</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>HashSet是哈希表实现的，存储顺序并无意义。如果存储顺序很重要，那么可以使用TreeSet，它按比较结果的升序保存对象；或者使用LinkedHashSet，它按照被添加的顺序保存元素。当然它们都是线程不安全的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//Result:</span><br><span class="line">[rat, cat, dog]</span><br><span class="line">[cat, dog, rat]</span><br><span class="line">[rat, cat, dog]</span><br></pre></td></tr></table></figure>
+<h2><span id="map接口">Map接口</span></h2><p>Map与List、Set接口不同，它是由一系列键值对组成的集合，提供了key到Value的映射。在Map中它保证了key与value之间的一一对应关系。也就是说一个key对应一个value，所以它不能存在相同的key值，当然value值可以相同。<br>实现map的集合有：HashMap、HashTable、TreeMap、WeakHashMap。</p>
+<h3><span id="hashmap">HashMap</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class HashMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt;</span><br><span class="line">implements Map&lt;K,V&gt;, Cloneable, Serializable</span><br></pre></td></tr></table></figure>
+<p>以哈希表数据结构实现，查找对象时通过哈希函数计算其位置，它是为快速查询而设计的，其内部定义了一个hash表数组（Entry[] table），元素会通过哈希转换函数将元素的哈希地址转换成数组中存放的索引，如果有冲突，则使用散列链表的形式将所有相同哈希地址的元素串起来，可能通过查看HashMap.Entry的源码它是一个单链表结构。</p>
+<h3><span id="hashtable">HashTable</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class Hashtable&lt;K,V&gt; extends Dictionary&lt;K,V&gt;</span><br><span class="line">implements Map&lt;K,V&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p>也是以哈希表数据结构实现的，解决冲突时与HashMap也一样也是采用了散列链表的形式。HashTable继承Dictionary类，实现Map接口。其中Dictionary类是任何可将键映射到相应值的类（如 Hashtable）的抽象父类。每个键和每个值都是一个对象。在任何一个 Dictionary 对象中，每个键至多与一个值相关联。Map是”key-value键值对”接口。 HashTable采用”拉链法”实现哈希表不过性能比HashMap要低。</p>
+<h3><span id="treemap">TreeMap</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class TreeMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt;</span><br><span class="line">implements NavigableMap&lt;K,V&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p>有序散列表，实现SortedMap接口，底层通过红黑树实现。</p>
+<h3><span id="weakhashmap">WeakHashMap</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class WeakHashMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt;</span><br><span class="line">implements Map&lt;K,V&gt;</span><br></pre></td></tr></table></figure>
+<p>谈WeakHashMap前先看一下Java中的引用（强度依次递减）</p>
+<ul>
+<li>强引用：普遍对象声明的引用，存在便不会GC</li>
+<li>软引用：有用但并非必须，发生内存溢出前，二次回收</li>
+<li>弱引用：只能生存到下次GC之前，无论是否内存足够</li>
+<li>虚引用：唯一目的是在这个对象被GC时能收到一个系统通知</li>
+</ul>
+<p>以弱键实现的基于哈希表的Map。在 WeakHashMap 中，当某个键不再正常使用时，将自动移除其条目。更精确地说，对于一个给定的键，其映射的存在并不阻止垃圾回收器对该键的丢弃，这就使该键成为可终止的，被终止，然后被回收。丢弃某个键时，其条目从映射中有效地移除，因此，该类的行为与其他的 Map 实现有所不同。null值和null键都被支持。该类具有与HashMap类相似的性能特征,并具有相同的效能参数初始容量和加载因子。像大多数集合类一样，该类是不同步的。</p>
+<h2><span id="iterator">Iterator</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public interface Iterator&lt;E&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>Iterator是一个接口，它是集合的迭代器。集合可以通过Iterator去遍历集合中的元素。Iterator提供的API接口，包括：是否存在下一个元素、获取下一个元素、删除当前元素。<br>注意：Iterator遍历Collection时，是fail-fast机制的。即，当某一个线程A通过iterator去遍历某集合的过程中，若该集合的内容被其他线程所改变了；那么线程A访问集合时，就会抛出ConcurrentModificationException异常，产生fail-fast事件。关于fail-fast的详细内容，我们会在后面专门进行说明。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abstract boolean hasNext()</span><br><span class="line">abstract E next()</span><br><span class="line">abstract void remove()</span><br></pre></td></tr></table></figure>
+<p><img src="collection.png" alt="img"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/Collection/README/" data-id="cjoqzsr3z003eh0izp1gz6vx8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/coolection/">coolection</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Bean/BeanFactory" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/Bean/BeanFactory/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.938Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/Bean/BeanFactory/">BeanFactory介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<ul>
+<li><a href="#beanfactory介绍">BeanFactory介绍</a></li>
+</ul>
+<!-- tocstop -->
+<h1><span id="beanfactory介绍">BeanFactory介绍</span></h1><p>正如其名字所暗示的，Bean工厂采用了工厂设计模式。就是说，这个类负责创建和分发Bean。但是，不像其他工厂模式的实现，它们只是分发一种类型的对象，而Bean工厂是一个通用的工厂，可以创建和分发各种类型的Bean。</p>
+<p>但是，除了简单的实例化和分发应用对象以外，Bean工厂还有很多工作需要做。由于Bean工厂知道应用系统中的很多对象，所以它可以在实例化这些对象的时候，创建协作对象间的关联关系。这样就把配置的负担从Bean自身以及Bean的调用者中脱离出来。结果，Bean工厂分发出来的Bean都已经被配置好了，都得到了它们的关联对象，已经可以被使用了。Bean工厂还要参与到Bean的生命周期中，调用用户定义的初始化和销毁方法（如果定义了这些方法的话）。</p>
+<p>在Spring中有几种BeanFactory的实现。其中最常使用的是org.springframework.beans.factory.xml.XmlBeanFactory，它根据XML文件中的定义装载Bean。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/Bean/BeanFactory/" data-id="cjoqzsr1d0002h0izmi51l5vg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/java-bean/">java bean</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Bean/Bean" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/Learn-Java/2018/11/20/Bean/Bean/" class="article-date">
+  <time datetime="2018-11-20T12:08:42.938Z" itemprop="datePublished">2018-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Learn-Java/2018/11/20/Bean/Bean/">Bean</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<!-- tocstop -->
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://lv-neo.github.io/Learn-Java/2018/11/20/Bean/Bean/" data-id="cjoqzsr1a0001h0izai9fis64" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/Learn-Java/tags/bean/">bean</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/Learn-Java/page/5/">&laquo; Prev</a><a class="page-number" href="/Learn-Java/">1</a><span class="space">&hellip;</span><a class="page-number" href="/Learn-Java/page/4/">4</a><a class="page-number" href="/Learn-Java/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HeapSize/">HeapSize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/bean/">bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/coolection/">coolection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/exception/">exception</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/io/">io</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/java-bean/">java bean</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jmeter/">jmeter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jsp/">jsp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mvn/">mvn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/mybatis/">mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/netty/">netty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/network/">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/nio/">nio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/quartz/">quartz</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/serializable/">serializable</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/socket/">socket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/test/">test</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/thread/">thread</a></li><li class="tag-list-item"><a class="tag-list-link" href="/Learn-Java/tags/tomcat/">tomcat</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/Learn-Java/tags/HeapSize/" style="font-size: 10px;">HeapSize</a> <a href="/Learn-Java/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/Learn-Java/tags/bean/" style="font-size: 10px;">bean</a> <a href="/Learn-Java/tags/coolection/" style="font-size: 10px;">coolection</a> <a href="/Learn-Java/tags/exception/" style="font-size: 10px;">exception</a> <a href="/Learn-Java/tags/gradle/" style="font-size: 13.33px;">gradle</a> <a href="/Learn-Java/tags/http/" style="font-size: 15px;">http</a> <a href="/Learn-Java/tags/io/" style="font-size: 10px;">io</a> <a href="/Learn-Java/tags/java/" style="font-size: 16.67px;">java</a> <a href="/Learn-Java/tags/java-bean/" style="font-size: 10px;">java bean</a> <a href="/Learn-Java/tags/jdbc/" style="font-size: 10px;">jdbc</a> <a href="/Learn-Java/tags/jmeter/" style="font-size: 10px;">jmeter</a> <a href="/Learn-Java/tags/jsp/" style="font-size: 11.67px;">jsp</a> <a href="/Learn-Java/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/Learn-Java/tags/mvn/" style="font-size: 20px;">mvn</a> <a href="/Learn-Java/tags/mybatis/" style="font-size: 11.67px;">mybatis</a> <a href="/Learn-Java/tags/netty/" style="font-size: 10px;">netty</a> <a href="/Learn-Java/tags/network/" style="font-size: 11.67px;">network</a> <a href="/Learn-Java/tags/nio/" style="font-size: 20px;">nio</a> <a href="/Learn-Java/tags/quartz/" style="font-size: 11.67px;">quartz</a> <a href="/Learn-Java/tags/serializable/" style="font-size: 10px;">serializable</a> <a href="/Learn-Java/tags/servlet/" style="font-size: 11.67px;">servlet</a> <a href="/Learn-Java/tags/socket/" style="font-size: 10px;">socket</a> <a href="/Learn-Java/tags/test/" style="font-size: 10px;">test</a> <a href="/Learn-Java/tags/thread/" style="font-size: 18.33px;">thread</a> <a href="/Learn-Java/tags/tomcat/" style="font-size: 11.67px;">tomcat</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/Learn-Java/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/21/test/jmeter/">JMETER</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/performance/">tomcat 性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/tomcat/virtual/">Tomcat服务器虚拟目录的映射方式</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/thread/">线程</a>
+          </li>
+        
+          <li>
+            <a href="/Learn-Java/2018/11/20/thread/synchronized/">线程同步详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Neo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/Learn-Java/" class="mobile-nav-link">Home</a>
+  
+    <a href="/Learn-Java/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/Learn-Java/fancybox/jquery.fancybox.css">
+  <script src="/Learn-Java/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/Learn-Java/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
