@@ -80,6 +80,7 @@ https://lv-neo.github.io/Learn-Java/
 	* [使用maven创建Web应用程序](source/_posts/maven/web.md)
 	* [使用maven profile实现多环境可移植构建](source/_posts/maven/evn.md)
 	* [将jar文件添加到Maven的local repository](source/_posts/maven/jar.md)
+* [Jmeter](source/_posts/jmeter.md)
 * [任务调度](source/_posts/quartz/README.md)
 	* [quartz](source/_posts/) 
 		* [美团点评技术-Quartz应用与集群原理分析](source/_posts/quartz/Quartz-meituan.md)
